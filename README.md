@@ -31,24 +31,37 @@ to access the **Keyrock** REST API - [Postman documentation](http://fiware.githu
   * [Logging In via REST API calls](#logging-in-via-rest-api-calls)
     + [Create Token with Password](#create-token-with-password)
     + [Get Token Info](#get-token-info)
-- [Administering Applications](#administering-applications)
+- [Managing Applications](#managing-applications)
   * [Application CRUD Actions](#application-crud-actions)
     + [Create an Application](#create-an-application)
     + [Read Application Details](#read-application-details)
     + [List all Applications](#list-all-applications)
     + [Update an Application](#update-an-application)
     + [Delete an Application](#delete-an-application)
-  * [Roles within an Application](#roles-within-an-application)
-    + [List Roles](#list-roles)
-    + [Create a Role](#create-a-role)
-    + [Read Role Details](#read-role-details)
-    + [Delete a Role](#delete-a-role)
-  * [Permissions within an Application](#permissions-within-an-application)
+  * [Permission CRUD Actions](#permission-crud-actions)
     + [List Permissions](#list-permissions)
     + [Create a Permission](#create-a-permission)
     + [Read Permission Details](#read-permission-details)
     + [Delete an Permission](#delete-an-permission)
-- [Application Users and Other Actors](#application-users-and-other-actors)
+  * [Role CRUD Actions](#role-crud-actions)
+    + [List Roles](#list-roles)
+    + [Create a Role](#create-a-role)
+    + [Read Role Details](#read-role-details)
+    + [Delete a Role](#delete-a-role)
+  * [Assigning Permissions to each Role](#assigning-permissions-to-each-role)
+    + [List Permissions of a Role](#list-permissions-of-a-role)
+    + [Add a Permission to a Role](#add-a-permission-to-a-role)
+    + [Remove a Permission from a Role](#remove-a-permission-from-a-role)
+- [Authorizing Application Access](#authorizing-application-access)
+  * [Roles for Groups of Users](#roles-for-groups-of-users)
+    + [List Roles of an Organization](#list-roles-of-an-organization)
+    + [Add a Role to an Organization](#add-a-role-to-an-organization)
+    + [Remove a Role from an Organization](#remove-a-role-from-an-organization)
+  * [Roles for User Accounts](#roles-for-user-accounts)
+    + [List Roles of a Users](#list-roles-of-a-users)
+    + [Add a Role to a Users](#add-a-role-to-a-users)
+    + [Remove a Role from a Users](#remove-a-role-from-a-users)
+- [Defining Other Actors within an Application](#defining-other-actors-within-an-application)
   * [Defining Users of an Application](#defining-users-of-an-application)
     + [List Users of an Application](#list-users-of-an-application)
     + [Add a User to an Application](#add-a-user-to-an-application)
@@ -57,30 +70,10 @@ to access the **Keyrock** REST API - [Postman documentation](http://fiware.githu
     + [List Organizations of an Application](#list-organizations-of-an-application)
     + [Add a Organization to an Application](#add-a-organization-to-an-application)
     + [Remove a Organization from an Application](#remove-a-organization-from-an-application)
-  * [Defining Other Actors within an Application](#defining-other-actors-within-an-application)
-    + [Create an PEP Proxy](#create-an-pep-proxy)
-    + [Read PEP Proxy Details](#read-pep-proxy-details)
-    + [List PEP Proxies](#list-pep-proxies)
-    + [Reset the Password of an PEP Proxy](#reset-the-password-of-an-pep-proxy)
-    + [Delete an PEP Proxy](#delete-an-pep-proxy)
-    + [Create an IoT Agent](#create-an-iot-agent)
-    + [Read IoT Agent Details](#read-iot-agent-details)
-    + [List IoT Agents](#list-iot-agents)
-    + [Reset the Password of an IoT Agent](#reset-the-password-of-an-iot-agent)
-    + [Delete an IoT Agent](#delete-an-iot-agent)
-- [Assigning Roles and Permissions](#assigning-roles-and-permissions)
-  * [Assigning Permissions to Roles](#assigning-permissions-to-roles)
-    + [List Permissions of a Role](#list-permissions-of-a-role)
-    + [Add a Permission to a Role](#add-a-permission-to-a-role)
-    + [Remove a Permission from a Role](#remove-a-permission-from-a-role)
-  * [Assigning Roles to Organizations](#assigning-roles-to-organizations)
-    + [List Roles of an Organization](#list-roles-of-an-organization)
-    + [Add a Role to an Organization](#add-a-role-to-an-organization)
-    + [Remove a Role from an Organization](#remove-a-role-from-an-organization)
-  * [Assigning Roles to Users](#assigning-roles-to-users)
-    + [List Roles of a Users](#list-roles-of-a-users)
-    + [Add a Role to a Users](#add-a-role-to-a-users)
-    + [Remove a Role from a Users](#remove-a-role-from-a-users)
+- [Application Users and Other Actors](#application-users-and-other-actors)
+  * [Defining Other Actors within an Application](#defining-other-actors-within-an-application-1)
+    + [Securing PEP Proxies within an Application](#securing-pep-proxies-within-an-application)
+    + [Securing IoT Agents within an Application](#securing-iot-agents-within-an-application)
 - [Next Steps](#next-steps)
 
 
@@ -92,34 +85,32 @@ to access the **Keyrock** REST API - [Postman documentation](http://fiware.githu
 > — Paulo Coelho (The Alchemist)
 
 
-Authorization is the function of specifying access rights/privileges to resources related to information security.
-I
-and computer security in general and to access control in particular. More formally, "to authorize" is to define an access policy.
+Authorization is the function of specifying access rights/privileges to resources related to information
+security. More formally, "to authorize" is to define an access policy. In the case of Keyrock, User
+access is granted based on permissions assigned to a role.
 
-In addition to creating the identites of Users and Organizations, Identiy
+Every application secured by the **Keyrock** generic enabler can define a set of permissions - i.e.
+a set of things that can be done within the application. For example within the application, the ability
+to send a commmand to unlock a Smart Door could be secured behind a `Unlock Door` permission. Similarly
+the ability to send a commmand to ring the alarm bell could be secured behind a `Ring Bell` permission,
+and the ability to alter prices could be secured behind a `Price Change` permission
 
+These permissions are grouped together in a series of roles - for example `Unlock Door` and `Ring Bell`
+could both be assigned to the Security Role, meaning that Users who are subsequently given that role
+would gain both permissions.
 
+Permissions can overlap and be assigned to multiple roles - maybe `Ring Bell` is also assigned to the management
+role along with `Price Change` and `Order Stock`.
 
+In turn users or organizations will be assigned to one of more roles - each user will gain the sum of all the
+permissions for each role they have. For example if Alice is assigned to both management and security roles,
+she will gain all four permissions `Unlock Door`, `Ring Bell`, `Price Change` and `Order Stock`.
 
+The concept of a role is unknown to a user - they only know the list of permissions they have been granted,
+not how the permissions are split up within the application.
 
-
-In computer security terminology, Identity management is the security and business discipline that "enables the right
-individuals to access the right resources at the right times and for the right reasons". It addresses the need to
-ensure appropriate access to resources across disparate systems.
-
-The FIWARE framework consists of a series of separate components, and the security chapter aims to implement
-the common needs of these components regarding who (or what) gets to access which resources within the system,
-but before access to resources can be locked down, the identity of the person (or service) making the request
-needs to be known. The FIWARE **Keyrock** Generic Enabler sets up all of the common characteristics of an
-Identity Management System out-of-the-box, so that other components are able to use standard authentication
-mechanisms to  accept or reject requests based on industry standard protocols.
-
-Identity Management therefore covers the issues of how to gain an identity within the system, the protection
-of that identity and the surrounding technologies such as passwords and network protocols.
-
-
-
-
+In summary, permissions are all the possible actions that can be done to resources within an application, whereas roles
+are groups of actions which can be done by a type of user of that application.
 
 
 ## Standard Concepts of Identity Management
@@ -443,7 +434,7 @@ querying for records .Record ids use Universally Unique Identifiers - UUIDs.
 | Key |Description                        | Sample Value |
 |-----|-----------------------------------|--------------|
 |`keyrock`| URL for the location of the **Keyrock** service|`localhost:3005`|
-|`X-Auth-token`| Token received in the Header when logging in as a user |`aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa` = Alice|
+|`X-Auth-token`| Token received in the Header when logging in as a user |`aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa` = I am Alice|
 |`X-Subject-token`|Token to pass when asking about a subject, alternatively repeat the user token |`bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb` = Asking about Bob|
 |`user-id`| id of an existing user, found with the `user`  table |`bbbbbbbb-good-0000-0000-000000000000` - Bob's User Id|
 |`application-id`| id of an existing application, found with the `oauth_client` table |`c978218d-ad63-4427-b12b-542b81299cfb`|
@@ -455,7 +446,7 @@ querying for records .Record ids use Universally Unique Identifiers - UUIDs.
 |`pep-proxy-id`| id of an existing PEP Proxy, found with the `pep_proxy`  table  |`iot_sensor_f3d0245b-3330-4e64-a513-81bf4b0dae64`|
 
 Tokens are designed to expire after a set period. If the `X-Auth-token` value you are using has expired, log-in again to obtain a new token. For this tutorial, a long lasting set of tokens has been created for each user and persisted into the database,
-so there is no need to refresh tokens.
+so there is usually no need to refresh tokens.
 
 ## Logging In via REST API calls
 
@@ -507,7 +498,7 @@ Connection: keep-alive
 ### Get Token Info
 
 You can use the long-lasting  `X-Auth-token=aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa` to pretend to be Alice throughout this
-tutorial. To find information about Bob, use the long-lasting token `bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb`
+tutorial. To find information about Bob, use the long-lasting token `X-Subject-token=bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb`
 
 #### :two: Request:
 
@@ -541,7 +532,7 @@ The response will return the details of the associated user. As you can see Bob 
 
 
 
-# Administering Applications
+# Managing Applications
 
 Any FIWARE application can be broken down into a collection of microservices. These microservices connect together to read
 and alter the state of the real world. Security can be added to these services by restricting actions on these resources
@@ -566,12 +557,18 @@ The standard CRUD actions are assigned to the appropriate HTTP verbs (POST, GET,
 ### Delete an Application
 
 
+## Permission CRUD Actions
+
+### List Permissions
+
+### Create a Permission
+
+### Read Permission Details
+
+### Delete an Permission
 
 
-
-
-
-## Roles within an Application
+## Role CRUD Actions
 
 
 A permission is an allowable action on a resource. A role consists of a group of permissions, in other words a series of
@@ -606,21 +603,44 @@ the regional manager and Charlie, Head of Security, who could assign the roles a
 
 ### Delete a Role
 
-## Permissions within an Application
+## Assigning Permissions to each Role
 
-### List Permissions
+### List Permissions of a Role
 
-### Create a Permission
+### Add a Permission to a Role
 
-### Read Permission Details
-
-### Delete an Permission
+### Remove a Permission from a Role
 
 
 
-# Application Users and Other Actors
+# Authorizing Application Access
+
+Finally
+
+## Roles for Groups of Users
+
+### List Roles of an Organization
+
+### Add a Role to an Organization
+
+### Remove a Role from an Organization
 
 
+## Roles for User Accounts
+
+A defined role cannot be assigned to a user unless it the role has already been associated to an application
+
+### List Roles of a Users
+
+### Add a Role to a Users
+
+### Remove a Role from a Users
+
+
+
+
+
+# Defining Other Actors within an Application
 
 
 ## Defining Users of an Application
@@ -641,66 +661,44 @@ the regional manager and Charlie, Head of Security, who could assign the roles a
 ### Remove a Organization from an Application
 
 
+
+
+
+# Application Users and Other Actors
+
+
+
 ## Defining Other Actors within an Application
 
 Although
 
-### Create an PEP Proxy
+### Securing PEP Proxies within an Application
 
-### Read PEP Proxy Details
+#### Create an PEP Proxy
 
-### List PEP Proxies
+#### Read PEP Proxy Details
 
-### Reset the Password of an PEP Proxy
+#### List PEP Proxies
 
-### Delete an PEP Proxy
+#### Reset the Password of an PEP Proxy
 
-### Create an IoT Agent
+#### Delete an PEP Proxy
 
-### Read IoT Agent Details
 
-### List IoT Agents
+### Securing IoT Agents within an Application
 
-### Reset the Password of an IoT Agent
+#### Create an IoT Agent
 
-### Delete an IoT Agent
+#### Read IoT Agent Details
+
+#### List IoT Agents
+
+#### Reset the Password of an IoT Agent
+
+#### Delete an IoT Agent
 
 ---
 
-# Assigning Roles and Permissions
-
-Finally
-
-## Assigning Permissions to Roles
-
-### List Permissions of a Role
-
-### Add a Permission to a Role
-
-### Remove a Permission from a Role
-
-
-
-
-## Assigning Roles to Organizations
-
-### List Roles of an Organization
-
-### Add a Role to an Organization
-
-### Remove a Role from an Organization
-
-
-
-## Assigning Roles to Users
-
-A defined role cannot be assigned to a user unless it the role has already been associated to an application
-
-### List Roles of a Users
-
-### Add a Role to a Users
-
-### Remove a Role from a Users
 
 
 

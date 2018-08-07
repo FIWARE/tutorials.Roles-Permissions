@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Authentication",
+			"name": "Logging In - Authentication",
 			"description": "",
 			"item": [
 				{
@@ -277,206 +277,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Managing Application Roles",
-					"description": "",
-					"item": [
-						{
-							"name": "List Roles",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"roles"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create a Role",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "{{Content-Type}}"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"role\": {\n    \"name\": \"viewer\"\n  }\n}"
-								},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"roles"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Read Role details",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"roles",
-										"{{role-id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update a Role",
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "{{Content-Type}}"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"role\": {\n    \"name\": \"Read-only\"\n  }\n}"
-								},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"roles",
-										"{{role-id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete a Role",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"roles",
-										"{{role-id}}"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "Managing Application Permissions",
+					"name": "Permission CRUD Actions",
 					"description": "",
 					"item": [
 						{
@@ -683,11 +484,681 @@
 						}
 					],
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Role CRUD Actions",
+					"description": "",
+					"item": [
+						{
+							"name": "List Roles",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Role",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"role\": {\n    \"name\": \"viewer\"\n  }\n}"
+								},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Read Role details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles",
+										"{{role-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a Role",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"role\": {\n    \"name\": \"Read-only\"\n  }\n}"
+								},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles",
+										"{{role-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a Role",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles",
+										"{{role-id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Assigning Permissions to each Role",
+					"description": "",
+					"item": [
+						{
+							"name": "List permissions associated to a role",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}/permissions",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles",
+										"{{role-id}}",
+										"permissions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign a permission to a role",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}/permissions/{{permission-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles",
+										"{{role-id}}",
+										"permissions",
+										"{{permission-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove a permission from a role",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://keyrock/v1/applications/:application_id/roles/:role_id/permissions/:permission_id",
+									"protocol": "http",
+									"host": [
+										"keyrock"
+									],
+									"path": [
+										"v1",
+										"applications",
+										":application_id",
+										"roles",
+										":role_id",
+										"permissions",
+										":permission_id"
+									],
+									"variable": [
+										{
+											"key": "application_id",
+											"value": "{{application_id}}"
+										},
+										{
+											"key": "role_id",
+											"value": "{{role_id}}"
+										},
+										{
+											"key": "permission_id",
+											"value": "{{permission_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
 				}
 			]
 		},
 		{
-			"name": "Managing Other Actors",
+			"name": "Authorizing Application Access",
+			"description": "",
+			"item": [
+				{
+					"name": "Roles for Groups of Users",
+					"description": "",
+					"item": [
+						{
+							"name": "List organizations role assignments",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"organizations",
+										"{{organization-id}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign a role to a organization",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/{{organization-role-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"organizations",
+										"{{organization-id}}",
+										"roles",
+										"{{role-id}}",
+										"organization_roles",
+										"{{organization-role-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove a role assignment from an organization",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/{{organization-role-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"organizations",
+										"{{organization-id}}",
+										"roles",
+										"{{role-id}}",
+										"organization_roles",
+										"{{organization-role-id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2bf17df7-0d1d-4912-a69c-0e8dc22bf337",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6a3aa613-dad6-461c-81a9-f5520737af11",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Roles for User Accounts",
+					"description": "",
+					"item": [
+						{
+							"name": "List users role assignments",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"users",
+										"{{user-id}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign a role to a user",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"users",
+										"{{user-id}}",
+										"roles",
+										"{{role-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove a role assignment from a user",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://keyrock/v1/applications/:application_id/users/:user_id/roles/:role_id",
+									"protocol": "http",
+									"host": [
+										"keyrock"
+									],
+									"path": [
+										"v1",
+										"applications",
+										":application_id",
+										"users",
+										":user_id",
+										"roles",
+										":role_id"
+									],
+									"variable": [
+										{
+											"key": "user_id",
+											"value": "{{user_id}}"
+										},
+										{
+											"key": "application_id",
+											"value": "{{application_id}}"
+										},
+										{
+											"key": "role_id",
+											"value": "{{role_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e9f051d3-a4fb-4c7d-af66-9b06b9189bd1",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f8592fb-8ef9-4ef1-a492-551664ca9ad6",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "90440d97-8fd8-4924-92a6-42e2814a247c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2163dca2-a57a-43a6-90f7-f93b390f66f9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Defining Other Actors within an Application",
 			"description": "",
 			"item": [
 				{
@@ -1037,433 +1508,6 @@
 					"_postman_isSubFolder": true
 				}
 			]
-		},
-		{
-			"name": "Assigning Roles",
-			"description": "",
-			"item": [
-				{
-					"name": "Role Permissions",
-					"description": "",
-					"item": [
-						{
-							"name": "List permissions associated to a role",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}/permissions",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"roles",
-										"{{role-id}}",
-										"permissions"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign a permission to a role",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "{{Content-Type}}"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}/permissions/{{permission-id}}",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"roles",
-										"{{role-id}}",
-										"permissions",
-										"{{permission-id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Remove a permission from a role",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://keyrock/v1/applications/:application_id/roles/:role_id/permissions/:permission_id",
-									"protocol": "http",
-									"host": [
-										"keyrock"
-									],
-									"path": [
-										"v1",
-										"applications",
-										":application_id",
-										"roles",
-										":role_id",
-										"permissions",
-										":permission_id"
-									],
-									"variable": [
-										{
-											"key": "application_id",
-											"value": "{{application_id}}"
-										},
-										{
-											"key": "role_id",
-											"value": "{{role_id}}"
-										},
-										{
-											"key": "permission_id",
-											"value": "{{permission_id}}"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "Organization Roles",
-					"description": "",
-					"item": [
-						{
-							"name": "List organizations role assignments",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"organizations",
-										"{{organization-id}}",
-										"roles"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign a role to a organization",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "{{Content-Type}}"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/{{organization-role-id}}",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"organizations",
-										"{{organization-id}}",
-										"roles",
-										"{{role-id}}",
-										"organization_roles",
-										"{{organization-role-id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Remove a role assignment from an organization",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/{{organization-role-id}}",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"organizations",
-										"{{organization-id}}",
-										"roles",
-										"{{role-id}}",
-										"organization_roles",
-										"{{organization-role-id}}"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "User Roles",
-					"description": "",
-					"item": [
-						{
-							"name": "List users role assignments",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"users",
-										"{{user-id}}",
-										"roles"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign a role to a user",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "{{Content-Type}}"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"users",
-										"{{user-id}}",
-										"roles",
-										"{{role-id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Remove a role assignment from a user",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://keyrock/v1/applications/:application_id/users/:user_id/roles/:role_id",
-									"protocol": "http",
-									"host": [
-										"keyrock"
-									],
-									"path": [
-										"v1",
-										"applications",
-										":application_id",
-										"users",
-										":user_id",
-										"roles",
-										":role_id"
-									],
-									"variable": [
-										{
-											"key": "user_id",
-											"value": "{{user_id}}"
-										},
-										{
-											"key": "application_id",
-											"value": "{{application_id}}"
-										},
-										{
-											"key": "role_id",
-											"value": "{{role_id}}"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "e9f051d3-a4fb-4c7d-af66-9b06b9189bd1",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "4f8592fb-8ef9-4ef1-a492-551664ca9ad6",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					],
-					"_postman_isSubFolder": true
-				}
-			]
 		}
 	],
 	"event": [
@@ -1490,56 +1534,56 @@
 	],
 	"variable": [
 		{
-			"id": "7b21e389-e9c8-4151-b736-8d2954f67452",
+			"id": "c6dc58e8-a4b4-4503-bccf-7a70bf30bf6d",
 			"key": "keyrock",
 			"value": "localhost:3005",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "b63feebb-bd9f-4ab3-99de-f6563b0b0af7",
+			"id": "787fb81f-f78e-4241-b3a9-7aa9ab31fd2d",
 			"key": "X-Auth-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "53fce254-56ac-4c02-8f11-2ac4b82693f5",
+			"id": "e3ccffd1-2648-4da3-a7f6-56e6a6dc4680",
 			"key": "X-Subject-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "d0fb0b96-fafa-4b3d-9b24-ca563bfd225b",
+			"id": "6d0d1ebc-1d20-4c7b-959a-6392a557b784",
 			"key": "user-id",
 			"value": "bbbbbbbb-good-0000-0000-000000000000",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "3c266e1f-ed8e-4ebd-85e5-051c24d03899",
+			"id": "0badeb8d-51f9-413d-bcf4-5f2d9d9ecf5f",
 			"key": "organization-id",
 			"value": "security-0000-0000-0000-000000000000",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "9b2f8666-0752-44ac-a10f-a4385d9cdf11",
+			"id": "8574d63a-bb49-4a7b-acea-5c8f60893031",
 			"key": "application-id",
 			"value": "6b6cd19c-9398-4834-9ba1-1616c57139c0",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "fe565486-394e-48ab-8d83-967d23063185",
+			"id": "716b8d0c-86da-45b6-9ac2-c7ce7823a8f9",
 			"key": "role-id",
 			"value": "e424ed98-c966-46e3-b161-a165fd31bc01",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "580e08d6-37db-4c27-8242-98b3b44f3e5b",
+			"id": "5d154330-cd2a-4722-9b92-e0985a2d1483",
 			"key": "permisson-id",
 			"value": "e424ed98-c966-46e3-b161-a165fd31bc01",
 			"type": "string",
