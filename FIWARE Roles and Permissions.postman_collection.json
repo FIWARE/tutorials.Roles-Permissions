@@ -1,0 +1,1549 @@
+{
+	"info": {
+		"_postman_id": "24108c31-ca17-4451-9829-d4e6bb05aaa3",
+		"name": "FIWARE Roles and Permissions",
+		"description": "TODO: Add a description",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"description": "",
+			"item": [
+				{
+					"name": "Create token with Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"admin@test.com\",\n  \"password\": \"1234\"\n}"
+						},
+						"url": {
+							"raw": "http://{{keyrock}}/v1/auth/tokens",
+							"protocol": "http",
+							"host": [
+								"{{keyrock}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"tokens"
+							]
+						},
+						"description": "In order to manage the Identity Manager through the API you must obtain an access token to be included in HTTP headers. There are two methods to obtain an access token."
+					},
+					"response": []
+				},
+				{
+					"name": "Get token info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Auth-token",
+								"value": "{{X-Auth-token}}"
+							},
+							{
+								"key": "X-Subject-token",
+								"value": "{{X-Subject-token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://{{keyrock}}/v1/auth/tokens",
+							"protocol": "http",
+							"host": [
+								"{{keyrock}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"tokens"
+							]
+						},
+						"description": "In order to manage the Identity Manager through the API you must obtain an access token to be included in HTTP headers. There are two methods to obtain an access token."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Managing Applications",
+			"description": "",
+			"item": [
+				{
+					"name": "Application CRUD Actions",
+					"description": "",
+					"item": [
+						{
+							"name": "Create an Application",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"application\": {\n    \"name\": \"Test_application 1\",\n    \"description\": \"description\",\n    \"redirect_uri\": \"http://localhost/login\",\n    \"url\": \"http://localhost\",\n    \"grant_type\": [\n      \"authorization_code\",\n      \"implicit\",\n      \"password\"\n    ]\n  }\n}"
+								},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications"
+									]
+								},
+								"description": "Applications are registered in Keyrock and consume OAuth2 resources."
+							},
+							"response": []
+						},
+						{
+							"name": "Read Application details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Applications",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications"
+									]
+								},
+								"description": "Applications are registered in Keyrock and consume OAuth2 resources."
+							},
+							"response": []
+						},
+						{
+							"name": "Update an Application",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"application\": {\n    \"name\": \"new name\",\n    \"description\": \"new description\",\n    \"redirect_uri\": \"new redirect uri\",\n    \"grant_type\": [\n      \"authorization_code\",\n      \"password\"\n    ]\n  }\n}"
+								},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete an Application",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Managing Application Roles",
+					"description": "",
+					"item": [
+						{
+							"name": "List Roles",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Role",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"role\": {\n    \"name\": \"viewer\"\n  }\n}"
+								},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Read Role details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles",
+										"{{role-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a Role",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"role\": {\n    \"name\": \"Read-only\"\n  }\n}"
+								},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles",
+										"{{role-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a Role",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles",
+										"{{role-id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Managing Application Permissions",
+					"description": "",
+					"item": [
+						{
+							"name": "Create a Permission",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"permission\": {\n    \"name\": \"Access Login\",\n    \"action\": \"GET\",\n    \"resource\": \"login\"\n  }\n}"
+								},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/permissions",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"permissions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Read Permission details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/permissions/{{permission-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"permissions",
+										"{{permission-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Permissions",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/permissions",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"permissions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a Permission",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"permission\": {\n    \"name\": \"Accessing Login\",\n    \"action\": \"GET\",\n    \"resource\": \"login\"\n  }\n}"
+								},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/permissions/{{permission-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"permissions",
+										"{{permission-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a Permission",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://keyrock/v1/applications/:application_id/permissions/:permission_id",
+									"protocol": "http",
+									"host": [
+										"keyrock"
+									],
+									"path": [
+										"v1",
+										"applications",
+										":application_id",
+										"permissions",
+										":permission_id"
+									],
+									"variable": [
+										{
+											"key": "application_id",
+											"value": "{{application_id}}"
+										},
+										{
+											"key": "permission_id",
+											"value": "{{permission_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Managing Other Actors",
+			"description": "",
+			"item": [
+				{
+					"name": "PEP Proxy CRUD Actions",
+					"description": "",
+					"item": [
+						{
+							"name": "Info Pep Proxy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/pep_proxies",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"pep_proxies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Pep Proxy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/pep_proxies",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"pep_proxies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reset Password of Pep Proxy",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/pep_proxies",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"pep_proxies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Pep Proxy",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/pep_proxies",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"pep_proxies"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "IoT Agent CRUD Actions",
+					"description": "",
+					"item": [
+						{
+							"name": "List of Iot Agents",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/iot_agents",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"iot_agents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create an Iot Agent",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/iot_agents",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"iot_agents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Read Iot agent details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/iot_agents/{{iot-agent-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"iot_agents",
+										"{{iot-agent-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reset Password of Iot Agent",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete an Iot Agent",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/permissions/{{iot-agent-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"permissions",
+										"{{iot-agent-id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Assigning Roles",
+			"description": "",
+			"item": [
+				{
+					"name": "Role Permissions",
+					"description": "",
+					"item": [
+						{
+							"name": "List permissions associated to a role",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}/permissions",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles",
+										"{{role-id}}",
+										"permissions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign a permission to a role",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}/permissions/{{permission-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles",
+										"{{role-id}}",
+										"permissions",
+										"{{permission-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove a permission from a role",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://keyrock/v1/applications/:application_id/roles/:role_id/permissions/:permission_id",
+									"protocol": "http",
+									"host": [
+										"keyrock"
+									],
+									"path": [
+										"v1",
+										"applications",
+										":application_id",
+										"roles",
+										":role_id",
+										"permissions",
+										":permission_id"
+									],
+									"variable": [
+										{
+											"key": "application_id",
+											"value": "{{application_id}}"
+										},
+										{
+											"key": "role_id",
+											"value": "{{role_id}}"
+										},
+										{
+											"key": "permission_id",
+											"value": "{{permission_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Organization Roles",
+					"description": "",
+					"item": [
+						{
+							"name": "List organizations role assignments",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"organizations",
+										"{{organization-id}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign a role to a organization",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/{{organization-role-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"organizations",
+										"{{organization-id}}",
+										"roles",
+										"{{role-id}}",
+										"organization_roles",
+										"{{organization-role-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove a role assignment from an organization",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/{{organization-role-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"organizations",
+										"{{organization-id}}",
+										"roles",
+										"{{role-id}}",
+										"organization_roles",
+										"{{organization-role-id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "User Roles",
+					"description": "",
+					"item": [
+						{
+							"name": "List users role assignments",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"users",
+										"{{user-id}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign a role to a user",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"users",
+										"{{user-id}}",
+										"roles",
+										"{{role-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove a role assignment from a user",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://keyrock/v1/applications/:application_id/users/:user_id/roles/:role_id",
+									"protocol": "http",
+									"host": [
+										"keyrock"
+									],
+									"path": [
+										"v1",
+										"applications",
+										":application_id",
+										"users",
+										":user_id",
+										"roles",
+										":role_id"
+									],
+									"variable": [
+										{
+											"key": "user_id",
+											"value": "{{user_id}}"
+										},
+										{
+											"key": "application_id",
+											"value": "{{application_id}}"
+										},
+										{
+											"key": "role_id",
+											"value": "{{role_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e9f051d3-a4fb-4c7d-af66-9b06b9189bd1",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f8592fb-8ef9-4ef1-a492-551664ca9ad6",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f32d4f4e-6a77-4b0a-9cd1-7fdc58c14247",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "453a7383-bb2a-4e01-8ed4-7355fb12520f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "7b21e389-e9c8-4151-b736-8d2954f67452",
+			"key": "keyrock",
+			"value": "localhost:3005",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "b63feebb-bd9f-4ab3-99de-f6563b0b0af7",
+			"key": "X-Auth-token",
+			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "53fce254-56ac-4c02-8f11-2ac4b82693f5",
+			"key": "X-Subject-token",
+			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "d0fb0b96-fafa-4b3d-9b24-ca563bfd225b",
+			"key": "user-id",
+			"value": "bbbbbbbb-good-0000-0000-000000000000",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "3c266e1f-ed8e-4ebd-85e5-051c24d03899",
+			"key": "organization-id",
+			"value": "security-0000-0000-0000-000000000000",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "9b2f8666-0752-44ac-a10f-a4385d9cdf11",
+			"key": "application-id",
+			"value": "6b6cd19c-9398-4834-9ba1-1616c57139c0",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "fe565486-394e-48ab-8d83-967d23063185",
+			"key": "role-id",
+			"value": "e424ed98-c966-46e3-b161-a165fd31bc01",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "580e08d6-37db-4c27-8242-98b3b44f3e5b",
+			"key": "permisson-id",
+			"value": "e424ed98-c966-46e3-b161-a165fd31bc01",
+			"type": "string",
+			"description": ""
+		}
+	]
+}
