@@ -32,6 +32,7 @@ to access the **Keyrock** REST API - [Postman documentation](http://fiware.githu
     + [Create Token with Password](#create-token-with-password)
     + [Get Token Info](#get-token-info)
 - [Managing Applications](#managing-applications)
+  * [:arrow_forward: Video : Creating Applications with the Keyrock GUI](#arrow_forward-video--creating-applications-with-the-keyrock-gui)
   * [Application CRUD Actions](#application-crud-actions)
     + [Create an Application](#create-an-application)
     + [Read Application Details](#read-application-details)
@@ -86,8 +87,8 @@ to access the **Keyrock** REST API - [Postman documentation](http://fiware.githu
 
 
 Authorization is the function of specifying access rights/privileges to resources related to information
-security. More formally, "to authorize" is to define an access policy. In the case of Keyrock, User
-access is granted based on permissions assigned to a role.
+security. More formally, "to authorize" is to define an access policy. With identity management controlled
+via the FIWARE **Keyrock** Generic Enabler, User access is granted based on permissions assigned to a role.
 
 Every application secured by the **Keyrock** generic enabler can define a set of permissions - i.e.
 a set of things that can be done within the application. For example within the application, the ability
@@ -96,7 +97,7 @@ the ability to send a commmand to ring the alarm bell could be secured behind a 
 and the ability to alter prices could be secured behind a `Price Change` permission
 
 These permissions are grouped together in a series of roles - for example `Unlock Door` and `Ring Bell`
-could both be assigned to the Security Role, meaning that Users who are subsequently given that role
+could both be assigned to the Security role, meaning that Users who are subsequently given that role
 would gain both permissions.
 
 Permissions can overlap and be assigned to multiple roles - maybe `Ring Bell` is also assigned to the management
@@ -382,15 +383,8 @@ Two organizations have also been set up by Alice:
 | Security   | Security Group for Store Detectives |`security-0000-0000-0000-000000000000`|
 | Management | Management Group for Store Managers |`managers-0000-0000-0000-000000000000`|
 
-The data creating users and organizations from the [previous tutorial](https://github.com/Fiware/tutorials.Identity-Management) has been downloaded:
-
-```console
-docker exec db-mysql /usr/bin/mysqldump -u root --password=idmx idm > backup.sql
-```
-
-and is injected into the MySQL Database on start-up.
-
-
+To save time, the data creating users and organizations from the [previous tutorial](https://github.com/Fiware/tutorials.Identity-Management) has been downloaded and is automatically persisted to the MySQL
+database on start-up so the asigned UUIDs don not changem and the data does not need to be entered again
 
 
 To refresh your memory about how to create users and organizations, you can log in at `http://localhost:3005/idm`
@@ -447,6 +441,7 @@ querying for records .Record ids use Universally Unique Identifiers - UUIDs.
 
 Tokens are designed to expire after a set period. If the `X-Auth-token` value you are using has expired, log-in again to obtain a new token. For this tutorial, a long lasting set of tokens has been created for each user and persisted into the database,
 so there is usually no need to refresh tokens.
+
 
 ## Logging In via REST API calls
 
@@ -540,6 +535,10 @@ down to users how have appropriate permissions. It is therefore necessary to def
 actions and to hold a list of permitted users (or groups of users i.e. an Organization)
 
 Applications are therefore a conceptual bucket holding who can do what on which resource.
+
+## :arrow_forward: Video : Creating Applications with the Keyrock GUI
+
+[![](http://img.youtube.com/vi/pjsl0eHpFww/0.jpg)](https://www.youtube.com/watch?v=pjsl0eHpFww&t=470 " Creating Applications")
 
 
 ## Application CRUD Actions
