@@ -11,7 +11,7 @@ and ensures that only legitmate users will have access to resources.
 The tutorial demonstrates examples of interactions using the **Keyrock** GUI, as well [cUrl](https://ec.haxx.se/) commands used
 to access the **Keyrock** REST API - [Postman documentation](http://fiware.github.io/tutorials.Roles-Permissions/) is also available.
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2150531e68299d46f937)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/2febc0452a8977734480)
 
 # Contents
 
@@ -64,6 +64,9 @@ to access the **Keyrock** REST API - [Postman documentation](http://fiware.githu
     + [Grant a Role to a User](#grant-a-role-to-a-user)
     + [List Granted User Roles](#list-granted-user-roles)
     + [Revoke a Role from a User](#revoke-a-role-from-a-user)
+- [List Application Grantees](#list-application-grantees)
+    + [List Authorized Organizations](#list-authorized-organizations)
+    + [List Authorized Users](#list-authorized-users)
 - [Next Steps](#next-steps)
 
 
@@ -1469,6 +1472,84 @@ curl -X DELETE \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 554b4d57-4a17-450f-911d-370f0f512d70' \
   -H 'X-Auth-token: {{X-Auth-token}}'
+```
+
+# List Application Grantees
+
+By creating a series of roles and granting them to Users and Organizations, we have made an association
+between them. The REST API offers two convienience methods exist to list all the grantees of an application
+
+
+### List Authorized Organizations
+
+To list all organizations which are authorized to use an application, make a GET request to the
+`/v1/applications/{{application-id}}/organizations` endpoint.
+
+#### :two::six: Request:
+
+```console
+curl -X GET \
+  'http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles' \
+  -H 'Accept: application/json' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 4d4ee7f6-6eb1-4455-a451-3a9f50fb432b' \
+  -H 'X-Auth-token: {{X-Auth-token}}'
+```
+
+#### Response:
+
+The response returns all organizations which can access the application and the roles they have been assigned.
+Individual members are not listed.
+
+```json
+{
+    "role_organization_assignments": [
+        {
+            "organization_id": "security-0000-0000-0000-000000000000",
+            "role_organization": "member",
+            "role_id": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c"
+        }
+    ]
+}
+```
+
+
+### List Authorized Users
+
+To list all individual users who are authorized to use an application, make a GET request to the
+`/v1/applications/{{application-id}}/users` endpoint.
+
+#### :two::seven: Request:
+
+```console
+curl -X GET \
+  'http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles' \
+  -H 'Accept: application/json' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 4d4ee7f6-6eb1-4455-a451-3a9f50fb432b' \
+  -H 'X-Auth-token: {{X-Auth-token}}'
+```
+
+#### Response:
+
+The response returns all individual users who can access the application and the roles they have been assigned.
+Note that users of an organization granted access are not listed.
+
+```json
+{
+    "role_user_assignments": [
+        {
+            "user_id": "aaaaaaaa-good-0000-0000-000000000000",
+            "role_id": "provider"
+        },
+        {
+            "user_id": "bbbbbbbb-good-0000-0000-000000000000",
+            "role_id": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c"
+        }
+    ]
+}
 ```
 
 

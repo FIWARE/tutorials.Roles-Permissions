@@ -1280,6 +1280,110 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "List Application Grantees",
+			"description": "By creating a series of roles and granting them to Users and Organizations, we have made an association\nbetween them. The REST API offers two convienience methods exist to list all the grantees of an application",
+			"item": [
+				{
+					"name": "List Authorized Organizations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Auth-token",
+								"value": "{{X-Auth-token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles",
+							"protocol": "http",
+							"host": [
+								"{{keyrock}}"
+							],
+							"path": [
+								"v1",
+								"applications",
+								"{{application-id}}",
+								"users",
+								"{{user-id}}",
+								"roles"
+							]
+						},
+						"description": "To list all organizations which are authorized to use an application, make a GET request to the\n`/v1/applications/{{application-id}}/organizations` endpoint.\n\nThe response returns all organizations which can access the application and the roles \nthey have been assigned. Individual members are not listed."
+					},
+					"response": []
+				},
+				{
+					"name": "List Authorized Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Auth-token",
+								"value": "{{X-Auth-token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles",
+							"protocol": "http",
+							"host": [
+								"{{keyrock}}"
+							],
+							"path": [
+								"v1",
+								"applications",
+								"{{application-id}}",
+								"users",
+								"{{user-id}}",
+								"roles"
+							]
+						},
+						"description": "To list all individual users who are authorized to use an application, make a GET request to the\n`/v1/applications/{{application-id}}/users` endpoint.\n\nThe response returns all individual users who can access the application and the roles they have been assigned. Note that users of an organization granted access are not listed."
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ef14cbd3-c04f-42d8-9ee2-173da8750af0",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "546ea302-d34e-4f2f-93cb-3cbf4cf58683",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		}
 	],
 	"event": [
@@ -1306,56 +1410,56 @@
 	],
 	"variable": [
 		{
-			"id": "9c06e860-33aa-41c7-b2c4-47904f61b354",
+			"id": "4b467abc-6a1f-45c9-b497-9f16dccb8765",
 			"key": "keyrock",
 			"value": "localhost:3005",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "f94afd98-b185-4eae-bb3f-a689ac1ae607",
+			"id": "017ffce8-a277-4c2b-86b2-7ce40421fe47",
 			"key": "X-Auth-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "5c90e3f8-a202-47e7-afce-e452e42f4eb8",
+			"id": "05378d44-e6d8-45c6-984b-ed0495a84e95",
 			"key": "X-Subject-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "3fe68fa6-73e5-4318-982d-f4e4692ef161",
+			"id": "e3bcbd7a-7ffb-46c0-aca1-cb1e86271eca",
 			"key": "user-id",
 			"value": "bbbbbbbb-good-0000-0000-000000000000",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "ff95079e-6579-481d-9556-0b53b920992b",
+			"id": "80954e8c-b566-453d-8bad-f0838e48cf76",
 			"key": "organization-id",
 			"value": "security-0000-0000-0000-000000000000",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "3f12f690-3c2d-47ff-85f5-7e3ebc546019",
+			"id": "6042cf53-abb7-4ddc-a0d4-aad4f1d11185",
 			"key": "application-id",
 			"value": "3782c5e3-88f9-481a-9b3c-2f2d6f604482",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "6916da5e-da72-43c4-aa0d-84392b9f78af",
+			"id": "47969776-9c62-41d9-a3b4-d785226d6cac",
 			"key": "role-id",
 			"value": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "df72317b-8bc0-46b6-beab-58d0541da8a9",
+			"id": "c468c17d-6cee-410b-b554-2e7614fdf914",
 			"key": "permission-id",
 			"value": "c21983d5-58f9-4bcc-b2b0-f21819080ad0",
 			"type": "string",
