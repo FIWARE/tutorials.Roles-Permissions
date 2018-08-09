@@ -26,7 +26,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"admin@test.com\",\n  \"password\": \"1234\"\n}"
+							"raw": "{\n  \"name\": \"alice-the-admin@test.com\",\n  \"password\": \"test\"\n}"
 						},
 						"url": {
 							"raw": "http://{{keyrock}}/v1/auth/tokens",
@@ -40,7 +40,7 @@
 								"tokens"
 							]
 						},
-						"description": "In order to manage the Identity Manager through the API you must obtain an access token to be included in HTTP headers. There are two methods to obtain an access token."
+						"description": "Enter a username and password to enter the application. The default super-user has the values `alice-the-admin@test.com` and `test`.\n\nThe response header returns an `X-Subject-token` which identifies who has logged on the application.\nThis token is required in all subsequent requests to gain access"
 					},
 					"response": []
 				},
@@ -79,7 +79,7 @@
 								"tokens"
 							]
 						},
-						"description": "In order to manage the Identity Manager through the API you must obtain an access token to be included in HTTP headers. There are two methods to obtain an access token."
+						"description": "You can use the long-lasting  `X-Auth-token=aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa` to pretend to be Alice throughout this\ntutorial. \n\nThe presence of a (time-limited) token is sufficient to find out more information about the user.\nTo find information about Bob, use the long-lasting token `X-Subject-token=bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb`\n\nThis request indicates that *the\nuser authorized with the token `{{X-Auth-token}}` (i.e Alice) is enquiring about the user holding the token  `{{X-Subject-token}}`* i.e Bob \n\nThe response will return the details of the associated user. As you can see Bob holds a long-lasting token until 2026."
 					},
 					"response": []
 				}
@@ -87,11 +87,11 @@
 		},
 		{
 			"name": "Managing Applications",
-			"description": "",
+			"description": "Any FIWARE application can be broken down into a collection of microservices. These microservices connect together to read\nand alter the state of the real world. Security can be added to these services by restricting actions on these resources\ndown to users how have appropriate permissions. It is therefore necessary to define an application to offer a set of permissible\nactions and to hold a list of permitted users (or groups of users i.e. an Organization)\n\nApplications are therefore a conceptual bucket holding who can do what on which resource.\n\n## Video : Creating Applications with the Keyrock GUI\n\n[![](http://img.youtube.com/vi/pjsl0eHpFww/0.jpg)](https://www.youtube.com/watch?v=pjsl0eHpFww&t=470 \" Creating Applications\")\n\nClick on the image above to watch a video demonstrating how to create applications using the **Keyrock** GUI\n",
 			"item": [
 				{
 					"name": "Application CRUD Actions",
-					"description": "",
+					"description": "The standard CRUD actions are assigned to the appropriate HTTP verbs (POST, GET, PATCH and DELETE) under the `/v1/applications` endpoint.\n",
 					"item": [
 						{
 							"name": "Create an Application",
@@ -113,7 +113,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"application\": {\n    \"name\": \"Test_application 1\",\n    \"description\": \"description\",\n    \"redirect_uri\": \"http://localhost/login\",\n    \"url\": \"http://localhost\",\n    \"grant_type\": [\n      \"authorization_code\",\n      \"implicit\",\n      \"password\"\n    ]\n  }\n}"
+									"raw": "{\n  \"application\": {\n    \"name\": \"Tutorial Application\",\n    \"description\": \"FIWARE Application protected by OAuth2 and Keyrock\",\n    \"redirect_uri\": \"http://context-provider/login\",\n    \"url\": \"http://context-provider\",\n    \"grant_type\": [\n      \"authorization_code\",\n      \"implicit\",\n      \"password\"\n    ]\n  }\n}"
 								},
 								"url": {
 									"raw": "http://{{keyrock}}/v1/applications",
@@ -126,7 +126,7 @@
 										"applications"
 									]
 								},
-								"description": "Applications are registered in Keyrock and consume OAuth2 resources."
+								"description": "From the homepage of the GUI, a new application can be created by clicking the **Register** button.\n\n![](https://fiware.github.io/tutorials.Roles-Permissions/img/create-app.png)\n\nTo create a new application via the REST API, send a POST request to the `/v1/application` endpoint containing details of the application\nsuch as `name` and `description`, along with OAuth information fields such as  the `url`  of the webservice to be protected,\nand `redirect_uri` (where a user will be challenged for their credentials). The `grant_types` are chosen from the available list of\nOAuth2 grant flows.\nThe headers include the  `X-Auth-token` from a previously logged in user will automatically be granted a provider role over the application.\n\nIn the example below, Alice (who holds `X-Auth-token=aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa`) is creating a new application which accepts three different grant types\n\nThe response includes a Client Id and Secret which can be used to secure the application"
 							},
 							"response": []
 						},
@@ -160,7 +160,8 @@
 										"applications",
 										"{{application-id}}"
 									]
-								}
+								},
+								"description": "Making a GET request to a resource under the `/v1/applications/{{application-id}}` endpoint will return the application listed under that id.\n\nThe `X-Auth-token` must be supplied in the headers."
 							},
 							"response": []
 						},
@@ -194,7 +195,7 @@
 										"applications"
 									]
 								},
-								"description": "Applications are registered in Keyrock and consume OAuth2 resources."
+								"description": "Users will only be permitted to return  applications they are associated with. \nListing applications can be done by making a GET request to the  `/v1/applications`\nendpoint and supplying the  `X-Auth-token` Header"
 							},
 							"response": []
 						},
@@ -235,7 +236,8 @@
 										"applications",
 										"{{application-id}}"
 									]
-								}
+								},
+								"description": "Within the GUI, users can be updated by selecting an application and clicking on `edit`.\nThis can also be done from the command line by making PATCH request to  `/v1/applications/<applications-id>` endpoint\nwhen the applications id is known. The `X-Auth-token` header must also be set, since a User can only edit\napplications he is associated with.\n\nThe response lists only the fields which have been updated"
 							},
 							"response": []
 						},
@@ -269,16 +271,39 @@
 										"applications",
 										"{{application-id}}"
 									]
-								}
+								},
+								"description": "Within the GUI, users can delete an application by selecting an application and clicking on `edit`,\nthen scrolling to the bottom of the page and selecting **Remove Application**. This can also be\ndone from the command line by sending a DELETE request to the `/v1/applications/<applications-id>`\nendpoint. The `X-Auth-token` header must also be set."
 							},
 							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f5b72a9e-54d5-4948-9325-a0360fb39779",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "ec28c3cd-ea56-426a-9bb0-f9e2012f9ac2",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
 						}
 					],
 					"_postman_isSubFolder": true
 				},
 				{
 					"name": "Permission CRUD Actions",
-					"description": "",
+					"description": "An application permission is an allowable action on a resource within that application. \nEach resource is defined by a URL (e.g. `/price-change`) and the action is any HTTP verb (e.g. GET) \n- the combination will be used to ensure only permitted users are able to access the `/price-change` resource.\n\nFurther advanced permission rules can be described using XACML - this is the subject of another tutorial.\n\nIt should be emphasized that permissions are always found bound to an application - abstract permissions \ndo not exist on their own. The standard permision CRUD actions are assigned to the appropriate \nHTTP verbs (POST, GET, PATCH and DELETE) under the `/v1/applications/{{application-id}}/permissions` endpoint \n- as you can see the `<application-id>` itself is integral to the URL.\n\nPermissions are usually defined once and set-up when the application is created. If the design of your \nuse-case means that you find you need to alter the permissions regularly, then the definition has\nprobably been defined incorrectly or in the wrong layer - complex access control rules should be pushed \ndown into the XACML definitions or moved into the business logic of the application - they should not be dealt \nwith within **Keyrock**.",
 					"item": [
 						{
 							"name": "Create a Permission",
@@ -304,7 +329,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"permission\": {\n    \"name\": \"Access Login\",\n    \"action\": \"GET\",\n    \"resource\": \"login\"\n  }\n}"
+									"raw": "{\n  \"permission\": {\n    \"name\": \"Access Price Changes\",\n    \"action\": \"POST\",\n    \"resource\": \"/price-change\"\n  }\n}"
 								},
 								"url": {
 									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/permissions",
@@ -318,7 +343,8 @@
 										"{{application-id}}",
 										"permissions"
 									]
-								}
+								},
+								"description": "Within the GUI, a permission can be added to an application by selecting the application, clicking on **Manage Roles**\nand then pressing the plus next to the Permissions label.\n\n![](https://fiware.github.io/tutorials.Roles-Permissions/img/create-permission.png)\n\nJust fill out the wizard and click save.\n\nTo create a new permission via the REST API, send a POST request to the `/applications/{{application-id}}/permissions` endpoint containing the `action`and `resource` along with the `X-Auth-token` header from a previously logged in user.\n\nThe response returns the details of the newly created permission."
 							},
 							"response": []
 						},
@@ -354,7 +380,8 @@
 										"permissions",
 										"{{permission-id}}"
 									]
-								}
+								},
+								"description": "The `/applications/{{application-id}}/permissions/{permission-id}}` endpoint will return the permission\nlisted under that id. The `X-Auth-token` must be supplied in the headers.\n\nThe response returns the details of the requested permission."
 							},
 							"response": []
 						},
@@ -389,7 +416,8 @@
 										"{{application-id}}",
 										"permissions"
 									]
-								}
+								},
+								"description": "Listing the permissions with an application  can be done by making a GET request to\nthe  `/v1/applications/{{application-id}}/permissions/` endpoint.\n\nThe complete list of permissons includes any custom permissions created  previously plus all the standard permissions which are avaiable by default"
 							},
 							"response": []
 						},
@@ -417,7 +445,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"permission\": {\n    \"name\": \"Accessing Login\",\n    \"action\": \"GET\",\n    \"resource\": \"login\"\n  }\n}"
+									"raw": "{\n  \"permission\": {\n    \"name\": \"Ring Alarm Bell\",\n    \"action\": \"POST\",\n    \"resource\": \"/ring\"\n  }\n}"
 								},
 								"url": {
 									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/permissions/{{permission-id}}",
@@ -432,7 +460,8 @@
 										"permissions",
 										"{{permission-id}}"
 									]
-								}
+								},
+								"description": "To amend the details of an existing permission, a  PATCH request is send to the `/applications/{{application-id}}/permissions/{permission-id}}`  endpoint.\n\nThe response contains a list of the fields which have been amended."
 							},
 							"response": []
 						},
@@ -478,52 +507,40 @@
 											"value": "{{permission_id}}"
 										}
 									]
-								}
+								},
+								"description": "Deleting a permission from an application automatically removes that permission from any associated roles."
 							},
 							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "57a9d6f7-c670-4a6f-adc9-8f15f5eb3015",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f370386c-b90d-46c5-924b-375e536b780b",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
 						}
 					],
 					"_postman_isSubFolder": true
 				},
 				{
 					"name": "Role CRUD Actions",
-					"description": "",
+					"description": "A permission is an allowable action on a resource, as noted above. A role consists of a group of\npermissions, in other words a series of permitted actions over a group of resources. Roles are\nusually usually given a description with a broad scope so that they can be assigned to a wide range \nof users or organizations for example a *Reader* role could be able to\naccess but not update a series of devices.\n\nThere are two pre-defined roles with **Keyrock** :\n\n* a *Purchaser* who can\n   + Get and assign all public application roles\n* a *Provider* who can:\n   + Get and assign only public owned roles\n   + Get and assign all public application roles\n   + Manage authorizations\n   + Manage roles\n   + Manage the application\n   + Get and assign all internal application roles\n\nUsing our Supermarket Store Example, Alice the admin would be assigned the *Provider* role, she could then create any additional\napplication-specific  roles needed (such as *Management* or *Security*)\n\nOnce again, roles are always directly bound to an application - abstract roles do not exist on their own.\nThe standard CRUD actions are assigned to the appropriate HTTP verbs (POST, GET, PATCH and DELETE) under the `/v1/applications/{{application-id}}/roles` endpoint.",
 					"item": [
-						{
-							"name": "List Roles",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"roles"
-									]
-								}
-							},
-							"response": []
-						},
 						{
 							"name": "Create a Role",
 							"request": {
@@ -562,7 +579,8 @@
 										"{{application-id}}",
 										"roles"
 									]
-								}
+								},
+								"description": "Within the GUI, a role can be added to an application by selecting the application, clicking on **Manage Roles**\nand then pressing the plus next to the Role label.\n\n![](https://fiware.github.io/tutorials.Roles-Permissions/img/create-role.png)\n\nJust fill out the wizard and click save.\n\nTo create a new role via the REST API, send a POST request to the `/applications/{{application-id}}/roles` endpoint\ncontaining the `name` of the new role, with the `X-Auth-token` header from a previously logged in user.\n\nThe details of the created role are returned"
 							},
 							"response": []
 						},
@@ -598,6 +616,42 @@
 										"roles",
 										"{{role-id}}"
 									]
+								},
+								"description": "The `/applications/{{application-id}}/roles/{role-id}}` endpoint will return the role\nlisted under that id. The `X-Auth-token` must be supplied in the headers.\n\nThe response returns the details of the requested role."
+							},
+							"response": []
+						},
+						{
+							"name": "List Roles",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles"
+									]
 								}
 							},
 							"response": []
@@ -626,7 +680,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"role\": {\n    \"name\": \"Read-only\"\n  }\n}"
+									"raw": "{\n  \"role\": {\n    \"name\": \"Security Team\"\n  }\n}"
 								},
 								"url": {
 									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}",
@@ -641,7 +695,8 @@
 										"roles",
 										"{{role-id}}"
 									]
-								}
+								},
+								"description": "It is possible to amend the name of a role using a  PATCH request is sent to the `/applications/{{application-id}}/permissions/{permission-id}}`  endpoint.\n\nThe response contains a list of the fields which have been amended."
 							},
 							"response": []
 						},
@@ -677,54 +732,40 @@
 										"roles",
 										"{{role-id}}"
 									]
-								}
+								},
+								"description": "Application roles can also be deleted - this will also remove the role from any users."
 							},
 							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b374f10e-6723-4073-9099-c581e19850b2",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d86a2fd-d2b4-4a58-8241-e5b316671a5d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
 						}
 					],
 					"_postman_isSubFolder": true
 				},
 				{
 					"name": "Assigning Permissions to each Role",
-					"description": "",
+					"description": "Having created a set of application permissions, and a series of application roles, the\nnext step is to assign the relevant permissions to each role - in other words defining\n*Who can do What*.\n",
 					"item": [
-						{
-							"name": "List permissions associated to a role",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}/permissions",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"roles",
-										"{{role-id}}",
-										"permissions"
-									]
-								}
-							},
-							"response": []
-						},
 						{
 							"name": "Assign a permission to a role",
 							"request": {
@@ -766,7 +807,46 @@
 										"permissions",
 										"{{permission-id}}"
 									]
-								}
+								},
+								"description": "Within the GUI, select the role and check permissions from the list before saving.\n\n![](https://fiware.github.io/tutorials.Roles-Permissions/img/add-permission-to-role.png)\n\nTo add a permission using the REST API make a POST request as shown, including\nthe `<application-id>`, `<role-id>` and `<permission-id>` in the URL path and identifying\nthemselves using an `X-Auth-Token` in the header.\n\nThe response returns the permissions for the role"
+							},
+							"response": []
+						},
+						{
+							"name": "List permissions associated to a role",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}/permissions",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"roles",
+										"{{role-id}}",
+										"permissions"
+									]
+								},
+								"description": "A full list of all permissions assigned to an application role can be retrieved by making a GET request to the\n`/v1/applications/{{application-id}}/roles/{{role-id}}/permissions` endpoint"
 							},
 							"response": []
 						},
@@ -818,12 +898,57 @@
 											"value": "{{permission_id}}"
 										}
 									]
-								}
+								},
+								"description": "To remove a permission using the REST API make a DELETE request as shown, including\nthe `<application-id>`, `<role-id>` and `<permission-id>` in the URL path and identifying\nthemselves using an `X-Auth-Token` in the header."
 							},
 							"response": []
 						}
 					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8db293bc-96b4-4bd2-a1f8-7ba3dae0caa2",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c23615b-d9b9-459d-bfd0-4a136e2f0116",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
 					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f573a683-5a7e-47be-beeb-8dca8ab2e105",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a7ec04f6-840c-4ce0-9f8a-c515b494c8cd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -832,11 +957,56 @@
 			"description": "",
 			"item": [
 				{
-					"name": "Roles for Groups of Users",
-					"description": "",
+					"name": "Authorizing Organizations",
+					"description": "A role cannot be granted to an organization unless the role has already been defined within the application itself.",
 					"item": [
 						{
-							"name": "List organizations role assignments",
+							"name": "Grant a role to a organization",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "{{Content-Type}}"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"organizations",
+										"{{organization-id}}",
+										"roles",
+										"{{role-id}}",
+										"organization_roles",
+										"member"
+									]
+								},
+								"description": "To grant an organization access to an application, click on the appliation to get to the details\npage and scroll to the bottom of the page, click the **Authorize** button and select the relevant\norganization.\n\n![](https://fiware.github.io/tutorials.Roles-Permissions/img/add-role-to-org.png)\n\nA Role can be granted to either `members` or `owners` of an Organization. Using\nthe REST API, the role can be granted  making a POST request as shown, including\nthe `<application-id>`, `<role-id>` and `<organzation-id>` in the URL path and identifying\nthemselves using an `X-Auth-Token` in the header."
+							},
+							"response": []
+						},
+						{
+							"name": "List granted organization roles",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -868,56 +1038,13 @@
 										"{{organization-id}}",
 										"roles"
 									]
-								}
+								},
+								"description": "A full list of roles granted to an organization can be retrieved by making a GET request to the\n`/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles` endpoint.\n\nThe response shows all roles assigned to the organization."
 							},
 							"response": []
 						},
 						{
-							"name": "Assign a role to a organization",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "{{Content-Type}}"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/{{organization-role-id}}",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"organizations",
-										"{{organization-id}}",
-										"roles",
-										"{{role-id}}",
-										"organization_roles",
-										"{{organization-role-id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Remove a role assignment from an organization",
+							"name": "Revoke a role from an organization",
 							"request": {
 								"method": "DELETE",
 								"header": [
@@ -928,11 +1055,15 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
 									}
 								],
 								"body": {},
 								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/{{organization-role-id}}",
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member",
 									"protocol": "http",
 									"host": [
 										"{{keyrock}}"
@@ -946,9 +1077,10 @@
 										"roles",
 										"{{role-id}}",
 										"organization_roles",
-										"{{organization-role-id}}"
+										"member"
 									]
-								}
+								},
+								"description": "To revoke a role using the REST API make a DELETE request as shown, including\nthe `<application-id>`, `<organization-id>` and `<role-id>` in the URL path and identifying\nthemselves using an `X-Auth-Token` in the header.\n\nThe following example revokes a role to `members` of the organization."
 							},
 							"response": []
 						}
@@ -978,48 +1110,11 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Roles for User Accounts",
+					"name": "Authorizing Individual User Accounts",
 					"description": "",
 					"item": [
 						{
-							"name": "List users role assignments",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"users",
-										"{{user-id}}",
-										"roles"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign a role to a user",
+							"name": "Grant a role to a user",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -1061,7 +1156,45 @@
 							"response": []
 						},
 						{
-							"name": "Remove a role assignment from a user",
+							"name": "List granted users roles",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles",
+									"protocol": "http",
+									"host": [
+										"{{keyrock}}"
+									],
+									"path": [
+										"v1",
+										"applications",
+										"{{application-id}}",
+										"users",
+										"{{user-id}}",
+										"roles"
+									]
+								},
+								"description": "To list the roles granted to an Individual user, make a GET request to the\n`v1/applications/{{application-id}}/users/{{user-id}}/roles` endpoint\n\nThe response returns all roles assigned to the user"
+							},
+							"response": []
+						},
+						{
+							"name": "Revoke a role from a user",
 							"request": {
 								"method": "DELETE",
 								"header": [
@@ -1072,39 +1205,30 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
 									}
 								],
 								"body": {},
 								"url": {
-									"raw": "http://keyrock/v1/applications/:application_id/users/:user_id/roles/:role_id",
+									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}",
 									"protocol": "http",
 									"host": [
-										"keyrock"
+										"{{keyrock}}"
 									],
 									"path": [
 										"v1",
 										"applications",
-										":application_id",
+										"{{application-id}}",
 										"users",
-										":user_id",
+										"{{user-id}}",
 										"roles",
-										":role_id"
-									],
-									"variable": [
-										{
-											"key": "user_id",
-											"value": "{{user_id}}"
-										},
-										{
-											"key": "application_id",
-											"value": "{{application_id}}"
-										},
-										{
-											"key": "role_id",
-											"value": "{{role_id}}"
-										}
+										"{{role-id}}"
 									]
-								}
+								},
+								"description": "To revoke a role using the REST API make a DELETE request as shown, including\nthe `<application-id>`, `<organization-id>` and `<role-id>` in the URL path and identifying\nthemselves using an `X-Auth-Token` in the header."
 							},
 							"response": []
 						}
@@ -1156,358 +1280,6 @@
 					}
 				}
 			]
-		},
-		{
-			"name": "Defining Other Actors within an Application",
-			"description": "",
-			"item": [
-				{
-					"name": "PEP Proxy CRUD Actions",
-					"description": "",
-					"item": [
-						{
-							"name": "Info Pep Proxy",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/pep_proxies",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"pep_proxies"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create a Pep Proxy",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/pep_proxies",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"pep_proxies"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Reset Password of Pep Proxy",
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "{{Content-Type}}"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/pep_proxies",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"pep_proxies"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Pep Proxy",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "{{Content-Type}}"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/pep_proxies",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"pep_proxies"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "IoT Agent CRUD Actions",
-					"description": "",
-					"item": [
-						{
-							"name": "List of Iot Agents",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/iot_agents",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"iot_agents"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create an Iot Agent",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "{{Content-Type}}"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/iot_agents",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"iot_agents"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Read Iot agent details",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/iot_agents/{{iot-agent-id}}",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"iot_agents",
-										"{{iot-agent-id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Reset Password of Iot Agent",
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "{{Content-Type}}"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete an Iot Agent",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "X-Auth-token",
-										"value": "{{X-Auth-token}}"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/permissions/{{iot-agent-id}}",
-									"protocol": "http",
-									"host": [
-										"{{keyrock}}"
-									],
-									"path": [
-										"v1",
-										"applications",
-										"{{application-id}}",
-										"permissions",
-										"{{iot-agent-id}}"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"_postman_isSubFolder": true
-				}
-			]
 		}
 	],
 	"event": [
@@ -1534,58 +1306,58 @@
 	],
 	"variable": [
 		{
-			"id": "16da6d5d-27df-41a6-a13b-9f76368bb589",
+			"id": "9c06e860-33aa-41c7-b2c4-47904f61b354",
 			"key": "keyrock",
 			"value": "localhost:3005",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "da783bbb-b72f-4f47-be70-767c8059be35",
+			"id": "f94afd98-b185-4eae-bb3f-a689ac1ae607",
 			"key": "X-Auth-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "5a5a1094-3024-43ba-b7eb-634b8367dbdb",
+			"id": "5c90e3f8-a202-47e7-afce-e452e42f4eb8",
 			"key": "X-Subject-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "a9184069-04d5-4b6d-8094-10582387cf49",
+			"id": "3fe68fa6-73e5-4318-982d-f4e4692ef161",
 			"key": "user-id",
 			"value": "bbbbbbbb-good-0000-0000-000000000000",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "7f4973f7-167c-4fef-93f2-107590019295",
+			"id": "ff95079e-6579-481d-9556-0b53b920992b",
 			"key": "organization-id",
 			"value": "security-0000-0000-0000-000000000000",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "2529aa44-ffb8-4e16-869e-ed68c1d60746",
+			"id": "3f12f690-3c2d-47ff-85f5-7e3ebc546019",
 			"key": "application-id",
-			"value": "ac8724cd-ff76-447f-af41-1ede9681aed3",
+			"value": "3782c5e3-88f9-481a-9b3c-2f2d6f604482",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "1630f13d-a7ce-4ff4-ba62-04c007cdafea",
+			"id": "6916da5e-da72-43c4-aa0d-84392b9f78af",
 			"key": "role-id",
-			"value": "e424ed98-c966-46e3-b161-a165fd31bc01",
+			"value": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "cd6f3bf2-b795-4d7e-bed6-467712311251",
-			"key": "permisson-id",
-			"value": "e424ed98-c966-46e3-b161-a165fd31bc01",
+			"id": "df72317b-8bc0-46b6-beab-58d0541da8a9",
+			"key": "permission-id",
+			"value": "c21983d5-58f9-4bcc-b2b0-f21819080ad0",
 			"type": "string",
 			"description": ""
 		}
