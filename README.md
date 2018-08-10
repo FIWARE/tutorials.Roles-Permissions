@@ -376,7 +376,7 @@ Two organizations have also been set up by Alice:
 | Management | Management Group for Store Managers |`managers-0000-0000-0000-000000000000`|
 
 To save time, the data creating users and organizations from the [previous tutorial](https://github.com/Fiware/tutorials.Identity-Management) has been downloaded and is automatically persisted to the MySQL
-database on start-up so the asigned UUIDs don not changem and the data does not need to be entered again
+database on start-up so the asigned UUIDs do not change and the data does not need to be entered again
 
 
 To refresh your memory about how to create users and organizations, you can log in at `http://localhost:3005/idm`
