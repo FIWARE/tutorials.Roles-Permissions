@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: idm
 -- ------------------------------------------------------
--- Server version	5.7.22
+-- Server version 5.7.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -529,6 +529,35 @@ INSERT INTO `role_permission` VALUES (1,'provider','1'),(2,'provider','2'),(3,'p
 /*!40000 ALTER TABLE `role_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+--
+-- Table structure for table `trusted_application`
+--
+
+DROP TABLE IF EXISTS `trusted_application`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `trusted_application` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `oauth_client_id` char(36) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
+  `trusted_oauth_client_id` char(36) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `oauth_client_id` (`oauth_client_id`),
+  KEY `trusted_oauth_client_id` (`trusted_oauth_client_id`),
+  CONSTRAINT `trusted_application_ibfk_1` FOREIGN KEY (`oauth_client_id`) REFERENCES `oauth_client` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `trusted_application_ibfk_2` FOREIGN KEY (`trusted_oauth_client_id`) REFERENCES `oauth_client` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `trusted_application`
+--
+
+LOCK TABLES `trusted_application` WRITE;
+/*!40000 ALTER TABLE `trusted_application` DISABLE KEYS */;
+/*!40000 ALTER TABLE `trusted_application` ENABLE KEYS */;
+UNLOCK TABLES;
+
 --
 -- Table structure for table `user`
 --
@@ -551,6 +580,7 @@ CREATE TABLE `user` (
   `extra` varchar(255) DEFAULT NULL,
   `scope` varchar(80) DEFAULT NULL,
   `starters_tour_ended` tinyint(1) DEFAULT '0',
+  `eidas_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -563,16 +593,16 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES 
-('aaaaaaaa-good-0000-0000-000000000000','alice', 'Alice is the admin',NULL,'default',0,'alice-the-admin@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,1,NULL,NULL,0),
-('bbbbbbbb-good-0000-0000-000000000000','bob','Bob is the regional manager',NULL,'default',0,'bob-the-manager@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0),
-('cccccccc-good-0000-0000-000000000000','charlie','Charlie is head of security',NULL,'default',0,'charlie-security@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0),
-('manager1-good-0000-0000-000000000000','manager1','Manager works for Bob',NULL,'default',0,'manager1@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0),
-('manager2-good-0000-0000-000000000000','manager2','Manager works for Bob',NULL,'default',0,'manager2@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0),
-('detective1-good-0000-0000-000000000000','detective1','Detective works for Charlie',NULL,'default',0,'detective1@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0),
-('detective2-good-0000-0000-000000000000','detective2','Detective works for Charlie',NULL,'default',0,'detective2@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0),
-('eve-evil-0000-0000-000000000000','eve','Eve the Eavesdropper',NULL,'default',0,'eve@example.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0),
-('mallory-evil-0000-0000-000000000000','mallory','Mallory the malicious attacker',NULL,'default',0,'mallory@example.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0),
-('rob-evil-0000-0000-000000000000','rob','Rob the Robber' ,NULL,'default',0,'rob@example.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0);/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+('aaaaaaaa-good-0000-0000-000000000000','alice', 'Alice is the admin',NULL,'default',0,'alice-the-admin@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,1,NULL,NULL,0,NULL),
+('bbbbbbbb-good-0000-0000-000000000000','bob','Bob is the regional manager',NULL,'default',0,'bob-the-manager@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('cccccccc-good-0000-0000-000000000000','charlie','Charlie is head of security',NULL,'default',0,'charlie-security@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('manager1-good-0000-0000-000000000000','manager1','Manager works for Bob',NULL,'default',0,'manager1@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('manager2-good-0000-0000-000000000000','manager2','Manager works for Bob',NULL,'default',0,'manager2@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('detective1-good-0000-0000-000000000000','detective1','Detective works for Charlie',NULL,'default',0,'detective1@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('detective2-good-0000-0000-000000000000','detective2','Detective works for Charlie',NULL,'default',0,'detective2@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('eve-evil-0000-0000-000000000000','eve','Eve the Eavesdropper',NULL,'default',0,'eve@example.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('mallory-evil-0000-0000-000000000000','mallory','Mallory the malicious attacker',NULL,'default',0,'mallory@example.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('rob-evil-0000-0000-000000000000','rob','Rob the Robber' ,NULL,'default',0,'rob@example.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL);/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
