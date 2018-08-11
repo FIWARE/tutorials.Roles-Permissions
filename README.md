@@ -6,12 +6,14 @@
 
 The tutorial explains how to create applications, and how to assign roles and permissions to them.
 It takes the users and organizations created in the [previous tutorial](https://github.com/Fiware/tutorials.Identity-Management)
-and ensures that only legitmate users will have access to resources.
+and ensures that only legitimate users will have access to resources.
 
 The tutorial demonstrates examples of interactions using the **Keyrock** GUI, as well [cUrl](https://ec.haxx.se/) commands used
 to access the **Keyrock** REST API - [Postman documentation](http://fiware.github.io/tutorials.Roles-Permissions/) is also available.
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/2febc0452a8977734480)
+
+* このチュートリアルは[日本語](README.ja.md)でもご覧いただけます。
 
 # Contents
 
@@ -84,8 +86,8 @@ via the FIWARE **Keyrock** Generic Enabler, User access is granted based on perm
 
 Every application secured by the **Keyrock** generic enabler can define a set of permissions - i.e.
 a set of things that can be done within the application. For example within the application, the ability
-to send a commmand to unlock a Smart Door could be secured behind a `Unlock Door` permission. Similarly
-the ability to send a commmand to ring the alarm bell could be secured behind a `Ring Bell` permission,
+to send a command to unlock a Smart Door could be secured behind a `Unlock Door` permission. Similarly
+the ability to send a command to ring the alarm bell could be secured behind a `Ring Bell` permission,
 and the ability to alter prices could be secured behind a `Price Change` permission
 
 These permissions are grouped together in a series of roles - for example `Unlock Door` and `Ring Bell`
@@ -116,8 +118,8 @@ The following common objects are found with the **Keyrock** Identity Management 
 * **Organization** - A group of users who can be assigned a series of rights. Altering the rights of the organization
  effects the access of all users of that organization
 * **OrganizationRole** - Users can either be members or admins of an organization - Admins are able to add and remove users
- from their organization, members merely gain the roles and permissions of an organiation. This allows each organization
- to be responisible for their members and removes the need for a super-admin to administer all rights
+ from their organization, members merely gain the roles and permissions of an organization. This allows each organization
+ to be responsible for their members and removes the need for a super-admin to administer all rights
 * **Role** - A role is a descriptive bucket for a set of permissions. A role can be assigned to either a single user
  or an organization. A signed-in user gains all the permissions from all of their own roles plus all of the roles associated
  to their organization
@@ -125,7 +127,7 @@ The following common objects are found with the **Keyrock** Identity Management 
 
 Additionally two further non-human application objects can be secured within a FIWARE application:
 
-* **IoTAgent** - a proxy betwen IoT Sensors and  the Context Broker
+* **IoTAgent** - a proxy between IoT Sensors and  the Context Broker
 * **PEPProxy** - a middleware for use between generic enablers challenging the rights of a user.
 
 
@@ -174,7 +176,7 @@ container technology which allows to different components isolated into their re
 * To install Docker on Linux follow the instructions [here](https://docs.docker.com/install/)
 
 **Docker Compose** is a tool for defining and running multi-container Docker applications. A
-[YAML file](https://raw.githubusercontent.com/Fiware/tutorials.Entity-Relationships/master/docker-compose.yml) is used
+[YAML file](https://raw.githubusercontent.com/Fiware/tutorials.Identity-Management/master/docker-compose.yml) is used
 configure the required services for the application. This means all container services can be brought up in a single
 command. Docker Compose is installed by default as part of Docker for Windows and  Docker for Mac, however Linux users
 will need to follow the instructions found  [here](https://docs.docker.com/compose/install/)
@@ -187,7 +189,7 @@ command line functionality similar to a Linux distribution on Windows.
 # Architecture
 
 This introduction will only make use of one FIWARE component - the [Keyrock](http://fiware-idm.readthedocs.io/)
-Identity Management Generic Enabler. Usage of **Keyrock** alone alone is insufficient for an application to qualify
+Identity Management Generic Enabler. Usage of **Keyrock** alone is insufficient for an application to qualify
  as *“Powered by FIWARE”*.  Additionally will be persisting user data in a **MySQL**  database.
 
 
@@ -200,7 +202,7 @@ The overall architecture will consist of the following elements:
         * An equivalent REST API for Identity Management via HTTP requests
 
 * One [MySQL](https://www.mysql.com/) database :
-    * Used to persist user identities, applications, roles and permsissions
+    * Used to persist user identities, applications, roles and permissions 
 
 
 Since all interactions between the elements are initiated by HTTP requests, the entities can be containerized and run from exposed ports.
@@ -302,7 +304,7 @@ The `mysql-db` container is driven by environment variables as shown:
 
 | Key               |Value.    |Description                               |
 |-------------------|----------|------------------------------------------|
-|MYSQL_ROOT_PASSWORD|`123`.    | specifies a password that is set for the MySQL `root` account - secured by **Docker Secrets** (see below)|
+|MYSQL_ROOT_PASSWORD|`123`     | specifies a password that is set for the MySQL `root` account - secured by **Docker Secrets** (see below)|
 |MYSQL_ROOT_HOST    |`root`| By default, MySQL creates the `root'@'localhost` account. This account can only be connected to from inside the container. Setting this environment variable allows root connections from other hosts |
 
 # Start Up
@@ -376,7 +378,7 @@ Two organizations have also been set up by Alice:
 | Management | Management Group for Store Managers |`managers-0000-0000-0000-000000000000`|
 
 To save time, the data creating users and organizations from the [previous tutorial](https://github.com/Fiware/tutorials.Identity-Management) has been downloaded and is automatically persisted to the MySQL
-database on start-up so the asigned UUIDs do not change and the data does not need to be entered again
+database on start-up so the assigned UUIDs do not change and the data does not need to be entered again
 
 
 To refresh your memory about how to create users and organizations, you can log in at `http://localhost:3005/idm`
@@ -390,7 +392,7 @@ and look at the organizations list.
 
 ### Reading directly from the Keyrock MySQL Database
 
-All Identify Management records  and releationships are held within the the attached MySQL database. This can be
+All Identify Management records  and relationships are held within the attached MySQL database. This can be
 accessed by entering the running Docker container as shown:
 
 
@@ -415,7 +417,7 @@ select id, username, email, password from user;
 ### UUIDs within Keyrock
 
 All ids and tokens within  **Keyrock** are subject to change. The following values will need to be amended when
-querying for records .Record ids use Universally Unique Identifiers - UUIDs.
+querying for records. Record ids use Universally Unique Identifiers - UUIDs.
 
 | Key |Description                        | Sample Value |
 |-----|-----------------------------------|--------------|
@@ -760,14 +762,14 @@ curl -iX DELETE \
 
 An application permission is an allowable action on a resource within that application.
 Each resource is defined by a URL (e.g. `/price-change`) and the action is any HTTP verb (e.g. GET)
-- the combination will be used to ensure only permitted users are able to access the `/price-change` resource.
+- The combination will be used to ensure only permitted users are able to access the `/price-change` resource.
 
 Further advanced permission rules can be described using XACML - this is the subject of another tutorial.
 
 It should be emphasized that permissions are always found bound to an application - abstract permissions
-do not exist on their own. The standard permision CRUD actions are assigned to the appropriate
+do not exist on their own. The standard permission CRUD actions are assigned to the appropriate
 HTTP verbs (POST, GET, PATCH and DELETE) under the `/v1/applications/{{application-id}}/permissions` endpoint
-- as you can see the `<application-id>` itself is integral to the URL.
+- As you can see the `<application-id>` itself is integral to the URL.
 
 Permissions are usually defined once and set-up when the application is created. If the design of your
 use-case means that you find you need to alter the permissions regularly, then the definition has
@@ -785,7 +787,7 @@ and then pressing the plus next to the Permissions label.
 
 Just fill out the wizard and click save.
 
-To create a new permission via the REST API, send a POST request to the `/applications/{{application-id}}/permissions` endpoint containing the `action`and `resource` along with the `X-Auth-token` header from a previously logged in user.
+To create a new permission via the REST API, send a POST request to the `/applications/{{application-id}}/permissions` endpoint containing the `action` and `resource` along with the `X-Auth-token` header from a previously logged in user.
 
 #### :seven: Request:
 
@@ -876,7 +878,7 @@ curl -X GET \
 
 #### Response:
 
-The complete list of permissions includes any custom permissions created  previously plus all the standard permissions which are avaiable by default
+The complete list of permissions includes any custom permissions created  previously plus all the standard permissions which are available by default
 
 ```json
 {
@@ -952,7 +954,7 @@ The response contains a list of the fields which have been amended.
 }
 ```
 
-### Delete an Permission
+### Delete a Permission
 
 Deleting a permission from an application automatically removes that permission from any associated roles.
 
@@ -972,7 +974,7 @@ curl -X DELETE \
 
 A permission is an allowable action on a resource, as noted above. A role consists of a group of
 permissions, in other words a series of permitted actions over a group of resources. Roles are
-usually usually given a description with a broad scope so that they can be assigned to a wide range
+usually given a description with a broad scope so that they can be assigned to a wide range
 of users or organizations for example a *Reader* role could be able to
 access but not update a series of devices.
 
@@ -1263,12 +1265,12 @@ curl -X DELETE \
 
 # Authorizing Application Access
 
-In the end, a user logs into an application , identifies himself and then is granted a list of
+In the end, a user logs into an application, identifies himself and then is granted a list of
 permissions that the user is able to do. However it should be emphasized that it is the application,
 not the user that holds and offers the permissions, and the user is merely associated with a
 aggregated list of permissions via the role(s) they have been granted.
 
-The application can grant roles to either Users or Organizations - the latter should always be prefered,
+The application can grant roles to either Users or Organizations - the latter should always be preferred,
 as it allows the owners of the organization to add new users - delegating the responsibility for user
 maintenance to a wider group.
 
@@ -1293,7 +1295,7 @@ The organization must also have be created as was demonstrated in the previous t
 
 ### Grant a Role to an Organization
 
-To grant an organization access to an application, click on the appliation to get to the details
+To grant an organization access to an application, click on the application to get to the details
 page and scroll to the bottom of the page, click the **Authorize** button and select the relevant
 organization.
 
@@ -1477,7 +1479,7 @@ curl -X DELETE \
 # List Application Grantees
 
 By creating a series of roles and granting them to Users and Organizations, we have made an association
-between them. The REST API offers two convienience methods exist to list all the grantees of an application
+between them. The REST API offers two convenience methods exist to list all the grantees of an application
 
 
 ### List Authorized Organizations
