@@ -557,7 +557,7 @@ From the homepage of the GUI, a new application can be created by clicking the *
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/create-app.png)
 
 
-To create a new application via the REST API, send a POST request to the `/v1/application` endpoint containing details of the application
+To create a new application via the REST API, send a POST request to the `/v1/applications` endpoint containing details of the application
 such as `name` and `description`, along with OAuth information fields such as  the `url`  of the webservice to be protected,
 and `redirect_uri` (where a user will be challenged for their credentials). The `grant_types` are chosen from the available list of
 OAuth2 grant flows.
@@ -627,7 +627,7 @@ The `X-Auth-token` must be supplied in the headers.
 
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/app-with-oauth.png)
 
-#### :three: Request
+#### :four: Request:
 
 ```console
 curl -X GET \
@@ -665,7 +665,7 @@ Users will only be permitted to return  applications they are associated with. L
 by making a GET request to the  `/v1/applications` endpoint and supplying the  `X-Auth-token` Header
 
 
-#### :four: Request:
+#### :five: Request:
 
 ```console
 curl -X GET \
@@ -698,11 +698,11 @@ curl -X GET \
 ### Update an Application
 
 Within the GUI, users can be updated by selecting an application and clicking on `edit`.
-This can also be done from the command line by making PATCH request to  `/v1/applications/<applications-id>` endpoint
+This can also be done from the command line by making PATCH request to  `/v1/applications/{{applications-id}}` endpoint
 when the applications id is known. The `X-Auth-token` header must also be set, since a User can only edit
 applications he is associated with.
 
-#### :five: Request:
+#### :six: Request:
 
 ```console
 curl -X PATCH \
@@ -744,10 +744,10 @@ The response lists the fields which have been updated, note that the `redirect_u
 
 Within the GUI, users can delete an application by selecting an application and clicking on `edit`,
 then scrolling to the bottom of the page and selecting **Remove Application**. This can also be
-done from the command line by sending a DELETE request to the `/v1/applications/<applications-id>`
+done from the command line by sending a DELETE request to the `/v1/applications/{{applications-id}}`
 endpoint. The `X-Auth-token` header must also be set.
 
-#### :six: Request:
+#### :seven: Request:
 
 ```console
 curl -iX DELETE \
@@ -789,7 +789,7 @@ Just fill out the wizard and click save.
 
 To create a new permission via the REST API, send a POST request to the `/applications/{{application-id}}/permissions` endpoint containing the `action` and `resource` along with the `X-Auth-token` header from a previously logged in user.
 
-#### :seven: Request:
+#### :eight: Request:
 
 ```console
 curl -iX POST \
@@ -827,10 +827,10 @@ The response returns the details of the newly created permission.
 
 ### Read Permission Details
 
-The `/applications/{{application-id}}/permissions/{permission-id}}` endpoint will return the permission
+The `/applications/{{application-id}}/permissions/{{permission-id}}` endpoint will return the permission
 listed under that id. The `X-Auth-token` must be supplied in the headers.
 
-#### :eight: Request:
+#### :nine: Request:
 
 ```console
 curl -X GET \
@@ -863,10 +863,10 @@ The response returns the details of the requested permission.
 ### List Permissions
 
 Listing the permissions with an application  can be done by making a GET request to
-the  `/v1/applications/{{application-id}}/permissions/` endpoint
+the  `/v1/applications/{{application-id}}/permissions` endpoint
 
 
-#### :nine: Request:
+#### :one::zero: Request:
 
 ```console
 curl -X GET \
@@ -923,9 +923,9 @@ The complete list of permissions includes any custom permissions created  previo
 
 ### Update a Permission
 
-To amend the details of an existing permission, a  PATCH request is send to the `/applications/{{application-id}}/permissions/{permission-id}}`  endpoint.
+To amend the details of an existing permission, a  PATCH request is send to the `/applications/{{application-id}}/permissions/{{permission-id}}`  endpoint.
 
-#### :one::zero: Request:
+#### :one::one: Request:
 
 ```console
 curl -X PATCH \
@@ -958,7 +958,7 @@ The response contains a list of the fields which have been amended.
 
 Deleting a permission from an application automatically removes that permission from any associated roles.
 
-#### :one::one: Request:
+#### :one::two: Request:
 
 ```console
 curl -X DELETE \
@@ -1008,7 +1008,7 @@ Just fill out the wizard and click save.
 To create a new role via the REST API, send a POST request to the `/applications/{{application-id}}/roles` endpoint
 containing the `name` of the new role, with the `X-Auth-token` header from a previously logged in user.
 
-#### :one::two: Request:
+#### :one::three: Request:
 
 ```console
 curl -X POST \
@@ -1043,10 +1043,10 @@ The details of the created role are returned
 
 ### Read Role Details
 
-The `/applications/{{application-id}}/roles/{role-id}}` endpoint will return the role
+The `/applications/{{application-id}}/roles/{{role-id}}` endpoint will return the role
 listed under that id. The `X-Auth-token` must be supplied in the headers.
 
-#### :one::three: Request:
+#### :one::four: Request:
 
 ```console
 curl -X GET \
@@ -1075,9 +1075,9 @@ The response returns the details of the requested role.
 ### List Roles
 
 Listing all the roles offered by an application can be done by making a GET request to
-the  `/v1/applications/{{application-id/roles` endpoint
+the  `/v1/applications/{{application-id}}/roles` endpoint
 
-#### :one::four: Request:
+#### :one::five: Request:
 
 ```console
 curl -X GET \
@@ -1118,9 +1118,9 @@ A summary of all roles associated with the application is returned  containing b
 
 ### Update a Role
 
-It is possible to amend the name of a role using a  PATCH request is sent to the `/applications/{{application-id}}/permissions/{permission-id}}`  endpoint.
+It is possible to amend the name of a role using a  PATCH request is sent to the `/applications/{{application-id}}/roles/{{role-id}}`  endpoint.
 
-#### :one::five: Request:
+#### :one::six: Request:
 
 ```console
 curl -iX PATCH \
@@ -1152,7 +1152,7 @@ The response contains a list of the fields which have been amended.
 
 Application roles can also be deleted - this will also remove the role from any users.
 
-#### :one::six: Request:
+#### :one::seven: Request:
 
 ```console
 curl -iX DELETE \
@@ -1181,7 +1181,7 @@ To add a permission using the REST API make a POST request as shown, including
 the `<application-id>`, `<role-id>` and `<permission-id>` in the URL path and identifying
 themselves using an `X-Auth-Token` in the header.
 
-#### :one::seven: Request:
+#### :one::eight: Request:
 
 ```console
 curl -iX POST \
@@ -1209,7 +1209,7 @@ The response returns the permissions for the role
 A full list of all permissions assigned to an application role can be retrieved by making a GET request to the
 `/v1/applications/{{application-id}}/roles/{{role-id}}/permissions` endpoint
 
-#### :one::eight: Request:
+#### :one::nine: Request:
 
 ```console
 curl -X GET \
@@ -1252,7 +1252,7 @@ To remove a permission using the REST API make a DELETE request as shown, includ
 the `<application-id>`, `<role-id>` and `<permission-id>` in the URL path and identifying
 themselves using an `X-Auth-Token` in the header.
 
-#### :one::nine: Request:
+#### :two::zero: Request:
 
 ```console
 curl -X DELETE \
@@ -1303,12 +1303,12 @@ organization.
 
 A Role can be granted to either `members` or `owners` of an Organization. Using
 the REST API, the role can be granted  making a POST request as shown, including
-the `<application-id>`, `<role-id>` and `<organzation-id>` in the URL path and identifying
+the `<application-id>`, `<organzation-id>` and `<role-id>` in the URL path and identifying
 themselves using an `X-Auth-Token` in the header.
 
 
 
-#### :two::zero: Request:
+#### :two::one: Request:
 
 This example adds the role to all members of the organization
 
@@ -1342,7 +1342,7 @@ The response lists the role assignment as shown:
 A full list of roles granted to an organization can be retrieved by making a GET request to the
 `/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles` endpoint
 
-#### :two::one: Request:
+#### :two::two: Request:
 
 ```console
 curl -X GET \
@@ -1378,7 +1378,7 @@ themselves using an `X-Auth-Token` in the header.
 The following example revokes a role to `members` of the organization.
 
 
-#### :two::two: Request:
+#### :two::three: Request:
 
 ```console
 curl -iX DELETE \
@@ -1404,7 +1404,7 @@ the `<application-id>`, `<role-id>` and `<user-id>` in the URL path and identify
 themselves using an `X-Auth-Token` in the header.
 
 
-#### :two::three: Request:
+#### :two::four: Request:
 
 ```console
 curl -X POST \
@@ -1431,7 +1431,7 @@ curl -X POST \
 To list the roles granted to an Individual user, make a GET request to the
 `v1/applications/{{application-id}}/users/{{user-id}}/roles` endpoint
 
-#### :two::four: Request:
+#### :two::five: Request:
 
 ```console
 curl -X GET \
@@ -1464,7 +1464,7 @@ In a similar manner to organizations, to revoke a user role using the REST API m
 the `<application-id>`, `<user-id>` and `<role-id>` in the URL path and identifying
 themselves using an `X-Auth-Token` in the header.
 
-#### :two::five: Request:
+#### :two::six: Request:
 
 ```console
 curl -X DELETE \
@@ -1487,11 +1487,11 @@ between them. The REST API offers two convenience methods exist to list all the 
 To list all organizations which are authorized to use an application, make a GET request to the
 `/v1/applications/{{application-id}}/organizations` endpoint.
 
-#### :two::six: Request:
+#### :two::seven: Request:
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles' \
+  'http://{{keyrock}}/v1/applications/{{application-id}}/organizations' \
   -H 'Accept: application/json' \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
@@ -1522,11 +1522,11 @@ Individual members are not listed.
 To list all individual users who are authorized to use an application, make a GET request to the
 `/v1/applications/{{application-id}}/users` endpoint.
 
-#### :two::seven: Request:
+#### :two::eight: Request:
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles' \
+  'http://{{keyrock}}/v1/applications/{{application-id}}/users' \
   -H 'Accept: application/json' \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \

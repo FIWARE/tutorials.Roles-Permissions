@@ -557,7 +557,7 @@ curl -iX POST \
 
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/app-with-oauth.png)
 
-#### :three: Request
+#### :four: Request :
 
 ```console
 curl -X GET \
@@ -593,7 +593,7 @@ curl -X GET \
 
 ユーザは、関連付けられているアプリケーションのみを返すことが許可されます。アプリケーションをリストアップするには、`/v1/applications` エンドポイントへ `X-Auth-token` がヘッダを付けて、`GET` リクエストを行います。
 
-#### :four: リクエスト :
+#### :five: リクエスト :
 
 ```console
 curl -X GET \
@@ -628,7 +628,7 @@ curl -X GET \
 
 GUI 内では、アプリケーションを選択して、`edit` をクリックすることでユーザを更新できます。これは、アプリケーション id がわかっているときに `/v1/applications/{{applications-id}}` エンドポイントに PATCH リクエストを出すことによって、コマンド・ラインから行うこともできます。ユーザは自身に関連付けられているアプリケーションを編集することができますので、`X-Auth-token` ヘッダも設定する必要があります。
 
-#### :five: リクエスト :
+#### :six: リクエスト :
 
 ```console
 curl -X PATCH \
@@ -671,7 +671,7 @@ curl -X PATCH \
 
 GUI 内で、ユーザはアプリケーションを選択して、`edit` をクリックしてからページの一番下までスクロールし、**Remove Application** を選択することで、アプリケーションを削除できます。これは、コマンド・ラインから、`/v1/applications/<applications-id>`  エンドポイントに DELETE リクエストを送信することによっても実行できます。`X-Auth-token` ヘッダが、設定されなければなりません。
 
-#### :six: リクエスト :
+#### :seven: リクエスト :
 
 ```console
 curl -iX DELETE \
@@ -707,7 +707,7 @@ GUI 内では、アプリケーションを選択し、**Manage Roles** をク�
 
 REST API 経由で新しいパーミッションを作成するには、以前にログインしたユーザの `X-Auth-token` ヘッダとともに、アクションとリソースを含む `/applications/{{application-id}}/permissions` エンドポイントに POST リクエストを送信します。
 
-#### :seven: リクエスト :
+#### :eight: リクエスト :
 
 ```console
 curl -iX POST \
@@ -746,7 +746,7 @@ curl -iX POST \
 
 `/applications/{{application-id}}/permissions/{{permission-id}}` エンドポイントは、その id の下にリストされているパーミッションを返します。`X-Auth-token` をヘッダに指定しなければなりません。
 
-#### :eight: リクエスト :
+#### :nine: リクエスト :
 
 ```console
 curl -X GET \
@@ -780,7 +780,7 @@ curl -X GET \
 
 `/v1/applications/{{application-id}}/permissions` エンドポイントへの GET リクエストを行うことで、アプリケーションのパーミッションのリストを取得することができます。
 
-#### :nine: リクエスト :
+#### :one::zero: リクエスト :
 
 ```console
 curl -X GET \
@@ -839,7 +839,7 @@ curl -X GET \
 
 既存のパーミッションの詳細を修正するには、PATCH リクエストを `/applications/{{application-id}}/permissions/{permission-id}}` エンドポイントに送信します。
 
-#### :one::zero: リクエスト :
+#### :one::one: リクエスト :
 
 ```console
 curl -X PATCH \
@@ -873,7 +873,7 @@ curl -X PATCH \
 
 アプリケーションからパーミッションを削除すると、関連するロールからそのパーミッションが自動的に削除されます。
 
-#### :one::one: リクエスト :
+#### :one::two: リクエスト :
 
 ```console
 curl -X DELETE \
@@ -915,7 +915,7 @@ GUI 内で、アプリケーションを選択し、**Manage Roles** をクリ�
 
 REST API を介して新しいロールを作成するには、以前にログインしたユーザの `X-Auth-token` ヘッダと新しいロールの `name` を含む POST リクエストを `/applications/{{application-id}}/roles` エンドポイントに送信します。
 
-#### :one::two: リクエスト :
+#### :one::three: リクエスト :
 
 ```console
 curl -X POST \
@@ -952,7 +952,7 @@ curl -X POST \
 
 `/applications/{{application-id}}/roles/{{role-id}}` エンドポイントは、その id の下にリストされているロールを返します。`X-Auth-token` をヘッダに指定しなければなりません。
 
-#### :one::three: リクエスト :
+#### :one::four: リクエスト :
 
 ```console
 curl -X GET \
@@ -982,7 +982,7 @@ curl -X GET \
 
 アプリケーションが提供するすべてのロールをリストするには、`/v1/applications/{{application-id}}/roles` エンドポイントに GET リクエストを行います。
 
-#### :one::four: リクエスト :
+#### :one::five: リクエスト :
 
 ```console
 curl -X GET \
@@ -1026,7 +1026,7 @@ curl -X GET \
 
 `/applications/{{application-id}}/roles/{{role-id}}` エンドポイントに PATCH リクエストを送信することで、ロールの名前を修正することができます。
 
-#### :one::five: リクエスト :
+#### :one::six: リクエスト :
 
 ```console
 curl -iX PATCH \
@@ -1058,7 +1058,7 @@ curl -iX PATCH \
 
 アプリケーションのロールも削除することができます。これにより、どのユーザからもロールが削除されます。
 
-#### :one::six: リクエスト :
+#### :one::seven: リクエスト :
 
 ```console
 curl -iX DELETE \
@@ -1082,7 +1082,7 @@ GUI 内で、ロールを選択し、保存する前にリストからパーミ�
 
 REST API を使用してアクセス許可を追加するために、次に示されるように、URL パスに `<application-id>`, `<role-id>`, `<permission-id>` を含め、ヘッダに `X-Auth-Token` を使用して自身を識別する、POST リクエストを行います。
 
-#### :one::seven: リクエスト :
+#### :one::eight: リクエスト :
 
 ```console
 curl -iX POST \
@@ -1110,7 +1110,7 @@ curl -iX POST \
 
 アプリケーションのロールに割り当てられたすべてのパーミッションの完全なリストは、`/v1/applications/{{application-id}}/roles/{{role-id}}/permissions` エンドポイントに GET リクエストを行うことで取得できます。
 
-#### :one::eight: リクエスト :
+#### :one::nine: リクエスト :
 
 ```console
 curl -X GET \
@@ -1152,7 +1152,7 @@ curl -X GET \
 
 REST API を使用してパーミッションを削除するには、URL パスに `<application-id>`, `<role-id>` と `<permission-id>` を含め、ヘッダに `X-Auth-Token` を使用して自身を識別する、 DELETE リクエストを行います。
 
-#### :one::nine: リクエスト :
+#### :two::zero: リクエスト :
 
 ```console
 curl -X DELETE \
@@ -1187,7 +1187,7 @@ curl -X DELETE \
 
 ロールは、組織の `members` または `owners` のいずれかに付与することができます。REST API を使用すると、次に示すように、URL パスに `<application-id>`, `<organzation-id>` と `<role-id>` を含め、ヘッダに `X-Auth-Token` を使用して自身を識別する、 POST リクエストを行うことで、ロールを付与することができます。
 
-#### :two::zero: リクエスト :
+#### :two::one: リクエスト :
 
 この例では、組織のすべてのメンバにロールを追加します。
 
@@ -1221,7 +1221,7 @@ curl -X POST \
 
 組織に付与されたロールの完全なリストは、`/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles` エンドポイントに GET リクエストを行うことで取得できます。
 
-#### :two::one: リクエスト :
+#### :two::two: リクエスト :
 
 ```console
 curl -X GET \
@@ -1255,7 +1255,7 @@ REST API を使用してロールを取り消すには、URL パスに `<applica
 
 次の例では、組織の `members` に対して、ロールを取り消します。
 
-#### :two::two: リクエスト :
+#### :two::three: リクエスト :
 
 ```console
 curl -iX DELETE \
@@ -1277,7 +1277,7 @@ GUI によるユーザ・アクセスの付与は、組織と同じ方法で実�
 
 ロールは、組織の `members` または `owners` のいずれかに付与することができます。REST API を使用すると、次に示すように、URL パスに `<application-id>`, `<user-id>` と `<role-id>` を含め、ヘッダに `X-Auth-Token` を使用して自身を識別する、 POST リクエストを行うことで、ロールを付与することができます。
 
-#### :two::three: リクエスト :
+#### :two::four: リクエスト :
 
 ```console
 curl -X POST \
@@ -1304,7 +1304,7 @@ curl -X POST \
 
 個々のユーザに付与されたロールをリスト表示するには、`v1/applications/{{application-id}}/users/{{user-id}}/roles` エンドポイントに GET リクエストを行います。
 
-#### :two::four: リクエスト :
+#### :two::five: リクエスト :
 
 ```console
 curl -X GET \
@@ -1336,7 +1336,7 @@ curl -X GET \
 
 組織と同様に、REST API を使用してロールを取り消すには、URL パスに `<application-id>`, `<user-id>` と `<role-id>` を含め、ヘッダに `X-Auth-Token` を使用して自身を識別する、 DELETE リクエストを行います。
 
-#### :two::five: リクエスト :
+#### :two::six: リクエスト :
 
 ```console
 curl -X DELETE \
@@ -1358,7 +1358,7 @@ curl -X DELETE \
 
 アプリケーションの使用を認可されているすべての組織をリストするには、`/v1/applications/{{application-id}}/organizations` エンドポイントに GET リクエストを行います。
 
-#### :two::six: リクエスト :
+#### :two::seven: リクエスト :
 
 ```console
 curl -X GET \
@@ -1391,7 +1391,7 @@ curl -X GET \
 
 アプリケーションの使用を許可されている個々のユーザをすべてリスト表示するには、`/v1/applications/{{application-id}}/users` エンドポイントに GET リクエストを行います。
 
-#### :two::seven: リクエスト :
+#### :two::eight: リクエスト :
 
 ```console
 curl -X GET \
