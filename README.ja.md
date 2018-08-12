@@ -368,7 +368,7 @@ select id, username, email, password from user;
 | キー| 説明                              | サンプル値   |
 |-----|-----------------------------------|--------------|
 |`keyrock`| **Keyrock** サービスの場所の URL |`localhost:3005`|
-|`X-Auth-token`| ユーザとしてログインするときにヘッダーで受け取ったトークン |`aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa` = I am Alice|
+|`X-Auth-token`| ユーザとしてログインするときにヘッダで受け取ったトークン |`aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa` = I am Alice|
 |`X-Subject-token`| サブジェクトについて問い合わせるときに渡すトークンで、代替はユーザ・トークンを繰り返ためのものです |`bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb` = Asking about Bob|
 |`user-id`| `user` テーブルで見つかった既存ユーザの id |`bbbbbbbb-good-0000-0000-000000000000` - Bob's User Id|
 |`application-id`| `oauth_client` テーブルで見つかった、既存アプリケーションの id |`c978218d-ad63-4427-b12b-542b81299cfb`|
@@ -557,7 +557,7 @@ curl -iX POST \
 
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/app-with-oauth.png)
 
-#### :four: Request :
+#### :four: リクエスト :
 
 ```console
 curl -X GET \
@@ -591,7 +591,7 @@ curl -X GET \
 <a name="list-all-applications"></a>
 ### すべてのアプリケーションのリストを取得
 
-ユーザは、関連付けられているアプリケーションのみを返すことが許可されます。アプリケーションをリストアップするには、`/v1/applications` エンドポイントへ `X-Auth-token` がヘッダを付けて、`GET` リクエストを行います。
+ユーザは、関連付けられているアプリケーションのみを返すことが許可されます。アプリケーションをリストアップするには、`/v1/applications` エンドポイントへ `X-Auth-token` ヘッダを付けて、`GET` リクエストを行います。
 
 #### :five: リクエスト :
 
