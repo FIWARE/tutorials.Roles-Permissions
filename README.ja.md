@@ -134,7 +134,7 @@ OAuth2 の背後にある理由は、ユーザに完全なアクセス権を与�
 <a name="docker"></a>
 ## Docker
 
-Docker 
+Docker
 
 物事を単純にするために、両方のコンポーネントが [Docker](https://www.docker.com) を使用して実行されます。**Docker** は、さまざまコンポーネントをそれぞれの環境に分離することを可能にするコンテナ・テクノロジです。
 
@@ -307,7 +307,7 @@ cd tutorials.Roles-Permissions
 
 次の `example.com` のメンバーはアカウントに登録しましたが、アクセスを許可する理由はありません。
 
-* Eve - 盗聴者のイブ 
+* Eve - 盗聴者のイブ
 * Mallory - 悪意のある攻撃者のマロリー
 * Rob - 強盗のロブ
 
@@ -395,7 +395,6 @@ select id, username, email, password from user;
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/auth/tokens' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
   "name": "alice-the-admin@test.com",
@@ -444,7 +443,6 @@ Connection: keep-alive
 ```console
 curl -iX GET \
   'http://localhost:3005/v1/auth/tokens' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa' \
   -H 'X-Subject-token: bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
@@ -510,7 +508,6 @@ REST API を使用して新しいアプリケーションを作成するには�
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/applications' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa' \
   -d '{
@@ -561,8 +558,7 @@ curl -iX POST \
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -597,8 +593,7 @@ curl -X GET \
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -632,11 +627,8 @@ GUI 内では、アプリケーションを選択して、`edit` をクリック
 
 ```console
 curl -X PATCH \
-  'http://{{keyrock}}/v1/applications/{{application-id}}' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: d1923548-a6c4-4c95-b850-9248052d26bf' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
   "application": {
@@ -676,7 +668,6 @@ GUI 内で、ユーザはアプリケーションを選択して、`edit` をク
 ```console
 curl -iX DELETE \
   'http://localhost:3005/v1/applications/{{applications-id}}' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -703,7 +694,7 @@ GUI 内では、アプリケーションを選択し、**Manage Roles** をク�
 
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/create-permission.png)
 
-ウィザードに記入し、***Save** をクリックします。
+ウィザードに記入し、**Save** をクリックします。
 
 REST API 経由で新しいパーミッションを作成するには、以前にログインしたユーザの `X-Auth-token` ヘッダとともに、アクションとリソースを含む `/applications/{{application-id}}/permissions` エンドポイントに POST リクエストを送信します。
 
@@ -711,8 +702,7 @@ REST API 経由で新しいパーミッションを作成するには、以前�
 
 ```console
 curl -iX POST \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/permissions' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/permissions' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -750,8 +740,7 @@ curl -iX POST \
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/permissions/{{permission-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/permissions/{{permission-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -784,8 +773,7 @@ curl -X GET \
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/permissions' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/permissions' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -843,8 +831,7 @@ curl -X GET \
 
 ```console
 curl -X PATCH \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/permissions/{{permission-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/permissions/{{permission-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -878,7 +865,6 @@ curl -X PATCH \
 ```console
 curl -X DELETE \
   'http://keyrock/v1/applications/{{application_id}}/permissions/{{permission_id}}' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -919,11 +905,8 @@ REST API を介して新しいロールを作成するには、以前にログ�
 
 ```console
 curl -X POST \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 6ac70492-c150-497f-93ba-c77c38b16c6c' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
   "role": {
@@ -956,8 +939,7 @@ curl -X POST \
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -986,11 +968,8 @@ curl -X GET \
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 8c66de7c-3c4a-45d0-ad3f-f2ffa2cf3bf9' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
@@ -1030,8 +1009,7 @@ curl -X GET \
 
 ```console
 curl -iX PATCH \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -1062,8 +1040,7 @@ curl -iX PATCH \
 
 ```console
 curl -iX DELETE \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1086,8 +1063,7 @@ REST API を使用してアクセス許可を追加するために、次に示�
 
 ```console
 curl -iX POST \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}/permissions/{{permission-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}/permissions/{{permission-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1114,8 +1090,7 @@ curl -iX POST \
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}/permissions' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}/permissions' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1157,7 +1132,6 @@ REST API を使用してパーミッションを削除するには、URL パス�
 ```console
 curl -X DELETE \
   'http://keyrock/v1/applications/{{application_id}}/roles/{{role_id}}/permissions/{{permission_id}}' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1193,11 +1167,8 @@ curl -X DELETE \
 
 ```console
 curl -X POST \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 634fe0ea-674d-4624-a038-ac00c26025c4' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
@@ -1225,11 +1196,8 @@ curl -X POST \
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: dde79de0-8125-40e6-98e3-99c08fb25da1' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
@@ -1259,8 +1227,7 @@ REST API を使用してロールを取り消すには、URL パスに `<applica
 
 ```console
 curl -iX DELETE \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1281,8 +1248,7 @@ GUI によるユーザ・アクセスの付与は、組織と同じ方法で実�
 
 ```console
 curl -X POST \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1308,11 +1274,8 @@ curl -X POST \
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/users/{{user-id}}/roles' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 4d4ee7f6-6eb1-4455-a451-3a9f50fb432b' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
@@ -1340,11 +1303,8 @@ curl -X GET \
 
 ```console
 curl -X DELETE \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 554b4d57-4a17-450f-911d-370f0f512d70' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
@@ -1362,11 +1322,8 @@ curl -X DELETE \
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/organizations' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/organizations' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 4d4ee7f6-6eb1-4455-a451-3a9f50fb432b' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
@@ -1395,11 +1352,8 @@ curl -X GET \
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/users' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/users' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 4d4ee7f6-6eb1-4455-a451-3a9f50fb432b' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 

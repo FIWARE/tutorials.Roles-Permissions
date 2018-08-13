@@ -367,8 +367,8 @@ CREATE TABLE `organization` (
 LOCK TABLES `organization` WRITE;
 /*!40000 ALTER TABLE `organization` DISABLE KEYS */;
 INSERT INTO `organization` VALUES 
-('security-0000-0000-0000-000000000000','Security','Security Group for Store Detectives',NULL,'default'),
-('managers-0000-0000-0000-000000000000','Management','Management Group for Store Managers',NULL,'default');
+('security-team-0000-0000-000000000000','Security','Security Group for Store Detectives',NULL,'default'),
+('managers-team-0000-0000-000000000000','Management','Management Group for Store Managers',NULL,'default');
 /*!40000 ALTER TABLE `organization` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -661,14 +661,14 @@ CREATE TABLE `user_organization` (
 LOCK TABLES `user_organization` WRITE;
 /*!40000 ALTER TABLE `user_organization` DISABLE KEYS */;
 INSERT INTO `user_organization` VALUES 
-(2,'owner', 'aaaaaaaa-good-0000-0000-000000000000','security-0000-0000-0000-000000000000'),
-(3,'owner', 'aaaaaaaa-good-0000-0000-000000000000','managers-0000-0000-0000-000000000000'),
-(4,'owner', 'bbbbbbbb-good-0000-0000-000000000000','managers-0000-0000-0000-000000000000'),
-(5,'member','manager1-good-0000-0000-000000000000','managers-0000-0000-0000-000000000000'),
-(6,'member','manager2-good-0000-0000-000000000000','managers-0000-0000-0000-000000000000'),
-(7,'owner', 'cccccccc-good-0000-0000-000000000000','security-0000-0000-0000-000000000000'),
-(8,'member','detective1-good-0000-0000-000000000000','security-0000-0000-0000-000000000000'),
-(9,'member','detective2-good-0000-0000-000000000000','security-0000-0000-0000-000000000000');
+(2,'owner', 'aaaaaaaa-good-0000-0000-000000000000','security-team-0000-0000-000000000000'),
+(3,'owner', 'aaaaaaaa-good-0000-0000-000000000000','managers-team-0000-0000-000000000000'),
+(4,'owner', 'bbbbbbbb-good-0000-0000-000000000000','managers-team-0000-0000-000000000000'),
+(5,'member','manager1-good-0000-0000-000000000000','managers-team-0000-0000-000000000000'),
+(6,'member','manager2-good-0000-0000-000000000000','managers-team-0000-0000-000000000000'),
+(7,'owner', 'cccccccc-good-0000-0000-000000000000','security-team-0000-0000-000000000000'),
+(8,'member','detective1-good-0000-0000-000000000000','security-team-0000-0000-000000000000'),
+(9,'member','detective2-good-0000-0000-000000000000','security-team-0000-0000-000000000000');
 /*!40000 ALTER TABLE `user_organization` ENABLE KEYS */;
 UNLOCK TABLES;
 

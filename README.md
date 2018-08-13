@@ -202,7 +202,7 @@ The overall architecture will consist of the following elements:
         * An equivalent REST API for Identity Management via HTTP requests
 
 * One [MySQL](https://www.mysql.com/) database :
-    * Used to persist user identities, applications, roles and permissions 
+    * Used to persist user identities, applications, roles and permissions
 
 
 Since all interactions between the elements are initiated by HTTP requests, the entities can be containerized and run from exposed ports.
@@ -374,8 +374,8 @@ Two organizations have also been set up by Alice:
 
 | Name       | Description                         | UUID                                 |
 |------------|-------------------------------------|--------------------------------------|
-| Security   | Security Group for Store Detectives |`security-0000-0000-0000-000000000000`|
-| Management | Management Group for Store Managers |`managers-0000-0000-0000-000000000000`|
+| Security   | Security Group for Store Detectives |`security-team-0000-0000-000000000000`|
+| Management | Management Group for Store Managers |`managers-team-0000-0000-000000000000`|
 
 To save time, the data creating users and organizations from the [previous tutorial](https://github.com/Fiware/tutorials.Identity-Management) has been downloaded and is automatically persisted to the MySQL
 database on start-up so the assigned UUIDs do not change and the data does not need to be entered again
@@ -450,7 +450,6 @@ The following example logs in using the Admin Super-User:
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/auth/tokens' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
   "name": "alice-the-admin@test.com",
@@ -500,7 +499,6 @@ user authorized with the token `{{X-Auth-token}}` (i.e Alice) is enquiring about
 ```console
 curl -iX GET \
   'http://localhost:3005/v1/auth/tokens' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa' \
   -H 'X-Subject-token: bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
@@ -573,7 +571,6 @@ three different grant types
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/applications' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa' \
   -d '{
@@ -631,8 +628,7 @@ The `X-Auth-token` must be supplied in the headers.
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -669,8 +665,7 @@ by making a GET request to the  `/v1/applications` endpoint and supplying the  `
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -706,11 +701,8 @@ applications he is associated with.
 
 ```console
 curl -X PATCH \
-  'http://{{keyrock}}/v1/applications/{{application-id}}' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: d1923548-a6c4-4c95-b850-9248052d26bf' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
   "application": {
@@ -752,7 +744,6 @@ endpoint. The `X-Auth-token` header must also be set.
 ```console
 curl -iX DELETE \
   'http://localhost:3005/v1/applications/{{applications-id}}' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -793,8 +784,7 @@ To create a new permission via the REST API, send a POST request to the `/applic
 
 ```console
 curl -iX POST \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/permissions' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/permissions' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -834,8 +824,7 @@ listed under that id. The `X-Auth-token` must be supplied in the headers.
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/permissions/{{permission-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/permissions/{{permission-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -870,8 +859,7 @@ the  `/v1/applications/{{application-id}}/permissions` endpoint
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/permissions' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/permissions' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -929,8 +917,7 @@ To amend the details of an existing permission, a  PATCH request is send to the 
 
 ```console
 curl -X PATCH \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/permissions/{{permission-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/permissions/{{permission-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -963,7 +950,6 @@ Deleting a permission from an application automatically removes that permission 
 ```console
 curl -X DELETE \
   'http://keyrock/v1/applications/{{application_id}}/permissions/{{permission_id}}' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1012,11 +998,8 @@ containing the `name` of the new role, with the `X-Auth-token` header from a pre
 
 ```console
 curl -X POST \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 6ac70492-c150-497f-93ba-c77c38b16c6c' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
   "role": {
@@ -1050,8 +1033,7 @@ listed under that id. The `X-Auth-token` must be supplied in the headers.
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1081,11 +1063,8 @@ the  `/v1/applications/{{application-id}}/roles` endpoint
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 8c66de7c-3c4a-45d0-ad3f-f2ffa2cf3bf9' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
@@ -1124,8 +1103,7 @@ It is possible to amend the name of a role using a  PATCH request is sent to the
 
 ```console
 curl -iX PATCH \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -1156,8 +1134,7 @@ Application roles can also be deleted - this will also remove the role from any 
 
 ```console
 curl -iX DELETE \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1185,8 +1162,7 @@ themselves using an `X-Auth-Token` in the header.
 
 ```console
 curl -iX POST \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}/permissions/{{permission-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}/permissions/{{permission-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1213,8 +1189,7 @@ A full list of all permissions assigned to an application role can be retrieved 
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/roles/{{role-id}}/permissions' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}/permissions' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1257,7 +1232,6 @@ themselves using an `X-Auth-Token` in the header.
 ```console
 curl -X DELETE \
   'http://keyrock/v1/applications/{{application_id}}/roles/{{role_id}}/permissions/{{permission_id}}' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1314,11 +1288,8 @@ This example adds the role to all members of the organization
 
 ```console
 curl -X POST \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 634fe0ea-674d-4624-a038-ac00c26025c4' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
@@ -1346,11 +1317,8 @@ A full list of roles granted to an organization can be retrieved by making a GET
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: dde79de0-8125-40e6-98e3-99c08fb25da1' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
@@ -1382,8 +1350,7 @@ The following example revokes a role to `members` of the organization.
 
 ```console
 curl -iX DELETE \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1408,8 +1375,7 @@ themselves using an `X-Auth-Token` in the header.
 
 ```console
 curl -X POST \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}' \
-  -H 'Accept: application/json' \
+  'http://localhost:3005/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1435,11 +1401,8 @@ To list the roles granted to an Individual user, make a GET request to the
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/users/{{user-id}}/roles' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 4d4ee7f6-6eb1-4455-a451-3a9f50fb432b' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
@@ -1468,11 +1431,8 @@ themselves using an `X-Auth-Token` in the header.
 
 ```console
 curl -X DELETE \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 554b4d57-4a17-450f-911d-370f0f512d70' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
@@ -1491,11 +1451,8 @@ To list all organizations which are authorized to use an application, make a GET
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/organizations' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/organizations' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 4d4ee7f6-6eb1-4455-a451-3a9f50fb432b' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
@@ -1526,11 +1483,8 @@ To list all individual users who are authorized to use an application, make a GE
 
 ```console
 curl -X GET \
-  'http://{{keyrock}}/v1/applications/{{application-id}}/users' \
-  -H 'Accept: application/json' \
-  -H 'Cache-Control: no-cache' \
+  'http://localhost:3005/v1/applications/{{application-id}}/users' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 4d4ee7f6-6eb1-4455-a451-3a9f50fb432b' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
