@@ -100,7 +100,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
@@ -137,7 +138,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
@@ -172,7 +174,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
@@ -206,15 +209,12 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
 										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "{{Content-Type}}"
 									},
 									{
 										"key": "X-Auth-token",
@@ -248,7 +248,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
@@ -312,7 +313,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
@@ -355,7 +357,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
@@ -392,7 +395,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
@@ -1274,11 +1278,13 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json"
+								"value": "application/json",
+								"disabled": true
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/json"
+								"value": "application/json",
+								"disabled": true
 							},
 							{
 								"key": "X-Auth-token",
@@ -1287,7 +1293,7 @@
 						],
 						"body": {},
 						"url": {
-							"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/users/{{user-id}}/roles",
+							"raw": "http://{{keyrock}}/v1/applications/{{application-id}}/organizations",
 							"protocol": "http",
 							"host": [
 								"{{keyrock}}"
@@ -1296,9 +1302,7 @@
 								"v1",
 								"applications",
 								"{{application-id}}",
-								"users",
-								"{{user-id}}",
-								"roles"
+								"organizations"
 							]
 						},
 						"description": "To list all organizations which are authorized to use an application, make a GET request to the\n`/v1/applications/{{application-id}}/organizations` endpoint.\n\nThe response returns all organizations which can access the application and the roles \nthey have been assigned. Individual members are not listed."
@@ -1392,56 +1396,56 @@
 	],
 	"variable": [
 		{
-			"id": "5cb1dd0f-033f-4d3d-bbcc-2c44ba0e5a7f",
+			"id": "9ad120c8-a27b-4636-91bd-5c4be9aae46d",
 			"key": "keyrock",
 			"value": "localhost:3005",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "0e0572c5-5102-4b0d-9c63-789e91b32e19",
+			"id": "9d231f61-7373-4abd-9e9a-c2d2b517b0d6",
 			"key": "X-Auth-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "5c6b2d06-d369-47ee-be2c-542eafb10866",
+			"id": "286bbb55-205d-46ac-b8d2-07392fbb975a",
 			"key": "X-Subject-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "274ddd1f-3873-49b4-bfd4-98515e3cf93c",
+			"id": "366b1d80-8e71-4676-b3fd-5c57a2fa223a",
 			"key": "user-id",
 			"value": "bbbbbbbb-good-0000-0000-000000000000",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "6c9cd871-127e-49d7-a231-7f513f8d1d3d",
+			"id": "72619363-0da5-4c8f-a6f8-8ffa37dafef3",
 			"key": "organization-id",
 			"value": "security-team-0000-0000-000000000000",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "98c664d9-8df2-4e8b-b356-049c39610ffc",
+			"id": "aa0b7116-1a45-4b3d-bcf4-ebb6f864ccf4",
 			"key": "application-id",
 			"value": "tutorial-dckr-site-0000-xpresswebapp",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "1f709db3-0f3f-4cc9-bee3-d77b9233cb24",
+			"id": "83b39f26-638b-4c30-85a4-27fa19917a09",
 			"key": "role-id",
 			"value": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "f312a6bd-7191-40f6-bb8b-9be1bb20578c",
+			"id": "c64e9b73-25e7-4b1b-936f-1464f4429360",
 			"key": "permission-id",
 			"value": "c21983d5-58f9-4bcc-b2b0-f21819080ad0",
 			"type": "string",
