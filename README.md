@@ -19,7 +19,6 @@ to access the **Keyrock** REST API - [Postman documentation](http://fiware.githu
 
 - [What is Authorization?](#what-is-authorization)
   * [Standard Concepts of Identity Management](#standard-concepts-of-identity-management)
-  * [OAuth2](#oauth2)
 - [Prerequisites](#prerequisites)
   * [Docker](#docker)
   * [Cygwin](#cygwin)
@@ -135,35 +134,6 @@ Additionally two further non-human application objects can be secured within a F
 
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/entities.png)
 
-## OAuth2
-
-**Keyrock** uses [OAuth2](https://oauth.net/2/) to enable third-party applications
-to obtain limited access to services. **OAuth2** is the open standard for access delegation to
-grant access rights. It allows notifying a resource provider (e.g. the Knowage Generic Enabler)
-that the resource  owner (e.g. you) grants permission to a third-party (e.g. a Knowage Application)
-access to their information (e.g. the list of entities).
-
-There are several common OAuth 2.0 grant flows, the details of which can be found below:
-
-* [Authorization Code](https://oauth.net/2/grant-types/authorization-code)
-* [Implicit](https://oauth.net/2/grant-types/implicit)
-* [Password](https://oauth.net/2/grant-types/password)
-* [Client Credentials](https://oauth.net/2/grant-types/client-credentials)
-* [Device Code](https://oauth.net/2/grant-types/device-code)
-* [Refresh Token](https://oauth.net/2/grant-types/refresh-token)
-
-The primary concept is that both **Users**  and **Applications** must first identify themselves using
-a standard OAuth2 Challenge-Response mechanism. Thereafter a user is assigned a token which they
-append to every subsequent request. This token identifies the user, the application and the rights the
-user is able to exercise.  **Keyrock** can then be used with other enablers can be used to limit and
-lock-down access. The details of the access flows are discussed below and in subsequent tutorials.
-
-The reasoning behind OAuth2 is that you never need to expose your own username and password to a
-third party to give them  full access - you merely permit the relevant access which can be either Read-Only
-or Read-Write and such access can be defined down to a granular level. Furthermore there is provision for
-revoking access at any time, leaving the resource owner in control of who can access what.
-
-
 # Prerequisites
 
 ## Docker
@@ -197,7 +167,7 @@ The overall architecture will consist of the following elements:
 
 * One **FIWARE Generic Enabler**:
     * FIWARE [Keyrock](http://fiware-idm.readthedocs.io/) offer a complement Identity Management System including:
-        * An OAuth2 authentication system for Applications and Users
+        * An authentication system for Applications and Users
         * A website graphical front-end for Identity Management Administration
         * An equivalent REST API for Identity Management via HTTP requests
 
@@ -240,7 +210,7 @@ The `idm` container is a web app server listening on a single port:
 * Port `3005` has been  exposed for HTTP traffic so we can display the webpage and interact with the REST API.
 
 > **Note** The HTTP protocols is being used for demonstration purposes only.
-> In a production environment, all OAuth2 Authentication should occur over HTTPS, to avoid sending
+> In a production environment, all authentication should occur over HTTPS, to avoid sending
 > any sensitive information using plain-text.
 
 The `idm` container is driven by environment variables as shown:
@@ -558,7 +528,7 @@ From the homepage of the GUI, a new application can be created by clicking the *
 To create a new application via the REST API, send a POST request to the `/v1/applications` endpoint containing details of the application
 such as `name` and `description`, along with OAuth information fields such as  the `url`  of the webservice to be protected,
 and `redirect_uri` (where a user will be challenged for their credentials). The `grant_types` are chosen from the available list of
-OAuth2 grant flows.
+OAuth2 grant flows which are discussed in a [subsequent tutorial](http://fiware.github.io/tutorials.Securing-Access)
 The headers include the  `X-Auth-token` from a previously logged in user will automatically be granted a provider role over the application.
 
 
