@@ -1271,7 +1271,7 @@ The response lists the role assignment as shown:
 {
     "role_organization_assignments": {
         "role_id": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c",
-        "organization_id": "security-0000-0000-0000-000000000000",
+        "organization_id": "security-team-0000-0000-000000000000",
         "oauth_client_id": "3782c5e3-88f9-481a-9b3c-2f2d6f604482",
         "role_organization": "member"
     }
@@ -1300,7 +1300,7 @@ The response shows all roles assigned to the organization
 {
     "role_organization_assignments": [
         {
-            "organization_id": "security-0000-0000-0000-000000000000",
+            "organization_id": "security-team-0000-0000-000000000000",
             "role_id": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c"
         }
     ]
@@ -1435,7 +1435,7 @@ Individual members are not listed.
 {
     "role_organization_assignments": [
         {
-            "organization_id": "security-0000-0000-0000-000000000000",
+            "organization_id": "security-team-0000-0000-000000000000",
             "role_organization": "member",
             "role_id": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c"
         }

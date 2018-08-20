@@ -328,8 +328,8 @@ cd tutorials.Roles-Permissions
 
 | 名前       | 説明                                   | UUID                                 |
 |------------|----------------------------------------|--------------------------------------|
-| Security   | 店員のためのセキュリティ・グループ     |`security-0000-0000-0000-000000000000`|
-| Management | ストア・マネージャのための管理グループ |`managers-0000-0000-0000-000000000000`|
+| Security   | 店員のためのセキュリティ・グループ     |`security-team-0000-0000-000000000000`|
+| Management | ストア・マネージャのための管理グループ |`managers-team-0000-0000-000000000000`|
 
 時間を節約するために、[以前のチュートリアル](https://github.com/Fiware/tutorials.Identity-Management)からユーザと組織を作成するデータがダウンロードされ、起動時に自動的に MySQL データベースに保存されるため、UUIDs が変更されず、データを再入力する必要もありません。
 
@@ -1180,7 +1180,7 @@ curl -X POST \
 {
     "role_organization_assignments": {
         "role_id": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c",
-        "organization_id": "security-0000-0000-0000-000000000000",
+        "organization_id": "security-team-0000-0000-000000000000",
         "oauth_client_id": "3782c5e3-88f9-481a-9b3c-2f2d6f604482",
         "role_organization": "member"
     }
@@ -1209,7 +1209,7 @@ curl -X GET \
 {
     "role_organization_assignments": [
         {
-            "organization_id": "security-0000-0000-0000-000000000000",
+            "organization_id": "security-team-0000-0000-000000000000",
             "role_id": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c"
         }
     ]
@@ -1335,7 +1335,7 @@ curl -X GET \
 {
     "role_organization_assignments": [
         {
-            "organization_id": "security-0000-0000-0000-000000000000",
+            "organization_id": "security-team-0000-0000-000000000000",
             "role_organization": "member",
             "role_id": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c"
         }
