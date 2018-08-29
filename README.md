@@ -186,7 +186,7 @@ The specific architecture of each section of the tutorial is discussed below.
 
 ```yaml
   idm:
-    image: fiware-idm
+    image: fiware/idm
     container_name: idm
     hostname: idm
     depends_on:

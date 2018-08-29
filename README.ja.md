@@ -178,7 +178,7 @@ Docker
 
 ```yaml
   idm:
-    image: fiware-idm
+    image: fiware/idm
     container_name: idm
     hostname: idm
     depends_on:
