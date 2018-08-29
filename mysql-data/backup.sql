@@ -152,6 +152,7 @@ DROP TABLE IF EXISTS `iot`;
 CREATE TABLE `iot` (
   `id` varchar(255) NOT NULL,
   `password` varchar(40) DEFAULT NULL,
+  `salt` varchar(40) DEFAULT NULL,
   `oauth_client_id` char(36) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `oauth_client_id` (`oauth_client_id`),
@@ -382,6 +383,7 @@ DROP TABLE IF EXISTS `pep_proxy`;
 CREATE TABLE `pep_proxy` (
   `id` varchar(255) NOT NULL,
   `password` varchar(40) DEFAULT NULL,
+  `salt` varchar(40) DEFAULT NULL,
   `oauth_client_id` char(36) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `oauth_client_id` (`oauth_client_id`),
@@ -574,6 +576,7 @@ CREATE TABLE `user` (
   `gravatar` tinyint(1) DEFAULT '0',
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(40) DEFAULT NULL,
+  `salt` varchar(40) DEFAULT NULL,
   `date_password` datetime DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT '0',
   `admin` tinyint(1) DEFAULT '0',
@@ -593,16 +596,16 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES 
-('aaaaaaaa-good-0000-0000-000000000000','alice', 'Alice is the admin',NULL,'default',0,'alice-the-admin@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,1,NULL,NULL,0,NULL),
-('bbbbbbbb-good-0000-0000-000000000000','bob','Bob is the regional manager',NULL,'default',0,'bob-the-manager@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
-('cccccccc-good-0000-0000-000000000000','charlie','Charlie is head of security',NULL,'default',0,'charlie-security@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
-('manager1-good-0000-0000-000000000000','manager1','Manager works for Bob',NULL,'default',0,'manager1@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
-('manager2-good-0000-0000-000000000000','manager2','Manager works for Bob',NULL,'default',0,'manager2@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
-('detective1-good-0000-0000-000000000000','detective1','Detective works for Charlie',NULL,'default',0,'detective1@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
-('detective2-good-0000-0000-000000000000','detective2','Detective works for Charlie',NULL,'default',0,'detective2@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
-('eve-evil-0000-0000-000000000000','eve','Eve the Eavesdropper',NULL,'default',0,'eve@example.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
-('mallory-evil-0000-0000-000000000000','mallory','Mallory the malicious attacker',NULL,'default',0,'mallory@example.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
-('rob-evil-0000-0000-000000000000','rob','Rob the Robber' ,NULL,'default',0,'rob@example.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca','2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL);/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+('aaaaaaaa-good-0000-0000-000000000000','alice', 'Alice is the admin',NULL,'default',0,'alice-the-admin@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca', NULL, '2018-07-30 11:41:14',1,1,NULL,NULL,0,NULL),
+('bbbbbbbb-good-0000-0000-000000000000','bob','Bob is the regional manager',NULL,'default',0,'bob-the-manager@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca', NULL, '2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('cccccccc-good-0000-0000-000000000000','charlie','Charlie is head of security',NULL,'default',0,'charlie-security@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca', NULL, '2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('manager1-good-0000-0000-000000000000','manager1','Manager works for Bob',NULL,'default',0,'manager1@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca', NULL, '2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('manager2-good-0000-0000-000000000000','manager2','Manager works for Bob',NULL,'default',0,'manager2@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca', NULL, '2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('detective1-good-0000-0000-000000000000','detective1','Detective works for Charlie',NULL,'default',0,'detective1@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca', NULL, '2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('detective2-good-0000-0000-000000000000','detective2','Detective works for Charlie',NULL,'default',0,'detective2@test.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca', NULL, '2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('eve-evil-0000-0000-000000000000','eve','Eve the Eavesdropper',NULL,'default',0,'eve@example.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca', NULL, '2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('mallory-evil-0000-0000-000000000000','mallory','Mallory the malicious attacker',NULL,'default',0,'mallory@example.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca', NULL, '2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL),
+('rob-evil-0000-0000-000000000000','rob','Rob the Robber' ,NULL,'default',0,'rob@example.com','e9f7c64ec2895eec281f8fd36e588d1bc762bcca', NULL, '2018-07-30 11:41:14',1,0,NULL,NULL,0,NULL);/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
