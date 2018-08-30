@@ -758,7 +758,7 @@
 						{
 							"name": "Assign a permission to a role",
 							"request": {
-								"method": "POST",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Accept",
@@ -794,7 +794,7 @@
 										"{{permission-id}}"
 									]
 								},
-								"description": "Within the GUI, select the role and check permissions from the list before saving.\n\n![](https://fiware.github.io/tutorials.Roles-Permissions/img/add-permission-to-role.png)\n\nTo add a permission using the REST API make a POST request as shown, including\nthe `<application-id>`, `<role-id>` and `<permission-id>` in the URL path and identifying\nthemselves using an `X-Auth-Token` in the header.\n\nThe response returns the permissions for the role"
+								"description": "Within the GUI, select the role and check permissions from the list before saving.\n\n![](https://fiware.github.io/tutorials.Roles-Permissions/img/add-permission-to-role.png)\n\nTo add a permission using the REST API make a PUT request as shown, including\nthe `<application-id>`, `<role-id>` and `<permission-id>` in the URL path and identifying\nthemselves using an `X-Auth-Token` in the header.\n\nThe response returns the permissions for the role"
 							},
 							"response": []
 						},
@@ -951,7 +951,7 @@
 						{
 							"name": "Grant a role to a organization",
 							"request": {
-								"method": "POST",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Accept",
@@ -986,7 +986,7 @@
 										"member"
 									]
 								},
-								"description": "To grant an organization access to an application, click on the appliation to get to the details\npage and scroll to the bottom of the page, click the **Authorize** button and select the relevant\norganization.\n\n![](https://fiware.github.io/tutorials.Roles-Permissions/img/add-role-to-org.png)\n\nA Role can be granted to either `members` or `owners` of an Organization. Using\nthe REST API, the role can be granted  making a POST request as shown, including\nthe `<application-id>`, `<role-id>` and `<organzation-id>` in the URL path and identifying\nthemselves using an `X-Auth-Token` in the header."
+								"description": "To grant an organization access to an application, click on the appliation to get to the details\npage and scroll to the bottom of the page, click the **Authorize** button and select the relevant\norganization.\n\n![](https://fiware.github.io/tutorials.Roles-Permissions/img/add-role-to-org.png)\n\nA Role can be granted to either `members` or `owners` of an Organization. Using\nthe REST API, the role can be granted  making a PUT request as shown, including\nthe `<application-id>`, `<role-id>` and `<organzation-id>` in the URL path and identifying\nthemselves using an `X-Auth-Token` in the header."
 							},
 							"response": []
 						},
@@ -1103,7 +1103,7 @@
 						{
 							"name": "Grant a role to a user",
 							"request": {
-								"method": "POST",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Accept",
@@ -1135,7 +1135,8 @@
 										"roles",
 										"{{role-id}}"
 									]
-								}
+								},
+								"description": "Granting User access via the GUI can be done in the same manner as for organizations.\n\nUsing the REST API, the role can be granted  making a PUT request as shown, including\nthe `<application-id>`, `<role-id>` and `<user-id>` in the URL path and identifying\nthemselves using an `X-Auth-Token` in the header."
 							},
 							"response": []
 						},
@@ -1396,56 +1397,56 @@
 	],
 	"variable": [
 		{
-			"id": "dd38071b-5573-4548-bd99-f8df3734d1e3",
+			"id": "7121332f-c342-4676-ad29-fabfb268ab67",
 			"key": "keyrock",
 			"value": "localhost:3005",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "cde73e20-e7f4-4a80-9400-0573b93df713",
+			"id": "e84c5a2d-04a2-4bd3-8519-e2c65469318b",
 			"key": "X-Auth-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "443cd2aa-92ac-46cc-8e4c-cc5c667c7433",
+			"id": "8341b6fe-ead4-4fc8-8c61-7be25531d81e",
 			"key": "X-Subject-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "a55c8edc-2330-4327-9d83-fd21dbe81f1c",
+			"id": "08173a06-74f0-4aec-9bee-9d96aacde936",
 			"key": "user-id",
 			"value": "bbbbbbbb-good-0000-0000-000000000000",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "db10143e-e818-412e-8d2c-ce89e36a1230",
+			"id": "d6db4eef-849c-41af-91a9-db1c85b1e132",
 			"key": "organization-id",
 			"value": "security-team-0000-0000-000000000000",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "740a921a-099a-4902-a53c-f0056b49c1b3",
+			"id": "7655a9b7-c9de-4c9a-91c9-bf8396901b7c",
 			"key": "application-id",
 			"value": "tutorial-dckr-site-0000-xpresswebapp",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "286747b7-fed4-42c7-b91f-273d87669a90",
+			"id": "0a915f7c-dee7-4697-83fe-e35afccba58b",
 			"key": "role-id",
 			"value": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "831d7cdb-9200-41e7-89c0-1db72f9a41a9",
+			"id": "092f6b9e-38dc-4ce2-942e-43f4db02dcf8",
 			"key": "permission-id",
 			"value": "c21983d5-58f9-4bcc-b2b0-f21819080ad0",
 			"type": "string",

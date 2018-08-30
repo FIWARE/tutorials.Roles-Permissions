@@ -1057,12 +1057,12 @@ GUI 内で、ロールを選択し、保存する前にリストからパーミ�
 
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/add-permission-to-role.png)
 
-REST API を使用してアクセス許可を追加するために、次に示されるように、URL パスに `<application-id>`, `<role-id>`, `<permission-id>` を含め、ヘッダに `X-Auth-Token` を使用して自身を識別する、POST リクエストを行います。
+REST API を使用してアクセス許可を追加するために、次に示されるように、URL パスに `<application-id>`, `<role-id>`, `<permission-id>` を含め、ヘッダに `X-Auth-Token` を使用して自身を識別する、PUT リクエストを行います。
 
 #### :one::eight: リクエスト :
 
 ```console
-curl -iX POST \
+curl -iX PUT \
   'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}/permissions/{{permission-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
@@ -1159,14 +1159,14 @@ curl -X DELETE \
 
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/add-role-to-org.png)
 
-ロールは、組織の `members` または `owners` のいずれかに付与することができます。REST API を使用すると、次に示すように、URL パスに `<application-id>`, `<organzation-id>` と `<role-id>` を含め、ヘッダに `X-Auth-Token` を使用して自身を識別する、 POST リクエストを行うことで、ロールを付与することができます。
+ロールは、組織の `members` または `owners` のいずれかに付与することができます。REST API を使用すると、次に示すように、URL パスに `<application-id>`, `<organzation-id>` と `<role-id>` を含め、ヘッダに `X-Auth-Token` を使用して自身を識別する、 PUT リクエストを行うことで、ロールを付与することができます。
 
 #### :two::one: リクエスト :
 
 この例では、組織のすべてのメンバにロールを追加します。
 
 ```console
-curl -X POST \
+curl -X PUT \
   'http://localhost:3005/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
@@ -1242,12 +1242,12 @@ curl -iX DELETE \
 
 GUI によるユーザ・アクセスの付与は、組織と同じ方法で実行できます。
 
-ロールは、組織の `members` または `owners` のいずれかに付与することができます。REST API を使用すると、次に示すように、URL パスに `<application-id>`, `<user-id>` と `<role-id>` を含め、ヘッダに `X-Auth-Token` を使用して自身を識別する、 POST リクエストを行うことで、ロールを付与することができます。
+ロールは、組織の `members` または `owners` のいずれかに付与することができます。REST API を使用すると、次に示すように、URL パスに `<application-id>`, `<user-id>` と `<role-id>` を含め、ヘッダに `X-Auth-Token` を使用して自身を識別する、 PUT リクエストを行うことで、ロールを付与することができます。
 
 #### :two::four: リクエスト :
 
 ```console
-curl -X POST \
+curl -iX PUT \
   'http://localhost:3005/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'

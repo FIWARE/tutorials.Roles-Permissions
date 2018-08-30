@@ -1124,14 +1124,14 @@ Within the GUI, select the role and check permissions from the list before savin
 
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/add-permission-to-role.png)
 
-To add a permission using the REST API make a POST request as shown, including
+To add a permission using the REST API make a PUT request as shown, including
 the `<application-id>`, `<role-id>` and `<permission-id>` in the URL path and identifying
 themselves using an `X-Auth-Token` in the header.
 
 #### :one::eight: Request:
 
 ```console
-curl -iX POST \
+curl -iX PUT \
   'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}/permissions/{{permission-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
@@ -1246,7 +1246,7 @@ organization.
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/add-role-to-org.png)
 
 A Role can be granted to either `members` or `owners` of an Organization. Using
-the REST API, the role can be granted  making a POST request as shown, including
+the REST API, the role can be granted  making a PUT request as shown, including
 the `<application-id>`, `<organzation-id>` and `<role-id>` in the URL path and identifying
 themselves using an `X-Auth-Token` in the header.
 
@@ -1257,7 +1257,7 @@ themselves using an `X-Auth-Token` in the header.
 This example adds the role to all members of the organization
 
 ```console
-curl -X POST \
+curl -X PUT \
   'http://localhost:3005/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
@@ -1335,8 +1335,7 @@ A defined role cannot be granted to a user unless the role has already been asso
 
 Granting User access via the GUI can be done in the same manner as for organizations.
 
-A Role can be granted to either `members` or `owners` of an Organization. Using
-the REST API, the role can be granted  making a POST request as shown, including
+Using the REST API, the role can be granted  making a PUT request as shown, including
 the `<application-id>`, `<role-id>` and `<user-id>` in the URL path and identifying
 themselves using an `X-Auth-Token` in the header.
 
@@ -1344,7 +1343,7 @@ themselves using an `X-Auth-Token` in the header.
 #### :two::four: Request:
 
 ```console
-curl -X POST \
+curl -iX PUT \
   'http://localhost:3005/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
