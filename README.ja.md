@@ -10,11 +10,10 @@
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/2febc0452a8977734480)
 
-# 内容
+# コンテンツ
 
 - [認可とは何ですか？](#what-is-authorization)
   * [ID 管理の標準概念](#standard-concepts-of-identity-management)
-  * [OAuth2](#oauth2)
 - [前提条件](#prerequisites)
   * [Docker](#docker)
   * [Cygwin](#cygwin)
@@ -110,24 +109,6 @@
 
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/entities.png)
 
-<a name="oauth2"></a>
-## OAuth2
-
-**Keyrock** は [OAuth2](https://oauth.net/2/) を使用して、サードパーティのアプリケーションがサービスへのアクセスを制限することを可能にします。**OAuth2** は、アクセス権限を与えるためのアクセス委任のためのオープン・スタンダードです。リソースのオーナーが自分の情報へのアクセスを第三者に許可することをリソース・プロバイダに通知することができます。例えば、あなたが、エンティティのリストへのアクセスを、Knowage アプリケーションに許可することを Knowage Generic Enabler に通知することができます。
-
-いくつかの一般的な OAuth 2.0 グラント・フロー (grant flows) があります。その詳細は以下のとおりです :
-
-* [Authorization Code](https://oauth.net/2/grant-types/authorization-code) (承認コード)
-* [Implicit](https://oauth.net/2/grant-types/implicit) (暗黙)
-* [Password](https://oauth.net/2/grant-types/password) (パスワード)
-* [Client Credentials](https://oauth.net/2/grant-types/client-credentials) (クライアントの資格情報)
-* [Device Code](https://oauth.net/2/grant-types/device-code) (デバイス・コード)
-* [Refresh Token](https://oauth.net/2/grant-types/refresh-token) (トークンをリフレッシュ)
-
-主なコンセプトは、**ユーザ**と**アプリケーション**の両方が、標準の OAuth2 チャレンジ・レスポンス・メカニズムを使用して、最初に自分自身を識別する必要があるということです。その後、ユーザは、その後のすべてのリクエストに追加するトークンを割り当てます。このトークンは、ユーザ、アプリケーション、およびユーザが実行できる権利を識別します。**Keyrock** を使用して、他の Enabler がアクセスを制限し、ロック・ダウンすることができます。アクセス・フローの詳細については、以下および後続のチュートリアルで説明します。
-
-OAuth2 の背後にある理由は、ユーザに完全なアクセス権を与えるために、自分のユーザ名とパスワードを第三者に公開する必要がないことです。関連するアクセスを許可するだけです。読み取り専用または読み書きのいずれかになる関連アクセスを許可するだけで、このようなアクセスは細かいレベルまで定義できます。さらに、いつでもアクセスを取り消すための規定があり、リソースのオーナーは誰に何にアクセスできるかを制御できます。
-
 <a name="prerequisites"></a>
 # 前提条件
 
@@ -159,7 +140,7 @@ Docker
 * 1つの **FIWARE Generic Enabler** :
 
     * FIWARE [Keyrock](http://fiware-idm.readthedocs.io/) は補完的な ID 管理システムを提供します :
-        * アプリケーションとユーザのための OAuth 2 認証システム
+        * アプリケーションとユーザのための認証システム
         * ID 管理のアドミニストレーションのための Web サイトのグラフィカル・フロントエンド
         * HTTP リクエストによる ID 管理用の同等の REST API
 
@@ -177,40 +158,54 @@ Docker
 ## Keyrock の設定
 
 ```yaml
-  idm:
+  keyrock:
     image: fiware/idm
-    container_name: idm
-    hostname: idm
+    container_name: fiware-keyrock
+    hostname: keyrock
     depends_on:
       - mysql-db
     ports:
       - "3005:3005"
-    networks:
-      default:
+      - "3443:3443"
     environment:
+      - DEBUG=idm:*
       - DATABASE_HOST=mysql-db
       - IDM_DB_PASS_FILE=/run/secrets/my_secret_data
       - IDM_DB_USER=root
       - IDM_HOST=http://localhost:3005
       - IDM_PORT=3005
+      - IDM_HTTPS_ENABLED=true
+      - IDM_HTTPS_PORT=3443
+      - IDM_ADMIN_USER=alice
+      - IDM_ADMIN_EMAIL=alice-the-admin@test.com
+      - IDM_ADMIN_PASS=test
     secrets:
       - my_secret_data
 ```
 
-`idm` コンテナは、単一のポートでリッスンしている、Web アプリケーション・サーバです :
+`keyrock` コンテナは、2つのポートでリッスンしている、Web アプリケーション・サーバです :
 
 * Port `3005` は HTTP トラフィックで公開されているため、Web ページを表示して REST API とやりとりすることができます。
+* Port `3443` は Web サイトおよび REST API の HTTPS トラフィックを保護するために公開されています
 
-> **注** HTTP プロトコルはデモ目的でのみ使用しています。実稼働環境では、プレーン・テキストを使用して機密情報を送信しないように、すべての OAuth2 認証が HTTPS 経由で行われる必要があります。
+> :information_source: **注** すべてのセキュアなアプリケーションで HTTPS を使用する必要がありますが、これを正しく行うには ** Keyrock** には信頼できる SSL 証明書が必要です。デフォルトの証明書は自己認証されており、テスト目的で利用できます。 証明書は、`/opt/fiware-idm/certs` の下にあるファイルを置き換えるためにボリュームを付加することで上書きすることができます。
+>
+> 実稼働環境では、プレーンテキストを使用して機密情報を送信しないように、HTTPS 経由ですべてのアクセスを行う必要があります。 また、設定された HTTPS リバース・プロキシの背後にあるプライベート・ネットワーク内で HTTP を使用することもできます。
+>
+> HTTP プロトコルを提供するポート `3005` は、デモンストレーションの目的でのみ公開されており、このチュートリアルでのインタラクションを簡素化するために、ポート 3443 で HTTPS を使用することもあります。
+>
+> Postman を使用しているときに HTTPS を使用して REST API にアクセスする場合は、SSL 証明書の検証がオフであることを確認してください。HTTPS を使用して Web フロントエンドにアクセスする場合は、発行されたセキュリティ警告を受け入れてください。
 
-`idm` コンテナは、次に示す環境変数によってドライブされます :
+`keyrock` コンテナは、次に示す環境変数によってドライブされます :
 
 | キー| 値  |   説明    |
 |-----|-----|-----------|
 |IDM_DB_PASS|`idm`| 接続する MySQL データベースのパスワード。**Docker Secrets** によって保護されています。下記を参照してください |
 |IDM_DB_USER|`root`|デフォルトの MySQL ユーザのユーザ名。プレーン・テキストです |
-|IDM_HOST|`http://localhost:3005`| **Keyrock** アプリケーション・サーバのホスト名。ユーザ登録時にアクティベーション e-mail で使用されます|
-|IDM_PORT|`3005`| **Keyrock** アプリケーション・サーバで使用されるポート。これは、衝突を避けるためにデフォルトの `3000` ポートから変更しています |
+|IDM_HOST|`http://localhost:3005`|  **Keyrock** アプリケーション・サーバのホスト名。ユーザ登録時にアクティベーション e-mail で使用されます|
+|IDM_PORT|`3005`|  **Keyrock** アプリケーション・サーバで使用される HTTP トラフィックのためのポート。これは、衝突を避けるためにデフォルトの `3000` ポートから変更しています|
+|IDM_HTTPS_ENABLED|`true`| HTTPS サポートを提供するかどうか。これは、オーバーライドされない限り、自己署名証明書を使用します |
+|IDM_HTTPS_PORT|`3443`| HTTP トラフィック用の **Keyrock** アプリケーション・サーバで使用されるポート。デフォルトの 443 から変更されています。|
 
 > :information_source: **注** この例では、**Docker Secrets** を使用して MySQL パスワードを保護していることに注意してください。`_FILE` サフィックスを持つ `IDM_DB_PASS` を使用し、シークレット・ファイルの場所を参照します。これによりプレーン・テキストの `ENV` 変数として、パスワードを公開することを避けることができます。`Dockerfile` イメージか `docker inspect` を使って読むことができる注入変数 (an injected variable ) です。
 
@@ -301,7 +296,7 @@ cd tutorials.Roles-Permissions
 * Bod, スーパー・マーケット・チェーンの地域マネージャ。彼の下に数人のマネージャがいます :
   * Manager1
   * Manager2
-* Charlie, スーパー・マーケットチェーン・のセキュリティ責任者。彼の下に数人の警備員がいます。
+* Charlie, スーパー・マーケット・チェーンのセキュリティ責任者。彼の下に数人の警備員がいます。
   * Detective1
   * Detective2
 
@@ -360,6 +355,8 @@ mysql -u <user> -p<password> idm
 select id, username, email, password from user;
 ```
 
+**Keyrock** MySQL データベースは、ユーザ、パスワードなどの格納を含むアプリケーション・セキュリティのあらゆる側面を扱います。アクセス権を定義し、OAuth2 認証プロトコルを扱います。完全なデータベース関係図は[ここ](https://fiware.github.io/tutorials.Roles-Permissions/img/keyrock-db.png)にあります。
+
 <a name="uuids-within-keyrock"></a>
 ### Keyrock 内の UUIDs
 
@@ -367,7 +364,7 @@ select id, username, email, password from user;
 
 | キー| 説明                              | サンプル値   |
 |-----|-----------------------------------|--------------|
-|`keyrock`| **Keyrock** サービスの場所の URL |`localhost:3005`|
+|`keyrock`| **Keyrock** サービスの場所の URL | HTTP 用 `localhost:3005`, HTTPS 用`localhost:3443` |
 |`X-Auth-token`| ユーザとしてログインするときにヘッダで受け取ったトークン |`aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa` = I am Alice|
 |`X-Subject-token`| サブジェクトについて問い合わせるときに渡すトークンで、代替はユーザ・トークンを繰り返ためのものです |`bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb` = Asking about Bob|
 |`user-id`| `user` テーブルで見つかった既存ユーザの id |`bbbbbbbb-good-0000-0000-000000000000` - Bob's User Id|
@@ -384,7 +381,7 @@ select id, username, email, password from user;
 <a name="logging-in-via-rest-api-calls"></a>
 ## REST API 呼び出しによるログイン
 
-アプリケーションに入るには、ユーザ名とパスワードを入力します。デフォルトのスーパー・ユーザ (super-user) は、`alice-the-admin@test.com` と `test` の値を持っています。
+アプリケーションに入るには、ユーザ名とパスワードを入力します。デフォルトのスーパー・ユーザ (super-user) は、`alice-the-admin@test.com` と `test` の値を持っています。URL `https://localhost:3443/v1/auth/tokens` はセキュアなシステムでも動作するはずです。
 
 <a name="create-token-with-password"></a>
 ### パスワードでトークンを作成
@@ -499,7 +496,7 @@ GUI のホームページから、**Register** ボタンをクリックすると
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/create-app.png)
 
 
-REST API を使用して新しいアプリケーションを作成するには、保護する Web サービスの `url` などの OAuth 情報フィールド、および `redirect_uri` などと`name` と `description` などのアプリケーションの詳細を含む POST リクエストを `/v1/applications` エンドポイントに送信します。ここでユーザはその資格情報の正当性をチェックされます。`grant_types` は、OAuth2 グラント・フローの利用可能なリストから選択されます。ヘッダには、以前にログインしたユーザの `X-Auth-token` が含まれており、アプリケーション上でプロバイダのロールが自動的に付与されます。
+REST API を使用して新しいアプリケーションを作成するには、保護する Web サービスの `url` などの OAuth 情報フィールド、および `redirect_uri` などと`name` と `description` などのアプリケーションの詳細を含む POST リクエストを `/v1/applications` エンドポイントに送信します。ここでユーザはその資格情報の正当性をチェックされます。`grant_types` は、[後続のチュートリアル](http://fiware.github.io/tutorials.Securing-Access) で議論する、OAuth2 グラント・フローの利用可能なリストから選択されます。ヘッダには、以前にログインしたユーザの `X-Auth-token` が含まれており、アプリケーション上でプロバイダのロールが自動的に付与されます。
 
 #### :three: リクエスト :
 
@@ -1242,7 +1239,7 @@ curl -iX DELETE \
 
 GUI によるユーザ・アクセスの付与は、組織と同じ方法で実行できます。
 
-ロールは、組織の `members` または `owners` のいずれかに付与することができます。REST API を使用すると、次に示すように、URL パスに `<application-id>`, `<user-id>` と `<role-id>` を含め、ヘッダに `X-Auth-Token` を使用して自身を識別する、 PUT リクエストを行うことで、ロールを付与することができます。
+REST API を使用すると、次に示すように、URL パスに `<application-id>`, `<user-id>` と `<role-id>` を含め、ヘッダに `X-Auth-Token` を使用して自身を識別する、 PUT リクエストを行うことで、ロールを付与することができます。
 
 #### :two::four: リクエスト :
 
