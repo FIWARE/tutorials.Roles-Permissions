@@ -270,6 +270,8 @@ CREATE TABLE `oauth_client` (
   `client_type` varchar(15) DEFAULT NULL,
   `scope` varchar(80) DEFAULT NULL,
   `extra` json DEFAULT NULL,
+  `token_type` varchar(15) DEFAULT 'bearer',
+  `jwt_secret` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
