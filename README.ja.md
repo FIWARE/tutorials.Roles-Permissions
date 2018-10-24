@@ -2,6 +2,8 @@
 
 [![FIWARE Security](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/security.svg)](https://www.fiware.org/developers/catalogue/)
 [![License: MIT](https://img.shields.io/github/license/fiware/tutorials.Roles-Permissions.svg)](https://opensource.org/licenses/MIT)
+[![Support badge](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/fiware.svg)](https://stackoverflow.com/questions/tagged/fiware)
+<br/>
 [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
 このチュートリアルでは、アプリケーションの作成方法と、ロールとパーミッションの割り当て方法について説明します。[以前のチュートリアル](https://github.com/Fiware/tutorials.Identity-Management)で作成したユーザと組織が必要であり、 正当なユーザだけがリソースにアクセスできるようにします。
