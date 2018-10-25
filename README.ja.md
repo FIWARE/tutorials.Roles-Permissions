@@ -8,7 +8,7 @@
 
 このチュートリアルでは、アプリケーションの作成方法と、ロールとパーミッションの割り当て方法について説明します。[以前のチュートリアル](https://github.com/Fiware/tutorials.Identity-Management)で作成したユーザと組織が必要であり、 正当なユーザだけがリソースにアクセスできるようにします。
 
-このチュートリアルでは、**Keyrock** GUI を使用した対話の例や、**Keyrock** REST API へのアクセスに使用される [cUrl](https://ec.haxx.se/) コマンド、[Postman documentation](http://fiware.github.io/tutorials.Roles-Permissions/) も使用できます。
+このチュートリアルでは、**Keyrock** GUI を使用した対話の例や、**Keyrock** REST API へのアクセスに使用される [cUrl](https://ec.haxx.se/) コマンド、[Postman documentation](https://fiware.github.io/tutorials.Roles-Permissions/) も使用できます。
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/2febc0452a8977734480)
 
@@ -135,13 +135,13 @@ Docker
 <a name="architecture"></a>
 # アーキテクチャ
 
-このイントロダクションでは、[Keyrock](http://fiware-idm.readthedocs.io/) Identity Management Generic Enabler という1つの FIWARE コンポーネントのみを使用します。**Keyrock** 単独での使用は、アプリケーションが *“Powered by FIWARE”* と認定するには不十分です。さらに、**MySQL** データベースにユーザ・データを保存する予定です。
+このイントロダクションでは、[Keyrock](https://fiware-idm.readthedocs.io/) Identity Management Generic Enabler という1つの FIWARE コンポーネントのみを使用します。**Keyrock** 単独での使用は、アプリケーションが *“Powered by FIWARE”* と認定するには不十分です。さらに、**MySQL** データベースにユーザ・データを保存する予定です。
 
 全体的なアーキテクチャは、次の要素で構成されます :
 
 * 1つの **FIWARE Generic Enabler** :
 
-    * FIWARE [Keyrock](http://fiware-idm.readthedocs.io/) は補完的な ID 管理システムを提供します :
+    * FIWARE [Keyrock](https://fiware-idm.readthedocs.io/) は補完的な ID 管理システムを提供します :
         * アプリケーションとユーザのための認証システム
         * ID 管理のアドミニストレーションのための Web サイトのグラフィカル・フロントエンド
         * HTTP リクエストによる ID 管理用の同等の REST API
@@ -498,7 +498,7 @@ GUI のホームページから、**Register** ボタンをクリックすると
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/create-app.png)
 
 
-REST API を使用して新しいアプリケーションを作成するには、保護する Web サービスの `url` などの OAuth 情報フィールド、および `redirect_uri` などと`name` と `description` などのアプリケーションの詳細を含む POST リクエストを `/v1/applications` エンドポイントに送信します。ここでユーザはその資格情報の正当性をチェックされます。`grant_types` は、[後続のチュートリアル](http://fiware.github.io/tutorials.Securing-Access) で議論する、OAuth2 グラント・フローの利用可能なリストから選択されます。ヘッダには、以前にログインしたユーザの `X-Auth-token` が含まれており、アプリケーション上でプロバイダのロールが自動的に付与されます。
+REST API を使用して新しいアプリケーションを作成するには、保護する Web サービスの `url` などの OAuth 情報フィールド、および `redirect_uri` などと`name` と `description` などのアプリケーションの詳細を含む POST リクエストを `/v1/applications` エンドポイントに送信します。ここでユーザはその資格情報の正当性をチェックされます。`grant_types` は、[後続のチュートリアル](https://fiware.github.io/tutorials.Securing-Access) で議論する、OAuth2 グラント・フローの利用可能なリストから選択されます。ヘッダには、以前にログインしたユーザの `X-Auth-token` が含まれており、アプリケーション上でプロバイダのロールが自動的に付与されます。
 
 #### :three: リクエスト :
 

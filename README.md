@@ -14,8 +14,8 @@ ensures that only legitimate users will have access to resources.
 The tutorial demonstrates examples of interactions using the **Keyrock** GUI, as
 well [cUrl](https://ec.haxx.se/) commands used to access the **Keyrock** REST
 API -
-[Postman documentation](http://fiware.github.io/tutorials.Roles-Permissions/) is
-also available.
+[Postman documentation](https://fiware.github.io/tutorials.Roles-Permissions/)
+is also available.
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/2febc0452a8977734480)
 
@@ -187,7 +187,7 @@ functionality similar to a Linux distribution on Windows.
 # Architecture
 
 This introduction will only make use of one FIWARE component - the
-[Keyrock](http://fiware-idm.readthedocs.io/) Identity Management Generic
+[Keyrock](https://fiware-idm.readthedocs.io/) Identity Management Generic
 Enabler. Usage of **Keyrock** alone is insufficient for an application to
 qualify as _“Powered by FIWARE”_. Additionally will be persisting user data in a
 **MySQL** database.
@@ -196,7 +196,7 @@ The overall architecture will consist of the following elements:
 
 -   One **FIWARE Generic Enabler**:
 
-    -   FIWARE [Keyrock](http://fiware-idm.readthedocs.io/) offer a complement
+    -   FIWARE [Keyrock](https://fiware-idm.readthedocs.io/) offer a complement
         Identity Management System including:
         -   An authentication system for Applications and Users
         -   A site graphical frontend for Identity Management Administration
@@ -602,7 +602,7 @@ and `description`, along with OAuth information fields such as the `url` of the
 webservice to be protected, and `redirect_uri` (where a user will be challenged
 for their credentials). The `grant_types` are chosen from the available list of
 OAuth2 grant flows which are discussed in a
-[subsequent tutorial](http://fiware.github.io/tutorials.Securing-Access) The
+[subsequent tutorial](https://fiware.github.io/tutorials.Securing-Access) The
 headers include the `X-Auth-token` from a previously logged in user will
 automatically be granted a provider role over the application.
 
