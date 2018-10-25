@@ -135,13 +135,13 @@ Docker
 <a name="architecture"></a>
 # アーキテクチャ
 
-このイントロダクションでは、[Keyrock](https://fiware-idm.readthedocs.io/) Identity Management Generic Enabler という1つの FIWARE コンポーネントのみを使用します。**Keyrock** 単独での使用は、アプリケーションが *“Powered by FIWARE”* と認定するには不十分です。さらに、**MySQL** データベースにユーザ・データを保存する予定です。
+このイントロダクションでは、[Keyrock](https://fiware-idm.readthedocs.io/en/latest/) Identity Management Generic Enabler という1つの FIWARE コンポーネントのみを使用します。**Keyrock** 単独での使用は、アプリケーションが *“Powered by FIWARE”* と認定するには不十分です。さらに、**MySQL** データベースにユーザ・データを保存する予定です。
 
 全体的なアーキテクチャは、次の要素で構成されます :
 
 * 1つの **FIWARE Generic Enabler** :
 
-    * FIWARE [Keyrock](https://fiware-idm.readthedocs.io/) は補完的な ID 管理システムを提供します :
+    * FIWARE [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) は補完的な ID 管理システムを提供します :
         * アプリケーションとユーザのための認証システム
         * ID 管理のアドミニストレーションのための Web サイトのグラフィカル・フロントエンド
         * HTTP リクエストによる ID 管理用の同等の REST API
