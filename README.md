@@ -660,7 +660,7 @@ in the case above the ID is `3782c5e3-88f9-481a-9b3c-2f2d6f604482`
 
 Making a GET request to a resource under the
 `/v1/applications/{{application-id}}` endpoint will return the application
-listed under that id. The `X-Auth-token` must be supplied in the headers.
+listed under that ID. The `X-Auth-token` must be supplied in the headers.
 
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/app-with-oauth.png)
 
