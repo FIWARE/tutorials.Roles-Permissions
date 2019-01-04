@@ -374,13 +374,19 @@ Application
     store detectives under him:
     -   Detective1
     -   Detective2
-
+    
 The following people at `example.com` have signed up for accounts, but have no
 reason to be granted access
 
 -   Eve - Eve the Eavesdropper
 -   Mallory - Mallory the malicious attacker
 -   Rob - Rob the Robber
+
+    
+<details>
+  <summary>
+   For more details <b>(Click to expand)</b>
+  </summary>
 
 | Name       | eMail                     | Password | UUID                                   |
 | ---------- | ------------------------- | -------- | -------------------------------------- |
@@ -394,6 +400,10 @@ reason to be granted access
 | eve        | eve@example.com           | `test`   | `eeeeeeee-evil-0000-0000-000000000000` |
 | mallory    | mallory@example.com       | `test`   | `mmmmmmmm-evil-0000-0000-000000000000` |
 | rob        | rob@example.com           | `test`   | `rrrrrrrr-evil-0000-0000-000000000000` |
+
+</details>
+
+
 
 Two organizations have also been set up by Alice:
 
