@@ -412,6 +412,12 @@ Bash スクリプトを実行することによって、コマンドラインか
 -   Mallory - 悪意のある攻撃者のマロリー
 -   Rob - 強盗のロブ
 
+
+<details>
+  <summary>
+   詳細 <b>(クリックして拡大)</b>
+  </summary>
+
 | 名前       | eMail                     | Password | UUID                                   |
 | ---------- | ------------------------- | -------- | -------------------------------------- |
 | alice      | alice-the-admin@test.com  | `test`   | `aaaaaaaa-good-0000-0000-000000000000` |
@@ -424,6 +430,10 @@ Bash スクリプトを実行することによって、コマンドラインか
 | eve        | eve@example.com           | `test`   | `eeeeeeee-evil-0000-0000-000000000000` |
 | mallory    | mallory@example.com       | `test`   | `mmmmmmmm-evil-0000-0000-000000000000` |
 | rob        | rob@example.com           | `test`   | `rrrrrrrr-evil-0000-0000-000000000000` |
+
+</details>
+
+
 
 2 つの組織が Alice によって設定されました :
 
