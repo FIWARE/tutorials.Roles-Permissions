@@ -74,6 +74,8 @@ API へのアクセスに使用される [cUrl](https://ec.haxx.se/) コマン�
     -   [認可されたユーザのリストを取得](#list-authorized-users)
 -   [次のステップ](#next-steps)
 
+</details>
+
 <a name="what-is-authorization"></a>
 
 # 認可とは何ですか？

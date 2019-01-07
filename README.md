@@ -21,7 +21,10 @@ is also available.
 
 -   このチュートリアルは[日本語](README.ja.md)でもご覧いただけます。
 
-# Contents
+## Contents
+
+<details>
+<summary><strong>Details</strong></summary>
 
 -   [What is Authorization?](#what-is-authorization)
     -   [Standard Concepts of Identity Management](#standard-concepts-of-identity-management)
@@ -75,6 +78,8 @@ is also available.
     -   [List Authorized Organizations](#list-authorized-organizations)
     -   [List Authorized Users](#list-authorized-users)
 -   [Next Steps](#next-steps)
+
+</details>
 
 # What is Authorization?
 
