@@ -17,7 +17,7 @@ API へのアクセスに使用される [cUrl](https://ec.haxx.se/) コマン�
 、[Postman documentation](https://fiware.github.io/tutorials.Roles-Permissions/)
 も使用できます。
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/2febc0452a8977734480)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2febc0452a8977734480)
 
 # コンテンツ
 

@@ -17,7 +17,7 @@ API -
 [Postman documentation](https://fiware.github.io/tutorials.Roles-Permissions/)
 is also available.
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/2febc0452a8977734480)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2febc0452a8977734480)
 
 -   このチュートリアルは[日本語](README.ja.md)でもご覧いただけます。
 
@@ -387,7 +387,6 @@ reason to be granted access
 -   Mallory - Mallory the malicious attacker
 -   Rob - Rob the Robber
 
-
 <details>
   <summary>
    For more details <b>(Click to expand)</b>
@@ -407,8 +406,6 @@ reason to be granted access
 | rob        | rob@example.com           | `test`   | `rrrrrrrr-evil-0000-0000-000000000000` |
 
 </details>
-
-
 
 Two organizations have also been set up by Alice:
 
