@@ -24,7 +24,7 @@ services:
       - IDM_ADMIN_USER=alice
       - IDM_ADMIN_EMAIL=alice-the-admin@test.com
       - IDM_ADMIN_PASS=test
-    secrets:                
+    secrets:
       - my_secret_data
     healthcheck:
       test: curl --fail -s http://localhost:3005/version || exit 1
@@ -47,7 +47,7 @@ services:
     volumes:
       - mysql-db:/var/lib/mysql
       - ./mysql-data:/docker-entrypoint-initdb.d/:ro
-    secrets:                
+    secrets:
       - my_secret_data
 
 networks:
@@ -56,9 +56,8 @@ networks:
       config:
         - subnet: 172.18.1.0/24
 volumes:
-  mysql-db:
+  ? mysql-db
 
 secrets:
   my_secret_data:
     file: ./secrets.txt
-
