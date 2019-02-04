@@ -6,6 +6,8 @@
 <br/>
 [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
+<!-- prettier-ignore -->
+
 このチュートリアルでは、アプリケーションの作成方法と、ロールとパーミッションの割
 り当て方法について説明します
 。[以前のチュートリアル](https://github.com/Fiware/tutorials.Identity-Management)で
