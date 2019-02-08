@@ -268,6 +268,7 @@ CREATE TABLE `oauth_client` (
   `secret` char(36) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
   `url` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `redirect_uri` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `redirect_sign_out_uri` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image` varchar(255) DEFAULT 'default',
   `grant_type` varchar(255) DEFAULT NULL,
   `response_type` varchar(255) DEFAULT NULL,
