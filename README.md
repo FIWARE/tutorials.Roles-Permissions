@@ -573,7 +573,8 @@ curl -iX POST \
       "authorization_code",
       "implicit",
       "password"
-    ]
+    ],
+    "token_types": ["permanent"]
   }
 }'
 ```
