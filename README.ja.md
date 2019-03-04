@@ -10,7 +10,7 @@
 
 このチュートリアルでは、アプリケーションの作成方法と、ロールとパーミッションの割
 り当て方法について説明します
-。[以前のチュートリアル](https://github.com/Fiware/tutorials.Identity-Management)で
+。[以前のチュートリアル](https://github.com/FIWARE/tutorials.Identity-Management)で
 作成したユーザと組織が必要であり、 正当なユーザだけがリソースにアクセスできるよ
 うにします。
 
@@ -375,7 +375,7 @@ cd tutorials.Roles-Permissions
 > **注** Docker イメージの最初の作成には最大 3 分かかります
 
 その後、リポジトリ内で提供される
-[services](https://github.com/Fiware/tutorials.Identity-Management/blob/master/services)
+[services](https://github.com/FIWARE/tutorials.Identity-Management/blob/master/services)
 Bash スクリプトを実行することによって、コマンドラインからすべてのサービスを初期
 化することができます :
 
@@ -447,7 +447,7 @@ Bash スクリプトを実行することによって、コマンドラインか
 | Management | ストア・マネージャのための管理グループ | `managers-team-0000-0000-000000000000` |
 
 時間を節約するために
-、[以前のチュートリアル](https://github.com/Fiware/tutorials.Identity-Management)か
+、[以前のチュートリアル](https://github.com/FIWARE/tutorials.Identity-Management)か
 らユーザと組織を作成するデータがダウンロードされ、起動時に自動的に MySQL データ
 ベースに保存されるため、UUIDs が変更されず、データを再入力する必要もありません。
 

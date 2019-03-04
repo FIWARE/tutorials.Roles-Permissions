@@ -6,7 +6,7 @@
 <br/> [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
 The tutorial explains how to create applications, and how to assign roles and permissions to them. It takes the users
-and organizations created in the [previous tutorial](https://github.com/Fiware/tutorials.Identity-Management) and
+and organizations created in the [previous tutorial](https://github.com/FIWARE/tutorials.Identity-Management) and
 ensures that only legitimate users will have access to resources.
 
 The tutorial demonstrates examples of interactions using the **Keyrock** GUI, as well [cUrl](https://ec.haxx.se/)
@@ -309,7 +309,7 @@ cd tutorials.Roles-Permissions
 > **Note** The initial creation of Docker images can take up to three minutes
 
 Thereafter, all services can be initialized from the command-line by running the
-[services](https://github.com/Fiware/tutorials.Roles-Permissions/blob/master/services) Bash script provided within the
+[services](https://github.com/FIWARE/tutorials.Roles-Permissions/blob/master/services) Bash script provided within the
 repository:
 
 ```console
@@ -370,7 +370,7 @@ Two organizations have also been set up by Alice:
 | Management | Management Group for Store Managers | `managers-team-0000-0000-000000000000` |
 
 To save time, the data creating users and organizations from the
-[previous tutorial](https://github.com/Fiware/tutorials.Identity-Management) has been downloaded and is automatically
+[previous tutorial](https://github.com/FIWARE/tutorials.Identity-Management) has been downloaded and is automatically
 persisted to the MySQL database on start-up so the assigned UUIDs do not change and the data does not need to be entered
 again
 
