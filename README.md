@@ -300,7 +300,7 @@ The `mysql-db` container is driven by environment variables as shown:
 To start the installation, do the following:
 
 ```console
-git clone git@github.com:Fiware/tutorials.Roles-Permissions.git
+git clone git@github.com:FIWARE/tutorials.Roles-Permissions.git
 cd tutorials.Roles-Permissions
 
 ./services create
