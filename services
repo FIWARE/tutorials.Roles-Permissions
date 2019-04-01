@@ -36,6 +36,12 @@ waitForKeyrock () {
 	echo -e " \033[1;32mdone\033[0m"
 }
 
+displayServices () {
+	echo ""
+	docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" --filter name=fiware-*
+	echo ""
+}
+
 command="$1"
 case "${command}" in
 	"help")
@@ -47,7 +53,7 @@ case "${command}" in
 		echo -e "- \033[1;31mKeyrock\033[0m is an Identity Management Front-End over HTTP"
 		startContainers false
 		waitForKeyrock
-		echo ""
+		displayServices
 		echo -e "Now open \033[4mhttp://localhost:3005/idm\033[0m"
 		;;
 	"https")
@@ -56,7 +62,7 @@ case "${command}" in
 		echo -e "- \033[1;31mKeyrock\033[0m is an Identity Management Front-End"
 		startContainers true
 		waitToConnect
-		echo ""
+		displayServices
 		echo -e "Now open \033[4mhttps://localhost:3443/idm\033[0m"
 		;;		
 	"stop")
