@@ -1,5 +1,6 @@
 version: "3.5"
 services:
+  # Keyrock is an Identity Management Front-End
   keyrock:
     image: fiware/idm:7.6.0
     container_name: fiware-keyrock
@@ -29,6 +30,7 @@ services:
     healthcheck:
       test: curl --fail -s http://localhost:3005/version || exit 1
 
+  # Database
   mysql-db:
     restart: always
     image: mysql:5.7
