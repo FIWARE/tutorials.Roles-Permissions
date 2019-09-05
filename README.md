@@ -84,8 +84,8 @@ commands used to access the **Keyrock** REST API -
 >
 > — Paulo Coelho (The Alchemist)
 
-Authorization is the function of specifying access rights/privileges to resources related to information security. More
-formally, "to authorize" is to define an access policy. With identity management controlled via the FIWARE **Keyrock**
+Authorization is the function of specifying access rights/privileges to resources related to information security.<sup>[1](#footnote1)</sup>
+More formally, "to authorize" is to define an access policy. With identity management controlled via the FIWARE **Keyrock**
 Generic Enabler, User access is granted based on permissions assigned to a role.
 
 Every application secured by the **Keyrock** generic enabler can define a set of permissions - i.e. a set of things that
@@ -1467,3 +1467,11 @@ the other [tutorials in this series](https://fiware-tutorials.rtfd.io)
 ## License
 
 [MIT](LICENSE) © 2018-2019 FIWARE Foundation e.V.
+
+---
+
+### Footnotes
+
+<a name="footnote1"></a>
+
+-   [Wikipedia: Authorization](https://en.wikipedia.org/wiki/Authorization) is the function of specifying access rights/privileges to resources
