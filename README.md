@@ -197,7 +197,7 @@ keyrock:
         - mysql-db
     ports:
         - "3005:3005"
-        - "3443:3443"
+        - "${KEYROCK_HTTPS_PORT}:${KEYROCK_HTTPS_PORT}" # localhost:3443
     environment:
         - DEBUG=idm:*
         - DATABASE_HOST=mysql-db
@@ -206,7 +206,7 @@ keyrock:
         - IDM_HOST=http://localhost:3005
         - IDM_PORT=3005
         - IDM_HTTPS_ENABLED=true
-        - IDM_HTTPS_PORT=3443
+        - IDM_HTTPS_PORT=${KEYROCK_HTTPS_PORT}
         - IDM_ADMIN_USER=alice
         - IDM_ADMIN_EMAIL=alice-the-admin@test.com
         - IDM_ADMIN_PASS=test
