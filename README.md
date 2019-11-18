@@ -84,9 +84,10 @@ commands used to access the **Keyrock** REST API -
 >
 > — Paulo Coelho (The Alchemist)
 
-Authorization is the function of specifying access rights/privileges to resources related to information security.<sup>[1](#footnote1)</sup>
-More formally, "to authorize" is to define an access policy. With identity management controlled via the FIWARE **Keyrock**
-Generic Enabler, User access is granted based on permissions assigned to a role.
+Authorization is the function of specifying access rights/privileges to resources related to information
+security.<sup>[1](#footnote1)</sup> More formally, "to authorize" is to define an access policy. With identity
+management controlled via the FIWARE **Keyrock** Generic Enabler, User access is granted based on permissions assigned
+to a role.
 
 Every application secured by the **Keyrock** generic enabler can define a set of permissions - i.e. a set of things that
 can be done within the application. For example within the application, the ability to send a command to unlock a Smart
@@ -273,7 +274,7 @@ mysql-db:
     ports:
         - "3306:3306"
     networks:
-        default:
+        ? default
     environment:
         - "MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my_secret_data"
         - "MYSQL_ROOT_HOST=172.18.1.5"
@@ -300,7 +301,7 @@ The `mysql-db` container is driven by environment variables as shown:
 To start the installation, do the following:
 
 ```console
-git clone git@github.com:FIWARE/tutorials.Roles-Permissions.git
+git clone https://github.com/FIWARE/tutorials.Roles-Permissions.git
 cd tutorials.Roles-Permissions
 
 ./services create
@@ -1474,4 +1475,5 @@ the other [tutorials in this series](https://fiware-tutorials.rtfd.io)
 
 <a name="footnote1"></a>
 
--   [Wikipedia: Authorization](https://en.wikipedia.org/wiki/Authorization) is the function of specifying access rights/privileges to resources
+-   [Wikipedia: Authorization](https://en.wikipedia.org/wiki/Authorization) is the function of specifying access
+    rights/privileges to resources

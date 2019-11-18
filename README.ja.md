@@ -366,7 +366,7 @@ MySQL の設定
 インストールを開始するには、次の手順を実行します :
 
 ```console
-git clone git@github.com:FIWARE/tutorials.Roles-Permissions.git
+git clone https://github.com/FIWARE/tutorials.Roles-Permissions.git
 cd tutorials.Roles-Permissions
 
 ./services create
