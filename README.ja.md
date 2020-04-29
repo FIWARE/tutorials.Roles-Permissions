@@ -635,7 +635,7 @@ curl -iX GET \
 
 ## :arrow_forward: ビデオ : Keyrock GUI を使用したアプリケーションの作成
 
-![](http://img.youtube.com/vi/pjsl0eHpFww/0.jpg)
+![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)
 
 リンクをクリックすると
 、[**Keyrock GUI** を使用してアプリケーションを作成する方法](https://www.youtube.com/watch?v=pjsl0eHpFww&t=470 " Creating Applications")を
