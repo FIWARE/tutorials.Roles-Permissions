@@ -21,7 +21,10 @@ API へのアクセスに使用される [cUrl](https://ec.haxx.se/) コマン�
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2febc0452a8977734480)
 
-# コンテンツ
+## コンテンツ
+
+<details>
+<summary><strong>詳細</strong></summary>
 
 -   [認可とは何ですか？](#what-is-authorization)
     -   [ID 管理の標準概念](#standard-concepts-of-identity-management)
