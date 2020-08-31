@@ -371,6 +371,7 @@ MySQL の設定
 ```console
 git clone https://github.com/FIWARE/tutorials.Roles-Permissions.git
 cd tutorials.Roles-Permissions
+git checkout NGSI-v2
 
 ./services create
 ```
