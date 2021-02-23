@@ -300,7 +300,7 @@ The `mysql-db` container is driven by environment variables as shown:
 
 To start the installation, do the following:
 
-```bash
+```console
 git clone https://github.com/FIWARE/tutorials.Roles-Permissions.git
 cd tutorials.Roles-Permissions
 git checkout NGSI-v2
@@ -314,7 +314,7 @@ Thereafter, all services can be initialized from the command-line by running the
 [services](https://github.com/FIWARE/tutorials.Roles-Permissions/blob/NGSI-v2/services) Bash script provided within the
 repository:
 
-```bash
+```console
 ./services <command>
 ```
 
@@ -322,7 +322,7 @@ Where `<command>` will vary depending upon the exercise we wish to activate.
 
 > :information_source: **Note:** If you want to clean up and start over again you can do so with the following command:
 >
-> ```bash
+> ```console
 > ./services stop
 > ```
 
@@ -373,7 +373,7 @@ Two organizations have also been set up by Alice:
 
 To save time, the data creating users and organizations from the
 [previous tutorial](https://github.com/FIWARE/tutorials.Identity-Management) has been downloaded and is automatically
-persisted to the MySQL database on start-up, so the assigned UUIDs do not change, and the data does not need to be 
+persisted to the MySQL database on start-up, so the assigned UUIDs do not change, and the data does not need to be
 entered again
 
 To refresh your memory about how to create users and organizations, you can log in at `http://localhost:3005/idm` using
@@ -388,11 +388,11 @@ and look at the organizations list.
 All Identify Management records and relationships are held within the attached MySQL database. This can be accessed by
 entering the running Docker container as shown:
 
-```bash
+```console
 docker exec -it db-mysql bash
 ```
 
-```bash
+```console
 mysql -u <user> -p<password> idm
 ```
 
@@ -443,7 +443,7 @@ The following example logs in using the Admin Super-User:
 
 #### :one: Request:
 
-```bash
+```console
 curl -iX POST \
   'http://localhost:3005/v1/auth/tokens' \
   -H 'Content-Type: application/json' \
@@ -491,7 +491,7 @@ user holding the token `{{X-Subject-token}}` (i.e. Bob)_.
 
 #### :two: Request:
 
-```bash
+```console
 curl -iX GET \
   'http://localhost:3005/v1/auth/tokens' \
   -H 'Content-Type: application/json' \
@@ -562,7 +562,7 @@ previously logged-in user will automatically be granted a provider role over the
 In the example below, Alice (who holds `X-Auth-token=aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa`) is creating a new
 application which accepts three different grant types
 
-```bash
+```console
 curl -iX POST \
   'http://localhost:3005/v1/applications' \
   -H 'Content-Type: application/json' \
@@ -591,19 +591,19 @@ The response includes a Client ID and Secret which can be used to secure the app
 {
     "application": {
         "id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2",
-        "secret": "d4128d06-1cba-4c33-9a3d-ff2de51940b5", 
-        "image": "default", 
-        "jwt_secret": null, 
-        "name": "Tutorial Application", 
-        "description": "FIWARE Application protected by OAuth2 and Keyrock", 
+        "secret": "d4128d06-1cba-4c33-9a3d-ff2de51940b5",
+        "image": "default",
+        "jwt_secret": null,
+        "name": "Tutorial Application",
+        "description": "FIWARE Application protected by OAuth2 and Keyrock",
         "redirect_uri": "http://tutorial/login",
         "url": "http://tutorial",
         "grant_type": "password,authorization_code,implicit",
-        "token_types": "permanent,bearer", 
-        "response_type": "code,token", 
+        "token_types": "permanent,bearer",
+        "response_type": "code,token",
         "scope": null
     }
-}                                       
+}
 
 ```
 
@@ -619,7 +619,7 @@ listed under that ID. The `X-Auth-token` must be supplied in the headers.
 
 #### :four: Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/applications/{{application-id}}' \
   -H 'Content-Type: application/json' \
@@ -666,7 +666,7 @@ a GET request to the `/v1/applications` endpoint and supplying the `X-Auth-token
 
 #### :five: Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/applications' \
   -H 'Content-Type: application/json' \
@@ -712,7 +712,7 @@ known. The `X-Auth-token` header must also be set, since a User can only edit ap
 
 #### :six: Request:
 
-```bash
+```console
 curl -X PATCH \
   'http://localhost:3005/v1/applications/{{application-id}}' \
   -H 'Content-Type: application/json' \
@@ -755,7 +755,7 @@ DELETE request to the `/v1/applications/{{applications-id}}` endpoint. The `X-Au
 
 #### :seven: Request:
 
-```bash
+```console
 curl -iX DELETE \
   'http://localhost:3005/v1/applications/{{applications-id}}' \
   -H 'Content-Type: application/json' \
@@ -769,7 +769,7 @@ URL (e.g. `/price-change`) and the action is any HTTP verb (e.g. GET):
 
 -   The combination will be used to ensure only permitted users are able to access the `/price-change` resource.
 
-Further, advanced permission rules can be described using XACML - this is the subject of another tutorial.
+Further advanced permission rules can be described using XACML - this is the subject of another tutorial.
 
 It should be emphasized that permissions are always found bound to an application - abstract permissions do not exist on
 their own. The standard permission CRUD actions are assigned to the appropriate HTTP verbs (POST, GET, PATCH and DELETE)
@@ -796,7 +796,7 @@ endpoint containing the `action` and `resource` along with the `X-Auth-token` he
 
 #### :eight: Request:
 
-```bash
+```console
 curl -iX POST \
   'http://localhost:3005/v1/applications/{{application-id}}/permissions' \
   -H 'Content-Type: application/json' \
@@ -817,12 +817,12 @@ The response returns the details of the newly created permission.
 ```json
 {
     "permission": {
-        "id": "8052b95b-3ff6-481c-b779-893b6c3f1488", 
-        "is_internal": false, 
-        "name": "Access Price Changes", 
-        "action": "GET", 
-        "resource": "/price-change", 
-        "is_regex": false, 
+        "id": "8052b95b-3ff6-481c-b779-893b6c3f1488",
+        "is_internal": false,
+        "name": "Access Price Changes",
+        "action": "GET",
+        "resource": "/price-change",
+        "is_regex": false,
         "oauth_client_id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2"
   }
 }
@@ -835,7 +835,7 @@ that ID. The `X-Auth-token` must be supplied in the headers.
 
 #### :nine: Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/applications/{{application-id}}/permissions/{{permission-id}}' \
   -H 'Content-Type: application/json' \
@@ -849,14 +849,14 @@ The response returns the details of the requested permission.
 ```json
 {
     "permission": {
-        "id": "8052b95b-3ff6-481c-b779-893b6c3f1488", 
-        "name": "Access Price Changes", 
-        "description": null, 
-        "is_internal": false, 
-        "action": "GET", 
-        "resource": "/price-change", 
-        "is_regex": 0, 
-        "xml": null, 
+        "id": "8052b95b-3ff6-481c-b779-893b6c3f1488",
+        "name": "Access Price Changes",
+        "description": null,
+        "is_internal": false,
+        "action": "GET",
+        "resource": "/price-change",
+        "is_regex": 0,
+        "xml": null,
         "oauth_client_id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2"
     }
 }
@@ -869,7 +869,7 @@ Listing the permissions with an application can be done by making a GET request 
 
 #### :one::zero: Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/applications/{{application-id}}/permissions' \
   -H 'Content-Type: application/json' \
@@ -892,9 +892,9 @@ which are available by default.
             "resource": "/price-change",
             "xml": null
         },
-      
+
         ...etc
-      
+
         {
             "id": "2",
             "name": "Manage the application",
@@ -922,7 +922,7 @@ To amend the details of an existing permission, a PATCH request is send to the
 
 #### :one::one: Request:
 
-```bash
+```console
 curl -X PATCH \
   'http://localhost:3005/v1/applications/{{application-id}}/permissions/{{permission-id}}' \
   -H 'Content-Type: application/json' \
@@ -954,7 +954,7 @@ Deleting a permission from an application automatically removes that permission 
 
 #### :one::two: Request:
 
-```bash
+```console
 curl -X DELETE \
   'http://keyrock/v1/applications/{{application_id}}/permissions/{{permission_id}}' \
   -H 'Content-Type: application/json' \
@@ -1001,7 +1001,7 @@ containing the `name` of the new role, with the `X-Auth-token` header from a pre
 
 #### :one::three: Request:
 
-```bash
+```console
 curl -X POST \
   'http://localhost:3005/v1/applications/{{application-id}}/roles' \
   -H 'Content-Type: application/json' \
@@ -1020,9 +1020,9 @@ The details of the created role are returned
 ```json
 {
     "role": {
-        "id": "9d66bf12-8f6a-4455-9697-eb5560b1d2cd", 
-        "is_internal": false, 
-        "name": "Management", 
+        "id": "9d66bf12-8f6a-4455-9697-eb5560b1d2cd",
+        "is_internal": false,
+        "name": "Management",
         "oauth_client_id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2"
     }
 }
@@ -1035,7 +1035,7 @@ The `/applications/{{application-id}}/roles/{{role-id}}` endpoint will return th
 
 #### :one::four: Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
@@ -1064,7 +1064,7 @@ Listing all the roles offered by an application can be done by making a GET requ
 
 #### :one::five: Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/applications/{{application-id}}/roles' \
   -H 'Content-Type: application/json' \
@@ -1101,7 +1101,7 @@ It is possible to amend the name of a role using a PATCH request is sent to the
 
 #### :one::six: Request:
 
-```bash
+```console
 curl -iX PATCH \
   'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
@@ -1131,7 +1131,7 @@ Application roles can also be deleted - this will also remove the role from any 
 
 #### :one::seven: Request:
 
-```bash
+```console
 curl -iX DELETE \
   'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
@@ -1154,7 +1154,7 @@ To add a permission using the REST API makes a PUT request as shown, including t
 
 #### :one::eight: Request:
 
-```bash
+```console
 curl -iX PUT \
   'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}/permissions/{{permission-id}}' \
   -H 'Content-Type: application/json' \
@@ -1181,7 +1181,7 @@ A full list of all permissions assigned to an application role can be retrieved 
 
 #### :one::nine: Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/applications/{{application-id}}/roles/{{role-id}}/permissions' \
   -H 'Content-Type: application/json' \
@@ -1194,12 +1194,12 @@ curl -X GET \
 {
     "role_permission_assignments": [
         {
-            "id": "8052b95b-3ff6-481c-b779-893b6c3f1488", 
-            "is_internal": false, 
-            "name": "Access Price Changes 1", 
-            "description": null, 
-            "action": "GET", 
-            "resource": "/price-change", 
+            "id": "8052b95b-3ff6-481c-b779-893b6c3f1488",
+            "is_internal": false,
+            "name": "Access Price Changes 1",
+            "description": null,
+            "action": "GET",
+            "resource": "/price-change",
             "xml": null
         }
     ]
@@ -1213,7 +1213,7 @@ and `<permission-id>` in the URL path and identifying themselves using an `X-Aut
 
 #### :two::zero: Request:
 
-```bash
+```console
 curl -X DELETE \
   'http://keyrock/v1/applications/{{application_id}}/roles/{{role_id}}/permissions/{{permission_id}}' \
   -H 'Content-Type: application/json' \
@@ -1260,7 +1260,7 @@ identifying themselves using an `X-Auth-Token` in the header.
 
 This example adds the role to all members of the organization
 
-```bash
+```console
 curl -X PUT \
   'http://localhost:3005/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member' \
   -H 'Content-Type: application/json' \
@@ -1289,7 +1289,7 @@ A full list of roles granted to an organization can be retrieved by making a GET
 
 #### :two::two: Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles' \
   -H 'Content-Type: application/json' \
@@ -1320,7 +1320,7 @@ The following example revokes a role to `members` of the organization.
 
 #### :two::three: Request:
 
-```bash
+```console
 curl -iX DELETE \
   'http://localhost:3005/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles/{{role-id}}/organization_roles/member' \
   -H 'Content-Type: application/json' \
@@ -1340,7 +1340,7 @@ and `<user-id>` in the URL path and identifying themselves using an `X-Auth-Toke
 
 #### :two::four: Request:
 
-```bash
+```console
 curl -iX PUT \
   'http://localhost:3005/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
@@ -1366,7 +1366,7 @@ To list the roles granted to an Individual user, make a GET request to the
 
 #### :two::five: Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/applications/{{application-id}}/users/{{user-id}}/roles' \
   -H 'Content-Type: application/json' \
@@ -1396,7 +1396,7 @@ in the header.
 
 #### :two::six: Request:
 
-```bash
+```console
 curl -X DELETE \
   'http://localhost:3005/v1/applications/{{application-id}}/users/{{user-id}}/roles/{{role-id}}' \
   -H 'Content-Type: application/json' \
@@ -1415,7 +1415,7 @@ To list all organizations which are authorized to use an application, make a GET
 
 #### :two::seven: Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/applications/{{application-id}}/organizations' \
   -H 'Content-Type: application/json' \
@@ -1446,7 +1446,7 @@ To list all individual users who are authorized to use an application, make a GE
 
 #### :two::eight: Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/applications/{{application-id}}/users' \
   -H 'Content-Type: application/json' \
