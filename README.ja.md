@@ -607,17 +607,19 @@ curl -iX GET \
 
 ```json
 {
-    "access_token":"bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
-    "expires":"2026-07-30T12:38:13.000Z",
-    "valid":true,
-    "User":{
-        "id":"bbbbbbbb-good-0000-0000-000000000000",
-        "username":"bob",
-        "email":"bob-the-manager@test.com",
-        "date_password":"2018-07-30T11:41:14.000Z",
-        "enabled":true,
-        "admin":false
-    }
+  "access_token": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+  "expires": "2026-07-30T12:38:13.000Z",
+  "valid": true,
+  "User": {
+    "scope": [],
+    "id": "bbbbbbbb-good-0000-0000-000000000000",
+    "username": "bob",
+    "email": "bob-the-manager@test.com",
+    "date_password": "2018-07-30T11:41:14.000Z",
+    "enabled": true,
+    "admin": false
+  }
+}
 ```
 
 <a name="managing-applications"></a>
@@ -710,21 +712,24 @@ Secret が含まれています。
 ```json
 {
     "application": {
-        "id": "3782c5e3-88f9-481a-9b3c-2f2d6f604482",
-        "secret": "aa2d0845-0a8e-4ae8-addf-3c87bcab19e1",
+        "id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2",
+        "secret": "d4128d06-1cba-4c33-9a3d-ff2de51940b5",
         "image": "default",
+        "jwt_secret": null,
         "name": "Tutorial Application",
         "description": "FIWARE Application protected by OAuth2 and Keyrock",
         "redirect_uri": "http://tutorial/login",
         "url": "http://tutorial",
         "grant_type": "password,authorization_code,implicit",
-        "response_type": "code,token"
+        "token_types": "permanent,bearer",
+        "response_type": "code,token",
+        "scope": null
     }
 }
 ```
 
 他のすべてのアプリケーションのリクエストに使用するアプリケーションの クライアン
-ト id をコピーします。上記の場合、id は `3782c5e3-88f9-481a-9b3c-2f2d6f604482`
+ト id をコピーします。上記の場合、id は `6632bb2e-c8e5-418f-ba5b-c269d8a53dd2`
 です。
 
 <a name="read-application-details"></a>
@@ -751,18 +756,29 @@ curl -X GET \
 ```json
 {
     "application": {
-        "id": "3782c5e3-88f9-481a-9b3c-2f2d6f604482",
+        "id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2",
         "name": "Tutorial Application",
         "description": "FIWARE Application protected by OAuth2 and Keyrock",
-        "secret": "aa2d0845-0a8e-4ae8-addf-3c87bcab19e1",
+        "secret": "d4128d06-1cba-4c33-9a3d-ff2de51940b5",
         "url": "http://tutorial",
         "redirect_uri": "http://tutorial/login",
+        "redirect_sign_out_uri": null,
         "image": "default",
         "grant_type": "password,authorization_code,implicit",
         "response_type": "code,token",
+        "token_types": "permanent,bearer",
+        "jwt_secret": null,
         "client_type": null,
         "scope": null,
-        "extra": null
+        "extra": null,
+        "urls": {
+            "permissions_url": "/v1/applications/6632bb2e-c8e5-418f-ba5b-c269d8a53dd2/permissions",
+            "roles_url": "/v1/applications/6632bb2e-c8e5-418f-ba5b-c269d8a53dd2/roles",
+            "users_url": "/v1/applications/6632bb2e-c8e5-418f-ba5b-c269d8a53dd2/users",
+            "pep_proxies_url": "/v1/applications/6632bb2e-c8e5-418f-ba5b-c269d8a53dd2/pep_proxies",
+            "iot_agents_url": "/v1/applications/6632bb2e-c8e5-418f-ba5b-c269d8a53dd2/iot_agents",
+            "trusted_applications_url": "/v1/applications/6632bb2e-c8e5-418f-ba5b-c269d8a53dd2/trusted_applications"
+        }
     }
 }
 ```
@@ -790,15 +806,26 @@ curl -X GET \
 {
     "applications": [
         {
-            "id": "3782c5e3-88f9-481a-9b3c-2f2d6f604482",
+            "id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2",
             "name": "Tutorial Application",
             "description": "FIWARE Application protected by OAuth2 and Keyrock",
             "image": "default",
             "url": "http://tutorial",
             "redirect_uri": "http://tutorial/login",
+            "redirect_sign_out_uri": null,
             "grant_type": "password,authorization_code,implicit",
             "response_type": "code,token",
-            "client_type": null
+            "token_types": "permanent,bearer",
+            "jwt_secret": null,
+            "client_type": null,
+            "urls": {
+                "permissions_url": "/v1/applications/6632bb2e-c8e5-418f-ba5b-c269d8a53dd2/permissions",
+                "roles_url": "/v1/applications/6632bb2e-c8e5-418f-ba5b-c269d8a53dd2/roles",
+                "users_url": "/v1/applications/6632bb2e-c8e5-418f-ba5b-c269d8a53dd2/users",
+                "pep_proxies_url": "/v1/applications/6632bb2e-c8e5-418f-ba5b-c269d8a53dd2/pep_proxies",
+                "iot_agents_url": "/v1/applications/6632bb2e-c8e5-418f-ba5b-c269d8a53dd2/iot_agents",
+                "trusted_applications_url": "/v1/applications/6632bb2e-c8e5-418f-ba5b-c269d8a53dd2/trusted_applications"
+            }
         }
     ]
 }
@@ -846,8 +873,10 @@ curl -X PATCH \
         "name": "Tutorial New Name",
         "description": "This is a new description",
         "grant_type": "password,authorization_code",
-        "response_type": "code"
-    }
+        "response_type": "code",
+        "token_types": "permanent,bearer,bearer",
+        "scope": ""
+   }
 }
 ```
 
@@ -938,13 +967,14 @@ curl -iX POST \
 ```json
 {
     "permission": {
-        "id": "c8ace792-d058-4650-9958-59753215e1cc",
+        "id": "8052b95b-3ff6-481c-b779-893b6c3f1488",
         "is_internal": false,
         "name": "Access Price Changes",
         "action": "GET",
         "resource": "/price-change",
-        "oauth_client_id": "3782c5e3-88f9-481a-9b3c-2f2d6f604482"
-    }
+        "is_regex": false,
+        "oauth_client_id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2"
+  }
 }
 ```
 
@@ -972,14 +1002,15 @@ curl -X GET \
 ```json
 {
     "permission": {
-        "id": "c21983d5-58f9-4bcc-b2b0-f21819080ad0",
-        "name": "Enable Alarm Bell",
+        "id": "8052b95b-3ff6-481c-b779-893b6c3f1488",
+        "name": "Access Price Changes",
         "description": null,
         "is_internal": false,
-        "action": "POST",
-        "resource": "/ring",
+        "action": "GET",
+        "resource": "/price-change",
+        "is_regex": 0,
         "xml": null,
-        "oauth_client_id": "3782c5e3-88f9-481a-9b3c-2f2d6f604482"
+        "oauth_client_id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2"
     }
 }
 ```
@@ -1010,22 +1041,16 @@ curl -X GET \
 {
     "permissions": [
         {
-            "id": "c8ace792-d058-4650-9958-59753215e1cc",
+            "id": "8052b95b-3ff6-481c-b779-893b6c3f1488",
             "name": "Access Price Changes",
             "description": null,
             "action": "GET",
             "resource": "/price-change",
             "xml": null
         },
-        {
-            "id": "c21983d5-58f9-4bcc-b2b0-f21819080ad0",
-            "name": "Enable Alarm Bell",
-            "description": null,
-            "action": "POST",
-            "resource": "/ring",
-            "xml": null
-        },
+
         ...etc
+
         {
             "id": "2",
             "name": "Manage the application",
@@ -1063,9 +1088,9 @@ curl -X PATCH \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
   "permission": {
-    "name": "Ring Alarm Bell",
-    "action": "POST",
-    "resource": "/ring"
+    "name": "Access Price Changes 1",
+    "action": "GET",
+    "resource": "/price-change"
   }
 }'
 ```
@@ -1077,7 +1102,7 @@ curl -X PATCH \
 ```json
 {
     "values_updated": {
-        "name": "Ring Alarm Bell"
+        "name": "Access Price Changes 1"
     }
 }
 ```
@@ -1165,10 +1190,10 @@ curl -X POST \
 ```json
 {
     "role": {
-        "id": "bc64fe78-f440-4ce0-815d-78b1d3d8b9a1",
+        "id": "9d66bf12-8f6a-4455-9697-eb5560b1d2cd",
         "is_internal": false,
         "name": "Management",
-        "oauth_client_id": "3782c5e3-88f9-481a-9b3c-2f2d6f604482"
+        "oauth_client_id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2"
     }
 }
 ```
@@ -1197,10 +1222,10 @@ curl -X GET \
 ```json
 {
     "role": {
-        "id": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c",
-        "name": "Security",
+        "id": "9d66bf12-8f6a-4455-9697-eb5560b1d2cd",
+        "name": "Management",
         "is_internal": false,
-        "oauth_client_id": "3782c5e3-88f9-481a-9b3c-2f2d6f604482"
+        "oauth_client_id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2"
     }
 }
 ```
@@ -1239,12 +1264,8 @@ curl -X GET \
             "name": "Provider"
         },
         {
-            "id": "bc64fe78-f440-4ce0-815d-78b1d3d8b9a1",
+            "id": "9d66bf12-8f6a-4455-9697-eb5560b1d2cd",
             "name": "Management"
-        },
-        {
-            "id": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c",
-            "name": "Security"
         }
     ]
 }
@@ -1266,7 +1287,7 @@ curl -iX PATCH \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
   "role": {
-    "name": "Security Team"
+    "name": "Management Team"
   }
 }'
 ```
@@ -1278,7 +1299,7 @@ curl -iX PATCH \
 ```json
 {
     "values_updated": {
-        "name": "Security Team"
+    "name": "Management Team"
     }
 }
 ```
@@ -1335,8 +1356,8 @@ curl -iX PUT \
 ```json
 {
     "role_permission_assignments": {
-        "role_id": "64535f4d-04b6-4688-a9bb-81b8df7c4e2c",
-        "permission_id": "c21983d5-58f9-4bcc-b2b0-f21819080ad0"
+        "role_id": "9d66bf12-8f6a-4455-9697-eb5560b1d2cd",
+        "permission_id": "8052b95b-3ff6-481c-b779-893b6c3f1488"
     }
 }
 ```
@@ -1364,21 +1385,12 @@ curl -X GET \
 {
     "role_permission_assignments": [
         {
-            "id": "c21983d5-58f9-4bcc-b2b0-f21819080ad0",
+            "id": "8052b95b-3ff6-481c-b779-893b6c3f1488",
             "is_internal": false,
-            "name": "Ring Alarm Bell",
+            "name": "Access Price Changes 1",
             "description": null,
-            "action": "POST",
-            "resource": "/ring",
-            "xml": null
-        },
-        {
-            "id": "2d611223-0b9e-4ffb-83b4-518e236890b6",
-            "is_internal": false,
-            "name": "Unlock",
-            "description": "Unlock main entrance",
-            "action": "POST",
-            "resource": "/door/unlock",
+            "action": "GET",
+            "resource": "/price-change",
             "xml": null
         }
     ]
