@@ -425,6 +425,8 @@ CREATE TABLE `permission` (
   `xml` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `oauth_client_id` char(36) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
   `is_regex` tinyint(1) NOT NULL DEFAULT '0',
+  `authorization_service_header` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `use_authorization_service_header` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `oauth_client_id` (`oauth_client_id`),
   CONSTRAINT `permission_ibfk_1` FOREIGN KEY (`oauth_client_id`) REFERENCES `oauth_client` (`id`) ON DELETE CASCADE
@@ -438,12 +440,12 @@ CREATE TABLE `permission` (
 LOCK TABLES `permission` WRITE;
 /*!40000 ALTER TABLE `permission` DISABLE KEYS */;
 INSERT INTO `permission` VALUES 
-('1','Get and assign all internal application roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0),
-('2','Manage the application',NULL,1,NULL,NULL,NULL,'idm_admin_app',0),
-('3','Manage roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0),
-('4','Manage authorizations',NULL,1,NULL,NULL,NULL,'idm_admin_app',0),
-('5','Get and assign all public application roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0),
-('6','Get and assign only public owned roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0);
+('1','Get and assign all internal application roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),
+('2','Manage the application',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),
+('3','Manage roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),
+('4','Manage authorizations',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),
+('5','Get and assign all public application roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),
+('6','Get and assign only public owned roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0);
 /*!40000 ALTER TABLE `permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
