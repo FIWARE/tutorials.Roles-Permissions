@@ -505,18 +505,18 @@ The response will return the details of the associated user. As you can see Bob 
 
 ```json
 {
-  "access_token": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
-  "expires": "2026-07-30T12:38:13.000Z",
-  "valid": true,
-  "User": {
-    "scope": [],
-    "id": "bbbbbbbb-good-0000-0000-000000000000",
-    "username": "bob",
-    "email": "bob-the-manager@test.com",
-    "date_password": "2018-07-30T11:41:14.000Z",
-    "enabled": true,
-    "admin": false
-  }
+    "access_token": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+    "expires": "2026-07-30T12:38:13.000Z",
+    "valid": true,
+    "User": {
+        "scope": [],
+        "id": "bbbbbbbb-good-0000-0000-000000000000",
+        "username": "bob",
+        "email": "bob-the-manager@test.com",
+        "date_password": "2018-07-30T11:41:14.000Z",
+        "enabled": true,
+        "admin": false
+    }
 }
 ```
 
@@ -604,7 +604,6 @@ The response includes a Client ID and Secret which can be used to secure the app
         "scope": null
     }
 }
-
 ```
 
 Copy the Application Client ID to be used for all other application requests - in the case above the ID is
@@ -656,7 +655,6 @@ curl -X GET \
         }
     }
 }
-
 ```
 
 ### List all Applications
@@ -743,7 +741,7 @@ The response lists the fields which have been updated, note that the `redirect_u
         "response_type": "code",
         "token_types": "permanent,bearer,bearer",
         "scope": ""
-   }
+    }
 }
 ```
 
@@ -824,7 +822,7 @@ The response returns the details of the newly created permission.
         "resource": "/price-change",
         "is_regex": false,
         "oauth_client_id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2"
-  }
+    }
 }
 ```
 
@@ -1390,9 +1388,9 @@ The response returns all roles assigned to the user.
 
 ### Revoke a Role from a User
 
-Similarly to organizations, to revoke a user role using the REST API makes a DELETE request as shown, including
-the `<application-id>`, `<user-id>` and `<role-id>` in the URL path and identifying themselves using an `X-Auth-Token`
-in the header.
+Similarly to organizations, to revoke a user role using the REST API makes a DELETE request as shown, including the
+`<application-id>`, `<user-id>` and `<role-id>` in the URL path and identifying themselves using an `X-Auth-Token` in
+the header.
 
 #### :two::six: Request:
 
