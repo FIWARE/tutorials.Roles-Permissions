@@ -54,9 +54,11 @@ services:
 
 networks:
   default:
+    name: tutorials.Roles-Permissions
     ipam:
       config:
         - subnet: 172.18.1.0/24
+
 volumes:
   mysql-db: ~
 
