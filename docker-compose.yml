@@ -2,7 +2,9 @@ version: "3.8"
 services:
   # Keyrock is an Identity Management Front-End
   keyrock:
-    image: keyrock-test   #fiware/idm:${KEYROCK_VERSION}
+    labels:
+      org.fiware: 'tutorial'
+    image: fiware/idm:${KEYROCK_VERSION}
     container_name: fiware-keyrock
     hostname: keyrock
     networks:
