@@ -1,7 +1,9 @@
-version: "3.5"
+version: "3.8"
 services:
   # Keyrock is an Identity Management Front-End
   keyrock:
+    labels:
+      org.fiware: 'tutorial'
     image: fiware/idm:${KEYROCK_VERSION}
     container_name: fiware-keyrock
     hostname: keyrock
@@ -32,6 +34,8 @@ services:
 
   # Database
   mysql-db:
+    labels:
+      org.fiware: 'tutorial'
     restart: always
     image: mysql:${MYSQL_DB_VERSION}
     hostname: mysql-db
@@ -54,6 +58,8 @@ services:
 
 networks:
   default:
+    labels:
+      org.fiware: 'tutorial'
     ipam:
       config:
         - subnet: 172.18.1.0/24
