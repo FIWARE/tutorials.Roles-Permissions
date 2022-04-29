@@ -371,7 +371,7 @@ MySQL の設定
 ```console
 git clone https://github.com/FIWARE/tutorials.Roles-Permissions.git
 cd tutorials.Roles-Permissions
-git checkout NGSI-v2
+git checkout NGSI-LD
 
 ./services create
 ```
@@ -379,7 +379,7 @@ git checkout NGSI-v2
 > **注** Docker イメージの最初の作成には最大 3 分かかります
 
 その後、リポジトリ内で提供される
-[services](https://github.com/FIWARE/tutorials.Identity-Management/blob/NGSI-v2/services)
+[services](https://github.com/FIWARE/tutorials.Roles-Permissions/blob/NGSI-LD/services)
 Bash スクリプトを実行することによって、コマンドラインからすべてのサービスを初期
 化することができます :
 
@@ -607,18 +607,18 @@ curl -iX GET \
 
 ```json
 {
-  "access_token": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
-  "expires": "2026-07-30T12:38:13.000Z",
-  "valid": true,
-  "User": {
-    "scope": [],
-    "id": "bbbbbbbb-good-0000-0000-000000000000",
-    "username": "bob",
-    "email": "bob-the-manager@test.com",
-    "date_password": "2018-07-30T11:41:14.000Z",
-    "enabled": true,
-    "admin": false
-  }
+    "access_token": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+    "expires": "2026-07-30T12:38:13.000Z",
+    "valid": true,
+    "User": {
+        "scope": [],
+        "id": "bbbbbbbb-good-0000-0000-000000000000",
+        "username": "bob",
+        "email": "bob-the-manager@test.com",
+        "date_password": "2018-07-30T11:41:14.000Z",
+        "enabled": true,
+        "admin": false
+    }
 }
 ```
 
