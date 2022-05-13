@@ -3,8 +3,7 @@
 [![FIWARE Security](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/security.svg)](https://github.com/FIWARE/catalogue/blob/master/security/README.md)
 [![License: MIT](https://img.shields.io/github/license/fiware/tutorials.Roles-Permissions.svg)](https://opensource.org/licenses/MIT)
 [![Support badge](https://img.shields.io/badge/tag-fiware-orange.svg?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/fiware)
-<br/>
-[![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
+<br/> [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
 <!-- prettier-ignore -->
 
@@ -38,7 +37,7 @@ API へのアクセスに使用される [cUrl](https://ec.haxx.se/) コマン�
     -   [登場人物 (Dramatis Personae)](#dramatis-personae)
     -   [Keyrock MySQL データベースからの直接読み込み](#reading-directly-from-the-keyrock-mysql-database)
     -   [Keyrock 内の UUIDs](#uuids-within-keyrock)
-    *   [REST API 呼び出しによるログイン](#logging-in-via-rest-api-calls)
+    -   [REST API 呼び出しによるログイン](#logging-in-via-rest-api-calls)
         -   [パスワードでトークンを作成](#create-token-with-password)
         -   [トークン情報を取得](#get-token-info)
 -   [アプリケーションの管理](#managing-applications)
@@ -607,18 +606,18 @@ curl -iX GET \
 
 ```json
 {
-  "access_token": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
-  "expires": "2026-07-30T12:38:13.000Z",
-  "valid": true,
-  "User": {
-    "scope": [],
-    "id": "bbbbbbbb-good-0000-0000-000000000000",
-    "username": "bob",
-    "email": "bob-the-manager@test.com",
-    "date_password": "2018-07-30T11:41:14.000Z",
-    "enabled": true,
-    "admin": false
-  }
+    "access_token": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+    "expires": "2026-07-30T12:38:13.000Z",
+    "valid": true,
+    "User": {
+        "scope": [],
+        "id": "bbbbbbbb-good-0000-0000-000000000000",
+        "username": "bob",
+        "email": "bob-the-manager@test.com",
+        "date_password": "2018-07-30T11:41:14.000Z",
+        "enabled": true,
+        "admin": false
+    }
 }
 ```
 
@@ -876,7 +875,7 @@ curl -X PATCH \
         "response_type": "code",
         "token_types": "permanent,bearer,bearer",
         "scope": ""
-   }
+    }
 }
 ```
 
@@ -974,7 +973,7 @@ curl -iX POST \
         "resource": "/price-change",
         "is_regex": false,
         "oauth_client_id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2"
-  }
+    }
 }
 ```
 
@@ -1720,4 +1719,4 @@ curl -X GET \
 
 ## License
 
-[MIT](LICENSE) © 2018-2020 FIWARE Foundation e.V.
+[MIT](LICENSE) © 2018-2022 FIWARE Foundation e.V.
