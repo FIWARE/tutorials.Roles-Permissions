@@ -19,6 +19,7 @@ API へのアクセスに使用される [cUrl](https://ec.haxx.se/) コマン�
 も使用できます。
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2febc0452a8977734480)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/FIWARE/tutorials.Roles-Permissions/tree/NGSI-v2)
 
 ## コンテンツ
 
