@@ -38,7 +38,7 @@ CREATE TABLE `SequelizeMeta` (
 
 LOCK TABLES `SequelizeMeta` WRITE;
 /*!40000 ALTER TABLE `SequelizeMeta` DISABLE KEYS */;
-INSERT INTO `SequelizeMeta` VALUES ('201802190000-CreateUserTable.js'),('201802190003-CreateUserRegistrationProfileTable.js'),('201802190005-CreateOrganizationTable.js'),('201802190008-CreateOAuthClientTable.js'),('201802190009-CreateUserAuthorizedApplicationTable.js'),('201802190010-CreateRoleTable.js'),('201802190015-CreatePermissionTable.js'),('201802190020-CreateRoleAssignmentTable.js'),('201802190025-CreateRolePermissionTable.js'),('201802190030-CreateUserOrganizationTable.js'),('201802190035-CreateIotTable.js'),('201802190040-CreatePepProxyTable.js'),('201802190045-CreateAuthZForceTable.js'),('201802190050-CreateAuthTokenTable.js'),('201802190060-CreateOAuthAuthorizationCodeTable.js'),('201802190065-CreateOAuthAccessTokenTable.js'),('201802190070-CreateOAuthRefreshTokenTable.js'),('201802190075-CreateOAuthScopeTable.js'),('20180405125424-CreateUserTourAttribute.js'),('20180612134640-CreateEidasTable.js');
+INSERT INTO `SequelizeMeta` VALUES ('201802190000-CreateUserTable.js'),('201802190003-CreateUserRegistrationProfileTable.js'),('201802190005-CreateOrganizationTable.js'),('201802190008-CreateOAuthClientTable.js'),('201802190009-CreateUserAuthorizedApplicationTable.js'),('201802190010-CreateRoleTable.js'),('201802190015-CreatePermissionTable.js'),('201802190020-CreateRoleAssignmentTable.js'),('201802190025-CreateRolePermissionTable.js'),('201802190030-CreateUserOrganizationTable.js'),('201802190035-CreateIotTable.js'),('201802190040-CreatePepProxyTable.js'),('201802190045-CreateAuthZForceTable.js'),('201802190050-CreateAuthTokenTable.js'),('201802190060-CreateOAuthAuthorizationCodeTable.js'),('201802190065-CreateOAuthAccessTokenTable.js'),('201802190070-CreateOAuthRefreshTokenTable.js'),('201802190075-CreateOAuthScopeTable.js'),('20180405125424-CreateUserTourAttribute.js'),('20180612134640-CreateEidasTable.js'),('20210422214057-init-visible_attributes.js'),('20210607162019-CreateDelegationEvidenceTable.js'),('20210707102154-CreatePermissionFiwarePayload.js');
 /*!40000 ALTER TABLE `SequelizeMeta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -456,6 +456,9 @@ CREATE TABLE `permission` (
   `is_regex` tinyint(1) NOT NULL DEFAULT '0',
   `authorization_service_header` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `use_authorization_service_header` tinyint(1) NOT NULL DEFAULT '0',
+  `regex_entity_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `regex_attributes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `regex_types` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `oauth_client_id` (`oauth_client_id`),
   CONSTRAINT `permission_ibfk_1` FOREIGN KEY (`oauth_client_id`) REFERENCES `oauth_client` (`id`) ON DELETE CASCADE
@@ -469,12 +472,12 @@ CREATE TABLE `permission` (
 LOCK TABLES `permission` WRITE;
 /*!40000 ALTER TABLE `permission` DISABLE KEYS */;
 INSERT INTO `permission` VALUES 
-('1','Get and assign all internal application roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),
-('2','Manage the application',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),
-('3','Manage roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),
-('4','Manage authorizations',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),
-('5','Get and assign all public application roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),
-('6','Get and assign only public owned roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0);
+('1','Get and assign all internal application roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0,NULL,NULL,NULL),
+('2','Manage the application',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0,NULL,NULL,NULL),
+('3','Manage roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0,NULL,NULL,NULL),
+('4','Manage authorizations',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0,NULL,NULL,NULL),
+('5','Get and assign all public application roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0,NULL,NULL,NULL),
+('6','Get and assign only public owned roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
