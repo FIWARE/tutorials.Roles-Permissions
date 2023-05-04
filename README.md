@@ -192,7 +192,7 @@ The specific architecture of each section of the tutorial is discussed below.
 
 ```yaml
 keyrock:
-    image: fiware/idm
+    image: quay.io/fiware/idm
     container_name: fiware-keyrock
     hostname: keyrock
     depends_on:
