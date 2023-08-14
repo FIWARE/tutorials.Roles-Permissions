@@ -1409,7 +1409,7 @@ REST API を使用してパーミッションを削除するには、URL パス�
 
 ```console
 curl -X DELETE \
-  'http://keyrock/v1/applications/{{application_id}}/roles/{{role_id}}/permissions/{{permission_id}}' \
+  'http://localhost:3005/v1/applications/{{application_id}}/roles/{{role_id}}/permissions/{{permission_id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
