@@ -221,7 +221,8 @@ The `keyrock` container is a web application server listening on two ports:
 -   Port `3005` has been exposed for HTTP traffic so we can display the web page and interact with the REST API.
 -   Port `3443` has been exposed for secure HTTPS traffic for the site and REST API
 
-> :information_source: **Note** HTTPS should be used throughout for any secured application, but to do this properly,
+> [!NOTE]
+>  HTTPS should be used throughout for any secured application, but to do this properly,
 > **Keyrock** requires a trusted SSL certificate - the default certificate is self-certified and available for testing
 > purposes. The certificates can be overridden by attaching a volume to replace the files under `/opt/fiware-idm/certs`.
 >
@@ -245,7 +246,8 @@ The `keyrock` container is driven by environment variables as shown:
 | IDM_HTTPS_ENABLED | `true`                  | Whether to offer HTTPS Support - this will use the self-signed certs unless overridden                                       |
 | IDM_HTTPS_PORT    | `3443`                  | Port used by the **Keyrock** App Server for HTTP traffic this has been altered from the default 443                          |
 
-> :information_source: **Note** that this example has secured the MySQL password using **Docker Secrets** By using
+> [!NOTE]
+>  that this example has secured the MySQL password using **Docker Secrets** By using
 > `IDM_DB_PASS` with the `_FILE` suffix and referring to a secrets file location. This avoids exposing the password as
 > an `ENV` variable in plain-text - either in the `Dockerfile` Image or as an injected variable which could be read
 > using `docker inspect`.
@@ -309,7 +311,8 @@ git checkout NGSI-LD
 ./services create
 ```
 
-> **Note** The initial creation of Docker images can take up to three minutes
+> [!NOTE]
+> The initial creation of Docker images can take up to three minutes
 
 Thereafter, all services can be initialized from the command-line by running the
 [services](https://github.com/FIWARE/tutorials.Roles-Permissions/blob/NGSI-LD/services) Bash script provided within the
@@ -321,7 +324,8 @@ repository:
 
 Where `<command>` will vary depending upon the exercise we wish to activate.
 
-> :information_source: **Note:** If you want to clean up and start over again you can do so with the following command:
+> [!NOTE]
+> If you want to clean up and start over again you can do so with the following command:
 >
 > ```console
 > ./services stop
@@ -442,7 +446,7 @@ and `test`. The URL `https://localhost:3443/v1/auth/tokens` should also work in 
 
 The following example logs in using the Admin Super-User:
 
-#### :one: Request:
+#### 1️⃣ Request:
 
 ```console
 curl -iX POST \
@@ -490,7 +494,7 @@ about Bob, use the long-lasting token `X-Subject-token=bbbbbbbb-bbbb-bbbb-bbbb-b
 This request indicates that _the user authorized with the token `{{X-Auth-token}}` (i.e. Alice) is enquiring about the
 user holding the token `{{X-Subject-token}}` (i.e. Bob)_.
 
-#### :two: Request:
+#### 2️⃣ Request:
 
 ```console
 curl -iX GET \
@@ -558,7 +562,7 @@ webservice to be protected, and `redirect_uri` (where a user will be challenged 
 [subsequent tutorial](https://fiware.github.io/tutorials.Securing-Access) The headers include the `X-Auth-token` from a
 previously logged-in user will automatically be granted a provider role over the application.
 
-#### :three: Request:
+#### 3️⃣ Request:
 
 In the example below, Alice (who holds `X-Auth-token=aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa`) is creating a new
 application which accepts three different grant types
@@ -617,7 +621,7 @@ listed under that ID. The `X-Auth-token` must be supplied in the headers.
 
 ![](https://fiware.github.io/tutorials.Roles-Permissions/img/app-with-oauth.png)
 
-#### :four: Request:
+#### 4️⃣ Request:
 
 ```console
 curl -X GET \
@@ -663,7 +667,7 @@ curl -X GET \
 Users will only be permitted to return applications they are associated with. Listing applications can be done by making
 a GET request to the `/v1/applications` endpoint and supplying the `X-Auth-token` Header.
 
-#### :five: Request:
+#### 5️⃣ Request:
 
 ```console
 curl -X GET \
@@ -709,7 +713,7 @@ Within the GUI, users can be updated by selecting an application and clicking on
 command-line by making PATCH request to `/v1/applications/{{applications-id}}` endpoint when the applications ID is
 known. The `X-Auth-token` header must also be set, since a User can only edit applications he is associated with.
 
-#### :six: Request:
+#### 6️⃣ Request:
 
 ```console
 curl -X PATCH \
@@ -752,7 +756,7 @@ Within the GUI, users can delete an application by selecting an application and 
 the bottom of the page and selecting **Remove Application**. This can also be done from the command-line by sending a
 DELETE request to the `/v1/applications/{{applications-id}}` endpoint. The `X-Auth-token` header must also be set.
 
-#### :seven: Request:
+#### 7️⃣ Request:
 
 ```console
 curl -iX DELETE \
@@ -793,7 +797,7 @@ Just fill out the wizard and click save.
 To create a new permission via the REST API, send a POST request to the `/applications/{{application-id}}/permissions`
 endpoint containing the `action` and `resource` along with the `X-Auth-token` header from a previously logged-in user.
 
-#### :eight: Request:
+#### 8️⃣ Request:
 
 ```console
 curl -iX POST \
@@ -832,7 +836,7 @@ The response returns the details of the newly created permission.
 The `/applications/{{application-id}}/permissions/{{permission-id}}` endpoint will return the permission listed under
 that ID. The `X-Auth-token` must be supplied in the headers.
 
-#### :nine: Request:
+#### 9️⃣ Request:
 
 ```console
 curl -X GET \
@@ -866,7 +870,7 @@ The response returns the details of the requested permission.
 Listing the permissions with an application can be done by making a GET request to the
 `/v1/applications/{{application-id}}/permissions` endpoint.
 
-#### :one::zero: Request:
+#### 1️⃣0️⃣ Request:
 
 ```console
 curl -X GET \
@@ -919,7 +923,7 @@ which are available by default.
 To amend the details of an existing permission, a PATCH request is send to the
 `/applications/{{application-id}}/permissions/{{permission-id}}` endpoint.
 
-#### :one::one: Request:
+#### 1️⃣1️⃣ Request:
 
 ```console
 curl -X PATCH \
@@ -951,7 +955,7 @@ The response contains a list of the fields which have been amended.
 
 Deleting a permission from an application automatically removes that permission from any associated roles.
 
-#### :one::two: Request:
+#### 1️⃣2️⃣ Request:
 
 ```console
 curl -X DELETE \
@@ -998,7 +1002,7 @@ Just fill out the wizard and click save.
 To create a new role via the REST API, send a POST request to the `/applications/{{application-id}}/roles` endpoint
 containing the `name` of the new role, with the `X-Auth-token` header from a previously logged-in user.
 
-#### :one::three: Request:
+#### 1️⃣3️⃣ Request:
 
 ```console
 curl -X POST \
@@ -1032,7 +1036,7 @@ The details of the created role are returned
 The `/applications/{{application-id}}/roles/{{role-id}}` endpoint will return the role listed under that ID. The
 `X-Auth-token` must be supplied in the headers.
 
-#### :one::four: Request:
+#### 1️⃣4️⃣ Request:
 
 ```console
 curl -X GET \
@@ -1061,7 +1065,7 @@ The response returns the details of the requested role.
 Listing all the roles offered by an application can be done by making a GET request to the
 `/v1/applications/{{application-id}}/roles` endpoint.
 
-#### :one::five: Request:
+#### 1️⃣5️⃣ Request:
 
 ```console
 curl -X GET \
@@ -1098,7 +1102,7 @@ A summary of all roles associated with the application is returned containing bo
 It is possible to amend the name of a role using a PATCH request is sent to the
 `/applications/{{application-id}}/roles/{{role-id}}` endpoint.
 
-#### :one::six: Request:
+#### 1️⃣6️⃣ Request:
 
 ```console
 curl -iX PATCH \
@@ -1128,7 +1132,7 @@ The response contains a list of the fields which have been amended.
 
 Application roles can also be deleted - this will also remove the role from any users.
 
-#### :one::seven: Request:
+#### 1️⃣7️⃣ Request:
 
 ```console
 curl -iX DELETE \
@@ -1151,7 +1155,7 @@ Within the GUI, select the role and check permissions from the list before savin
 To add a permission using the REST API makes a PUT request as shown, including the `<application-id>`, `<role-id>` and
 `<permission-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.
 
-#### :one::eight: Request:
+#### 1️⃣8️⃣ Request:
 
 ```console
 curl -iX PUT \
@@ -1178,7 +1182,7 @@ The response returns the permissions for the role.
 A full list of all permissions assigned to an application role can be retrieved by making a GET request to the
 `/v1/applications/{{application-id}}/roles/{{role-id}}/permissions` endpoint
 
-#### :one::nine: Request:
+#### 1️⃣9️⃣ Request:
 
 ```console
 curl -X GET \
@@ -1210,7 +1214,7 @@ curl -X GET \
 To remove a permission using the REST API makes a DELETE request as shown, including the `<application-id>`, `<role-id>`
 and `<permission-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.
 
-#### :two::zero: Request:
+#### 2️⃣0️⃣ Request:
 
 ```console
 curl -X DELETE \
@@ -1255,7 +1259,7 @@ A Role can be granted to either `members` or `owners` of an Organization. Using 
 making a PUT request as shown, including the `<application-id>`, `<organzation-id>` and `<role-id>` in the URL path and
 identifying themselves using an `X-Auth-Token` in the header.
 
-#### :two::one: Request:
+#### 2️⃣1️⃣ Request:
 
 This example adds the role to all members of the organization
 
@@ -1286,7 +1290,7 @@ The response lists the role assignment as shown:
 A full list of roles granted to an organization can be retrieved by making a GET request to the
 `/v1/applications/{{application-id}}/organizations/{{organization-id}}/roles` endpoint.
 
-#### :two::two: Request:
+#### 2️⃣2️⃣ Request:
 
 ```console
 curl -X GET \
@@ -1317,7 +1321,7 @@ To revoke a role using the REST API make a DELETE request as shown, including th
 
 The following example revokes a role to `members` of the organization.
 
-#### :two::three: Request:
+#### 2️⃣3️⃣ Request:
 
 ```console
 curl -iX DELETE \
@@ -1337,7 +1341,7 @@ Granting User access via the GUI can be done in the same manner as for organizat
 Using the REST API, the role can be granted making a PUT request as shown, including the `<application-id>`, `<role-id>`
 and `<user-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.
 
-#### :two::four: Request:
+#### 2️⃣4️⃣ Request:
 
 ```console
 curl -iX PUT \
@@ -1363,7 +1367,7 @@ curl -iX PUT \
 To list the roles granted to an Individual user, make a GET request to the
 `v1/applications/{{application-id}}/users/{{user-id}}/roles` endpoint.
 
-#### :two::five: Request:
+#### 2️⃣5️⃣ Request:
 
 ```console
 curl -X GET \
@@ -1393,7 +1397,7 @@ Similarly to organizations, to revoke a user role using the REST API makes a DEL
 `<application-id>`, `<user-id>` and `<role-id>` in the URL path and identifying themselves using an `X-Auth-Token` in
 the header.
 
-#### :two::six: Request:
+#### 2️⃣6️⃣ Request:
 
 ```console
 curl -X DELETE \
@@ -1412,7 +1416,7 @@ The REST API offers two convenience methods exist to list all the grantees of an
 To list all organizations which are authorized to use an application, make a GET request to the
 `/v1/applications/{{application-id}}/organizations` endpoint.
 
-#### :two::seven: Request:
+#### 2️⃣7️⃣ Request:
 
 ```console
 curl -X GET \
@@ -1443,7 +1447,7 @@ Individual members are not listed.
 To list all individual users who are authorized to use an application, make a GET request to the
 `/v1/applications/{{application-id}}/users` endpoint.
 
-#### :two::eight: Request:
+#### 2️⃣8️⃣ Request:
 
 ```console
 curl -X GET \
