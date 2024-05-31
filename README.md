@@ -11,7 +11,6 @@ ensures that only legitimate users will have access to resources.
 
 The tutorial demonstrates examples of interactions using the **Keyrock** GUI, as well [cUrl](https://ec.haxx.se/)
 commands used to access the **Keyrock** REST API -
-
 [Postman documentation](https://www.postman.com/downloads/) is also available.
 
 # Start-Up
