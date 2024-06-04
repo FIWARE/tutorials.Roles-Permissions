@@ -227,9 +227,10 @@ The `keyrock` container is a web application server listening on two ports:
 -   Port `3443` has been exposed for secure HTTPS traffic for the site and REST API
 
 > [!NOTE]
->  HTTPS should be used throughout for any secured application, but to do this properly,
-> **Keyrock** requires a trusted SSL certificate - the default certificate is self-certified and available for testing
-> purposes. The certificates can be overridden by attaching a volume to replace the files under `/opt/fiware-idm/certs`.
+>
+> HTTPS should be used throughout for any secured application, but to do this properly, **Keyrock** requires a trusted
+> SSL certificate - the default certificate is self-certified and available for testing purposes. The certificates can
+> be overridden by attaching a volume to replace the files under `/opt/fiware-idm/certs`.
 >
 > In a production environment, all access should occur over HTTPS, to avoid sending any sensitive information using
 > plain-text. Alternatively HTTP can be used within a private network behind a configured HTTPS Reverse Proxy
@@ -252,10 +253,10 @@ The `keyrock` container is driven by environment variables as shown:
 | IDM_HTTPS_PORT    | `3443`                  | Port used by the **Keyrock** App Server for HTTP traffic this has been altered from the default 443                          |
 
 > [!NOTE]
-> Note that this example has secured the MySQL password using **Docker Secrets** By using
-> `IDM_DB_PASS` with the `_FILE` suffix and referring to a secrets file location. This avoids exposing the password as
-> an `ENV` variable in plain-text - either in the `Dockerfile` Image or as an injected variable which could be read
-> using `docker inspect`.
+>
+> Note that this example has secured the MySQL password using **Docker Secrets** By using `IDM_DB_PASS` with the `_FILE`
+> suffix and referring to a secrets file location. This avoids exposing the password as an `ENV` variable in
+> plain-text - either in the `Dockerfile` Image or as an injected variable which could be read using `docker inspect`.
 >
 > The following list of variables (where used) should be set via secrets with the `_FILE` suffix in a Production System:
 >
@@ -316,7 +317,9 @@ git checkout NGSI-v2
 ./services create
 ```
 
-> [!NOTE] The initial creation of Docker images can take up to three minutes
+> [!NOTE]
+>
+> The initial creation of Docker images can take up to three minutes
 
 Thereafter, all services can be initialized from the command-line by running the
 [services](https://github.com/FIWARE/tutorials.Roles-Permissions/blob/NGSI-v2/services) Bash script provided within the
@@ -329,6 +332,7 @@ repository:
 Where `<command>` will vary depending upon the exercise we wish to activate.
 
 > [!NOTE]
+>
 > If you want to clean up and start over again you can do so with the following command:
 >
 > ```console
@@ -760,7 +764,7 @@ Within the GUI, users can delete an application by selecting an application and 
 the bottom of the page and selecting **Remove Application**. This can also be done from the command-line by sending a
 DELETE request to the `/v1/applications/{{applications-id}}` endpoint. The `X-Auth-token` header must also be set.
 
-#### 7️⃣  Request:
+#### 7️⃣ Request:
 
 ```console
 curl -iX DELETE \
@@ -801,7 +805,7 @@ Just fill out the wizard and click save.
 To create a new permission via the REST API, send a POST request to the `/applications/{{application-id}}/permissions`
 endpoint containing the `action` and `resource` along with the `X-Auth-token` header from a previously logged-in user.
 
-#### 8️⃣  Request:
+#### 8️⃣ Request:
 
 ```console
 curl -iX POST \
@@ -1136,7 +1140,7 @@ The response contains a list of the fields which have been amended.
 
 Application roles can also be deleted - this will also remove the role from any users.
 
-#### 1️⃣7️⃣  Request:
+#### 1️⃣7️⃣ Request:
 
 ```console
 curl -iX DELETE \
@@ -1159,7 +1163,7 @@ Within the GUI, select the role and check permissions from the list before savin
 To add a permission using the REST API makes a PUT request as shown, including the `<application-id>`, `<role-id>` and
 `<permission-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.
 
-#### 1️⃣8️⃣  Request:
+#### 1️⃣8️⃣ Request:
 
 ```console
 curl -iX PUT \
@@ -1420,7 +1424,7 @@ The REST API offers two convenience methods exist to list all the grantees of an
 To list all organizations which are authorized to use an application, make a GET request to the
 `/v1/applications/{{application-id}}/organizations` endpoint.
 
-#### 2️⃣7️⃣  Request:
+#### 2️⃣7️⃣ Request:
 
 ```console
 curl -X GET \
@@ -1451,7 +1455,7 @@ Individual members are not listed.
 To list all individual users who are authorized to use an application, make a GET request to the
 `/v1/applications/{{application-id}}/users` endpoint.
 
-#### 2️⃣8️⃣  Request:
+#### 2️⃣8️⃣ Request:
 
 ```console
 curl -X GET \
