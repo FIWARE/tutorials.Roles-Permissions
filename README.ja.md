@@ -78,6 +78,10 @@ NGSI-LD によって支援される農場管理システムの文脈では、認
 | **ポリシー (Policy)** | サブジェクト (ユーザ、グループ、ロール) がリソースにアクセスできるかどうかを評価するルール |
 | **権限 (Permission)** | リソースとスコープをポリシーに紐付けたもの |
 
+各オブジェクト間の関係を以下に示します:
+
+![](https://fiware.github.io/tutorials.Roles-Permissions/img/entities-ld.png)
+
 # 起動
 
 ```console
@@ -111,6 +115,12 @@ git checkout NGSI-LD
 
 ### 管理者トークンを取得
 
+#### GUI
+
+Keycloak 管理コンソールには `http://localhost:3005` でアクセスできます。ユーザ名 `admin`、パスワード `1234` でログインします。
+
+![](https://fiware.github.io/tutorials.Roles-Permissions/img/keycloak-log-in.png)
+
 #### 1️⃣ Request:
 
 ```console
@@ -129,6 +139,12 @@ curl -iX POST \
 
 Keycloak では、**クライアント** はレルムから認証トークンをリクエストするアプリケーションの登録です。
 NGSI-LD 農場管理プロキシ (`ngsi-ld-farm`) はレルムインポートで事前登録されています。
+
+#### GUI
+
+クライアントは **レルム: farm-management → クライアント** で管理されます。
+
+![](https://fiware.github.io/tutorials.Roles-Permissions/img/keycloak-clients.png)
 
 ### クライアントを作成
 
@@ -165,6 +181,12 @@ curl -X GET \
 
 **レルムロール** はレルムレベルで定義された名前付き権限バケットです。
 以下のロールがレルムインポートで事前作成されています:
+
+#### GUI
+
+ロールは **レルム: farm-management → レルムロール** で管理されます。
+
+![](https://fiware.github.io/tutorials.Roles-Permissions/img/keycloak-roles.png)
 
 | ロール | 説明 |
 |---|---|
@@ -203,6 +225,12 @@ curl -X GET \
 # Authorization Services
 
 Keycloak の **Authorization Services** は、きめ細かいアクセス制御のための豊富なフレームワークを提供します。
+
+#### GUI
+
+Authorization Services は、**クライアント → ngsi-ld-farm → Authorization** で設定されます。
+
+![](https://fiware.github.io/tutorials.Roles-Permissions/img/keycloak-authorization.png)
 
 ## スコープの作成
 
@@ -276,6 +304,13 @@ curl -iX POST \
     "policies": ["{{farm-manager-policy-id}}"]
   }'
 ```
+
+## 権限の評価
+
+Keycloak は、PEP プロキシをデプロイする前に認可決定をテストするためのポリシー・エバリュエーターを提供します。
+GUI エバリュエーターは、**クライアント → ngsi-ld-farm → Authorization → Evaluate** にあります。
+
+![](https://fiware.github.io/tutorials.Roles-Permissions/img/keycloak-evaluate.png)
 
 ## 権限の評価
 
