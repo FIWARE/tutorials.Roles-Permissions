@@ -1,0 +1,79 @@
+{
+  "id": "farm-management",
+  "realm": "farm-management",
+  "displayName": "Farm Management System",
+  "enabled": true,
+  "registrationAllowed": false,
+  "resetPasswordAllowed": true,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "sslRequired": "external",
+  "groups": [
+    {
+      "name": "farm-management",
+      "path": "/farm-management"
+    },
+    {
+      "name": "livestock-team",
+      "path": "/livestock-team"
+    },
+    {
+      "name": "crop-team",
+      "path": "/crop-team"
+    },
+    {
+      "name": "equipment-team",
+      "path": "/equipment-team"
+    },
+    {
+      "name": "external-consultants",
+      "path": "/external-consultants"
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "farm-manager",
+        "description": "Full read/write access to all farm context data and commands"
+      },
+      {
+        "name": "livestock-supervisor",
+        "description": "Read/write access to Animal, Water and FillingLevelSensor entities"
+      },
+      {
+        "name": "crop-supervisor",
+        "description": "Read/write access to Field, SoilSensor and WeatherObserved entities"
+      },
+      {
+        "name": "equipment-supervisor",
+        "description": "Read/write access to Tractor and Machine entities"
+      },
+      {
+        "name": "field-worker",
+        "description": "Write measurements and read own-domain entities"
+      },
+      {
+        "name": "read-only-consultant",
+        "description": "Read-only access across all entity types"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "ngsi-ld-farm",
+      "name": "NGSI-LD Farm Management Application",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "1234",
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": true,
+      "redirectUris": ["http://localhost:3000/*"],
+      "webOrigins": ["+"],
+      "authorizationSettings": {
+        "allowRemoteResourceManagement": true,
+        "policyEnforcementMode": "ENFORCING",
+        "decisionStrategy": "UNANIMOUS"
+      }
+    }
+  ]
+}
