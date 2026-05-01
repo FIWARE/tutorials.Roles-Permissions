@@ -87,10 +87,9 @@ commands used to access the **Keyrock** REST API -
 
 # What is Authorization?
 
-> "No matter what he does, every person on earth plays a central role in the history of the world. And normally he
-> doesn't know it"
+> "Too many cooks spoil the broth."
 >
-> — Paulo Coelho (The Alchemist)
+> — Proverb
 
 Authorization is the function of specifying access rights/privileges to resources related to information
 security.<sup>[1](#footnote1)</sup> More formally, "to authorize" is to define an access policy. With identity
