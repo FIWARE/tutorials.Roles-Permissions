@@ -74,10 +74,9 @@ The tutorial demonstrates examples of interactions using the **Keycloak** Admin 
 
 # What is Authorization?
 
-> "No matter what he does, every person on earth plays a central role in the history of the world. And normally he
-> doesn't know it"
+> "The master's eye fattens the horse."
 >
-> — Paulo Coelho (The Alchemist)
+> — Xenophon
 
 Authorization is the process of determining whether an authenticated user has permission to perform a specific action on
 a specific resource. Having established _who_ a user is (authentication), the system must now determine _what_ that user
