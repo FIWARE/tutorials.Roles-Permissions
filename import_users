@@ -13,7 +13,7 @@ REALM="farm-management"
 # ── Obtain admin token ────────────────────────────────────────────────────────
 # Wait for Keycloak to fully bootstrap
 sleep 10
-ADMIN_TOKEN=$(curl -s -X POST "${KC}/realms/master/protocol/openid-connect/token" \
+ADMIN_TOKEN=$(curl -sS -X POST "${KC}/realms/master/protocol/openid-connect/token" \
   -H "Content-Type: application/x-www-form-urlencoded" \
   --data-urlencode "grant_type=password" \
   --data-urlencode "client_id=admin-cli" \
@@ -26,7 +26,7 @@ echo "Admin token obtained"
 # ── Helper functions ──────────────────────────────────────────────────────────
 create_user () {
   local USERNAME="$1" FIRST="$2" LAST="$3" EMAIL="$4" PASSWORD="$5"
-  curl -s -o /dev/null -X POST "${KC}/admin/realms/${REALM}/users" \
+  curl -sS -o /dev/null -X POST "${KC}/admin/realms/${REALM}/users" \
     -H "Authorization: Bearer ${ADMIN_TOKEN}" \
     -H "Content-Type: application/json" \
     --data-raw "{
@@ -41,19 +41,19 @@ create_user () {
 }
 
 get_user_id () {
-  curl -s "${KC}/admin/realms/${REALM}/users?username=$1&exact=true" \
+  curl -sS "${KC}/admin/realms/${REALM}/users?username=$1&exact=true" \
     -H "Authorization: Bearer ${ADMIN_TOKEN}" \
     | python3 -c "import sys,json; d=json.load(sys.stdin); print(d[0]['id'])"
 }
 
 get_group_id () {
-  curl -s "${KC}/admin/realms/${REALM}/groups?search=$1&exact=true" \
+  curl -sS "${KC}/admin/realms/${REALM}/groups?search=$1&exact=true" \
     -H "Authorization: Bearer ${ADMIN_TOKEN}" \
     | python3 -c "import sys,json; d=json.load(sys.stdin); print(d[0]['id'])"
 }
 
 get_role_id () {
-  curl -s "${KC}/admin/realms/${REALM}/roles/$1" \
+  curl -sS "${KC}/admin/realms/${REALM}/roles/$1" \
     -H "Authorization: Bearer ${ADMIN_TOKEN}" \
     | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])"
 }
@@ -63,7 +63,7 @@ assign_to_group () {
   UID=$(get_user_id "$1")
   local GID
   GID=$(get_group_id "$2")
-  curl -s -o /dev/null -X PUT \
+  curl -sS -o /dev/null -X PUT \
     "${KC}/admin/realms/${REALM}/users/${UID}/groups/${GID}" \
     -H "Authorization: Bearer ${ADMIN_TOKEN}"
   echo "Assigned $1 → $2"
@@ -73,9 +73,9 @@ assign_realm_role_to_group () {
   local GID
   GID=$(get_group_id "$1")
   local ROLE_JSON
-  ROLE_JSON=$(curl -s "${KC}/admin/realms/${REALM}/roles/$2" \
+  ROLE_JSON=$(curl -sS "${KC}/admin/realms/${REALM}/roles/$2" \
     -H "Authorization: Bearer ${ADMIN_TOKEN}")
-  curl -s -o /dev/null -X POST \
+  curl -sS -o /dev/null -X POST \
     "${KC}/admin/realms/${REALM}/groups/${GID}/role-mappings/realm" \
     -H "Authorization: Bearer ${ADMIN_TOKEN}" \
     -H "Content-Type: application/json" \
@@ -117,9 +117,9 @@ assign_realm_role_to_group "external-consultants" "read-only-consultant"
 
 # ── Grant farm-manager role directly to bob as well ──────────────────────────
 BOB_ID=$(get_user_id "bob")
-ROLE_JSON=$(curl -s "${KC}/admin/realms/${REALM}/roles/farm-manager" \
+ROLE_JSON=$(curl -sS "${KC}/admin/realms/${REALM}/roles/farm-manager" \
   -H "Authorization: Bearer ${ADMIN_TOKEN}")
-curl -s -o /dev/null -X POST \
+curl -sS -o /dev/null -X POST \
   "${KC}/admin/realms/${REALM}/users/${BOB_ID}/role-mappings/realm" \
   -H "Authorization: Bearer ${ADMIN_TOKEN}" \
   -H "Content-Type: application/json" \
@@ -127,7 +127,7 @@ curl -s -o /dev/null -X POST \
 echo "Assigned farm-manager role directly to bob"
 
 # ── Retrieve client UUID for Authorization Services setup ─────────────────────
-CLIENT_UUID=$(curl -s "${KC}/admin/realms/${REALM}/clients?clientId=ngsi-ld-farm" \
+CLIENT_UUID=$(curl -sS "${KC}/admin/realms/${REALM}/clients?clientId=ngsi-ld-farm" \
   -H "Authorization: Bearer ${ADMIN_TOKEN}" \
   | python3 -c "import sys,json; d=json.load(sys.stdin); print(d[0]['id'])")
 
@@ -135,7 +135,7 @@ echo "Client UUID: ${CLIENT_UUID}"
 
 # ── Create Authorization Scopes (HTTP methods) ────────────────────────────────
 for SCOPE in GET POST PATCH DELETE; do
-  curl -s -o /dev/null -X POST \
+  curl -sS -o /dev/null -X POST \
     "${KC}/admin/realms/${REALM}/clients/${CLIENT_UUID}/authz/resource-server/scope" \
     -H "Authorization: Bearer ${ADMIN_TOKEN}" \
     -H "Content-Type: application/json" \
@@ -144,7 +144,7 @@ for SCOPE in GET POST PATCH DELETE; do
 done
 
 # ── Create Resource: Entity Collection ────────────────────────────────────────
-curl -s -o /dev/null -X POST \
+curl -sS -o /dev/null -X POST \
   "${KC}/admin/realms/${REALM}/clients/${CLIENT_UUID}/authz/resource-server/resource" \
   -H "Authorization: Bearer ${ADMIN_TOKEN}" \
   -H "Content-Type: application/json" \
@@ -159,7 +159,7 @@ echo "Created resource: Entity Collection"
 # ── Create Role Policies ──────────────────────────────────────────────────────
 for ROLE in farm-manager livestock-supervisor crop-supervisor equipment-supervisor read-only-consultant; do
   ROLE_ID=$(get_role_id "${ROLE}")
-  curl -s -o /dev/null -X POST \
+  curl -sS -o /dev/null -X POST \
     "${KC}/admin/realms/${REALM}/clients/${CLIENT_UUID}/authz/resource-server/policy/role" \
     -H "Authorization: Bearer ${ADMIN_TOKEN}" \
     -H "Content-Type: application/json" \
